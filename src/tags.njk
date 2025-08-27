@@ -1,0 +1,23 @@
+---
+layout: base.njk
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - post     # keep this if you don't want a page for the 'post' umbrella tag
+    - posts
+permalink: /tag/{{ tag | slug }}/index.html
+eleventyExcludeFromCollections: true
+---
+
+<main class="home">
+  <h1>Posts tagged “{{ tag }}”</h1>
+  {% set items = collections[tag] | reverse %}
+  <ul>
+    {% for item in items %}
+      <li><a href="{{ item.url }}">{{ item.data.title }}</a> — <time datetime="{{ item.date | dateIso }}">{{ item.date | dateDisplay }}</time></li>
+    {% endfor %}
+  </ul>
+</main>

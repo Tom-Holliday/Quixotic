@@ -3,5 +3,6 @@
   "description": "having or showing ideas that are different and unusual but not practical or unlikely to succeed. \n- The Cambridge Dictionary",
   "url": "https://quixoticblog.netlify.app",
   "author": "Tom Holliday",
-  "email": "tom.holliday@hotmail.com"
+  "email": "tom.holliday@hotmail.com",
+  "heroImage": "src/assets/img/quixote.jpg"
 }

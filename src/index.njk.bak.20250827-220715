@@ -1,0 +1,14 @@
+﻿---
+layout: base.njk
+title: Home
+bodyClass: home-maroon
+eleventyExcludeFromCollections: true
+---
+
+{% include "components/hero.njk" ignore missing %}
+
+<main class="home">
+  <section style="max-width:800px;margin:0 auto 2rem;">
+    <p class="hero__tag">Welcome. Explore recent writing on the <a href="/posts/">Posts</a> page.</p>
+  </section>
+</main>

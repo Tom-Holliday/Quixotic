@@ -1,3 +1,7 @@
+<p class="edit-link">
+  <a href="{{ page.inputPath | editOnGitHub }}" rel="noopener">Edit on GitHub</a>
+</p>
+
 ---
 layout: base.njk
 ---
@@ -37,3 +41,58 @@ layout: base.njk
     </aside>
   </div>
 </article>
+
+<div id="comments" class="giscus-container">
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ giscus.repo }}"
+    data-repo-id="{{ giscus.repoId }}"
+    data-category="{{ giscus.category }}"
+    data-category-id="{{ giscus.categoryId }}"
+    data-mapping="{{ giscus.mapping or 'pathname' }}"
+    data-strict="1"
+    data-reactions-enabled="{{ giscus.reactionsEnabled or '1' }}"
+    data-emit-metadata="{{ giscus.emitMetadata or '0' }}"
+    data-input-position="{{ giscus.inputPosition or 'bottom' }}"
+    data-theme="{{ giscus.theme or 'light' }}"
+    data-lang="{{ giscus.lang or 'en' }}"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <noscript>Enable JavaScript to view comments.</noscript>
+</div>
+
+{% include "components/giscus.njk" %}
+
+<hr>
+
+<p class="edit-link"><a href="{{ page.inputPath | editOnGitHub }}" rel="noopener">Edit on GitHub</a></p>
+
+{% set related = collections.post | relatedPosts(page, 3) %}
+{% if related.length %}
+<section class="related">
+  <h2>Related Posts</h2>
+  <ul>
+    {% for r in related %}
+      <li><a href="{{ r.url }}">{{ r.data.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% set all = collections.postsSorted %}
+{% set i = all | indexOf(page) %}
+<nav class="prevnext" style="display:flex;justify-content:space-between;margin:2rem 0;">
+  <div>
+    {% if i > 0 %}
+      {% set newer = all[i-1] %}<a href="{{ newer.url }}">&larr; {{ newer.data.title }}</a>
+    {% endif %}
+  </div>
+  <div>
+    {% if i + 1 < all.length %}
+      {% set older = all[i+1] %}<a href="{{ older.url }}">{{ older.data.title }} &rarr;</a>
+    {% endif %}
+  </div>
+</nav>
+
+{# Giscus, if you added src/_includes/components/giscus.njk and _data/giscus.js #}
+{% include "components/giscus.njk" ignore missing %}

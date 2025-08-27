@@ -24,30 +24,54 @@ try {
 }
 
 module.exports = function (eleventyConfig) {
-  // Merge data files deeply
+  // --- Core settings --------------------------------------------------------
   eleventyConfig.setDataDeepMerge(true);
 
   // --- Filters --------------------------------------------------------------
-  // ISO date
+  // Edit-on-GitHub URL
+  eleventyConfig.addFilter("editOnGitHub", (inputPath) => {
+    const repo   = "Tom-Holliday/Quixotic";
+    const branch = "main";
+    const p = (inputPath || "").replace(/^\.?\//, ""); // './src/...' -> 'src/...'
+    return `https://github.com/${repo}/edit/${branch}/${p}`;
+  });
+
+  // Related posts (by overlapping tags)
+  eleventyConfig.addFilter("relatedPosts", (collection = [], page, max = 3) => {
+    if (!page || !page.data) return [];
+    const IGNORE = new Set(["post", "posts", "all"]);
+    const currentTags = new Set((page.data.tags || []).filter(t => !IGNORE.has(t)));
+    if (!currentTags.size) return [];
+
+    return collection
+      .filter(p => p && p.url && p.url !== page.url)
+      .map(p => {
+        const tags = Array.isArray(p.data?.tags) ? p.data.tags : [];
+        const overlap = tags.filter(t => currentTags.has(t)).length;
+        const date = new Date(p.date || p.data?.date || 0).getTime() || 0;
+        return { p, score: overlap, date };
+      })
+      .filter(x => x.score > 0)
+      .sort((a, b) => (b.score - a.score) || (b.date - a.date))
+      .slice(0, max)
+      .map(x => x.p);
+  });
+
+  // Dates
   eleventyConfig.addFilter("dateIso", (value) => {
     if (!value) return "";
     const d = new Date(value);
     return isNaN(d) ? "" : d.toISOString();
   });
 
-  // Human date (e.g., "27 Aug 2025")
   eleventyConfig.addFilter("dateDisplay", (value) => {
     if (!value) return "";
     const d = new Date(value);
     if (isNaN(d)) return "";
-    return new Intl.DateTimeFormat("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }).format(d);
+    return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" }).format(d);
   });
 
-  // (Optional) indexOf helper used by some templates
+  // Helper
   eleventyConfig.addFilter("indexOf", (arr, item) => {
     if (!Array.isArray(arr) || !item) return -1;
     return arr.findIndex((x) => x.url === item.url);
@@ -60,12 +84,7 @@ module.exports = function (eleventyConfig) {
 
   // --- Markdown with anchors -----------------------------------------------
   if (markdownIt) {
-    const md = markdownIt({
-      html: true,
-      linkify: true,
-      typographer: true,
-    });
-
+    const md = markdownIt({ html: true, linkify: true, typographer: true });
     if (markdownItAnchor) {
       md.use(markdownItAnchor, {
         permalink: markdownItAnchor.permalink.ariaHidden({
@@ -77,30 +96,24 @@ module.exports = function (eleventyConfig) {
         slugify: (s) => s.trim().toLowerCase().replace(/[^\w]+/g, "-"),
       });
     }
-
     eleventyConfig.setLibrary("md", md);
   }
 
   // --- Collections ----------------------------------------------------------
   const postsGlob = "./src/posts/**/*.md";
 
-  // All posts newest → oldest (used for prev/next)
   eleventyConfig.addCollection("postsSorted", (collection) =>
     collection.getFilteredByGlob(postsGlob).sort((a, b) => b.date - a.date)
   );
 
-  // Published only (no draft flag)
   eleventyConfig.addCollection("postsPublishedSorted", (collection) =>
-    collection
-      .getFilteredByGlob(postsGlob)
+    collection.getFilteredByGlob(postsGlob)
       .filter((p) => !p.data.draft)
       .sort((a, b) => b.date - a.date)
   );
 
-  // Drafts only
   eleventyConfig.addCollection("postsDraftsSorted", (collection) =>
-    collection
-      .getFilteredByGlob(postsGlob)
+    collection.getFilteredByGlob(postsGlob)
       .filter((p) => p.data.draft)
       .sort((a, b) => b.date - a.date)
   );
@@ -109,12 +122,7 @@ module.exports = function (eleventyConfig) {
   if (Image) {
     eleventyConfig.addNunjucksAsyncShortcode(
       "img",
-      async (
-        src,
-        alt = "",
-        widths = [400, 800, 1200],
-        sizes = "(min-width: 768px) 800px, 100vw"
-      ) => {
+      async (src, alt = "", widths = [400, 800, 1200], sizes = "(min-width: 768px) 800px, 100vw") => {
         const metadata = await Image(src, {
           widths,
           formats: ["webp", "jpeg"],
@@ -130,9 +138,7 @@ module.exports = function (eleventyConfig) {
           class: "rounded",
         };
 
-        return Image.generateHTML(metadata, attrs, {
-          whitespaceMode: "inline",
-        });
+        return Image.generateHTML(metadata, attrs, { whitespaceMode: "inline" });
       }
     );
   }
@@ -142,6 +148,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
   eleventyConfig.addWatchTarget("src/assets/css/");
   eleventyConfig.addWatchTarget("src/assets/js/");
+eleventyConfig.addPassthroughCopy("_headers");
 
   // --- Return directories / engines ----------------------------------------
   return {

@@ -1,0 +1,18 @@
+﻿---
+layout: base.njk
+title: Collections debug
+permalink: /debug/index.html
+eleventyExcludeFromCollections: true
+---
+
+<h1>Collections debug</h1>
+<p><strong>postsPublishedSorted:</strong> {{ (collections.postsPublishedSorted or []).length }}</p>
+<p><strong>postsSorted:</strong> {{ (collections.postsSorted or []).length }}</p>
+<p><strong>tag "post":</strong> {{ (collections.post or []).length }}</p>
+
+<h2>collections.all</h2>
+<ul>
+{% for item in collections.all %}
+  <li>{{ item.url }} — <code>{{ item.inputPath }}</code> — <em>{{ item.data.title }}</em></li>
+{% endfor %}
+</ul>

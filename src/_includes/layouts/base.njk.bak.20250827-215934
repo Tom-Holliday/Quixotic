@@ -5,18 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{% if title %}{{ title }} · {% endif %}{{ metadata.title or "Quixotic" }}</title>
 
-  <!-- Fonts: Inter (sans) + Merriweather (serif) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Site CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/site.css">
 </head>
-<body class="{{ bodyClass or '' }}">
+<body>
   <header class="site-head">
     <a href="/" class="brand"><strong>{{ metadata.title or "Quixotic" }}</strong></a>
     <nav class="nav">
       <a href="/">Home</a>
-      <a href="/posts/">Posts</a>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌗</button>
     </nav>
   </header>
@@ -46,4 +42,3 @@
   </script>
 </body>
 </html>
-

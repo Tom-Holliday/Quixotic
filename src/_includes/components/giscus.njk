@@ -1,0 +1,18 @@
+<div id="comments" class="giscus-container">
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ giscus.repo }}"
+    data-repo-id="{{ giscus.repoId }}"
+    data-category="{{ giscus.category }}"
+    data-category-id="{{ giscus.categoryId }}"
+    data-mapping="{{ giscus.mapping or 'pathname' }}"
+    data-strict="1"
+    data-reactions-enabled="{{ giscus.reactionsEnabled or '1' }}"
+    data-emit-metadata="{{ giscus.emitMetadata or '0' }}"
+    data-input-position="{{ giscus.inputPosition or 'bottom' }}"
+    data-theme="{{ giscus.theme or 'light' }}"
+    data-lang="{{ giscus.lang or 'en' }}"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <noscript>Enable JavaScript to view comments.</noscript>
+</div>

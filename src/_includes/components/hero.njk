@@ -1,0 +1,22 @@
+﻿{# Hero accepts an optional image path via page or site metadata #}
+{# 1) Page-level:  page.heroImage  (front matter)
+   2) Site-level:  metadata.heroImage (src/_data/metadata.json)
+   3) Fallback:    /assets/img/hero-quixote.jpg
+#}
+{% set heroImg = page.heroImage or metadata.heroImage or "/assets/img/hero-quixote.jpg" %}
+
+<section class="hero hero--quixote" style="--hero-img: url('{{ heroImg }}');">
+  <div class="hero__media" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <div class="hero__watermark" aria-hidden="true">Quixotic</div>
+
+    <div class="hero__intro">
+      <h1 class="hero__title">{{ metadata.title or "Quixotic" }}</h1>
+      {% if metadata.description %}
+        <p class="hero__tag">{{ metadata.description }}</p>
+      {% else %}
+        <p class="hero__tag">Research notes, analyses, and references — curated with care.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
