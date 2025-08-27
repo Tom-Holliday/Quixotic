@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {# Precompute a clean, single-line description for meta tags #}
+  {% set desc = (description or metadata.description) | replace('\n', ' ') %}
+
+  <title>
+    {% if title %}{{ title }} — {{ metadata.title }}{% else %}{{ metadata.title }}{% endif %}
+  </title>
+
+  {# Canonical #}
+  {% if metadata and metadata.url %}
+    <link rel="canonical" href="{{ metadata.url }}{{ page.url }}">
+  {% endif %}
+
+  {# Basic description #}
+  <meta name="description" content="{{ desc }}">
+
+  {# Open Graph #}
+  <meta property="og:site_name" content="{{ metadata.title }}">
+  <meta property="og:title" content="{{ title or metadata.title }}">
+  <meta property="og:description" content="{{ desc }}">
+  {% if metadata and metadata.url %}
+    <meta property="og:url" content="{{ metadata.url }}{{ page.url }}">
+  {% endif %}
+  {% if page.url == '/' %}
+    <meta property="og:type" content="website">
+  {% else %}
+    <meta property="og:type" content="article">
+  {% endif %}
+  {% if cover and metadata and metadata.url %}
+    <meta property="og:image" content="{{ metadata.url }}{{ cover }}">
+  {% endif %}
+
+  {# Twitter #}
+  {% if cover %}
+    <meta name="twitter:card" content="summary_large_image">
+  {% else %}
+    <meta name="twitter:card" content="summary">
+  {% endif %}
+  <meta name="twitter:title" content="{{ title or metadata.title }}">
+  <meta name="twitter:description" content="{{ desc }}">
+
+  {# RSS feed #}
+  <link rel="alternate" type="application/rss+xml" title="{{ metadata.title }} RSS" href="/feed.xml">
+
+  {# Favicon (adjust if needed) #}
+  <link rel="icon" href="/assets/favicon.ico">
+
+  {# Color scheme hint for light/dark #}
+  <meta name="color-scheme" content="light dark">
+
+  {# Main stylesheet #}
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  {# Hook for page-specific extra <head> tags #}
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  {# Optional site header/nav slot #}
+  {% block header %}{% endblock %}
+
+  <main id="content">
+    {{ content | safe }}
+  </main>
+
+  {# Optional site footer slot #}
+  {% block footer %}{% endblock %}
+
+  {# TOC script (no-ops if TOC container not present) #}
+  <script src="/assets/js/toc.js" defer></script>
+
+  {# Hook for page-specific scripts #}
+  {% block scripts_extra %}{% endblock %}
+
+  <!-- debug: {{ metadata | dump }} -->
+</body>
+</html>

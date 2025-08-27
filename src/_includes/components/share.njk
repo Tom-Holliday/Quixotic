@@ -1,0 +1,32 @@
+{% set u = metadata.url + page.url %}
+{% set t = title | urlencode %}
+
+<section class="share" aria-label="Share">
+  <h2 class="sr-only">Share</h2>
+  <div class="share-row">
+    <a class="share-btn" href="https://twitter.com/intent/tweet?url={{ u | urlencode }}&text={{ t }}" rel="noopener" target="_blank">X</a>
+    <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ u | urlencode }}" rel="noopener" target="_blank">LinkedIn</a>
+    <a class="share-btn" href="https://news.ycombinator.com/submitlink?u={{ u | urlencode }}&t={{ t }}" rel="noopener" target="_blank">HN</a>
+    <a class="share-btn" href="https://www.reddit.com/submit?url={{ u | urlencode }}&title={{ t }}" rel="noopener" target="_blank">Reddit</a>
+    <button class="share-btn" id="copyLinkBtn" data-url="{{ u }}">Copy link</button>
+  </div>
+</section>
+
+<script defer>
+  (function(){
+    const btn = document.getElementById('copyLinkBtn');
+    if (!btn) return;
+    const url = btn.dataset.url;
+    btn.addEventListener('click', async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({title: document.title, url});
+        } else {
+          await navigator.clipboard.writeText(url);
+          btn.textContent = 'Copied!';
+          setTimeout(()=>btn.textContent='Copy link', 1400);
+        }
+      } catch(e) {}
+    });
+  }());
+</script>

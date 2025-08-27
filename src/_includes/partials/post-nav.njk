@@ -1,0 +1,44 @@
+{# src/_includes/partials/post-nav.njk #}
+
+{# Pick a collection to use, without ternaries or complex expressions #}
+{% if collections.postsSorted %}
+  {% set sorted = collections.postsSorted %}
+{% elif collections.posts %}
+  {% set sorted = collections.posts %}
+{% else %}
+  {% set sorted = collections.all %}
+{% endif %}
+
+{% if sorted and (sorted | length) > 1 %}
+  {% set prev = null %}
+  {% set next = null %}
+  {% set found = false %}
+
+  {# Single pass to compute prev/next #}
+  {% for p in sorted %}
+    {% if found and (not next) %}
+      {% set next = p %}
+    {% endif %}
+    {% if p.url == page.url %}
+      {% set found = true %}
+    {% endif %}
+    {% if not found %}
+      {% set prev = p %}
+    {% endif %}
+  {% endfor %}
+
+  <nav class="post-nav" aria-label="Post navigation">
+    {% if next %}
+      <a class="post-nav-link next" href="{{ next.url }}">
+        <small>Next</small>
+        <span>{{ next.data.title }}</span>
+      </a>
+    {% endif %}
+    {% if prev %}
+      <a class="post-nav-link prev" href="{{ prev.url }}">
+        <small>Previous</small>
+        <span>{{ prev.data.title }}</span>
+      </a>
+    {% endif %}
+  </nav>
+{% endif %}

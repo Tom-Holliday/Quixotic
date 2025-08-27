@@ -1,0 +1,48 @@
+---
+layout: base.njk
+pagination:
+  data: collections.postsPublishedSorted
+  size: 50
+---
+<section class="hero">
+  <div class="container">
+    <h1>{{ metadata.title }}</h1>
+    <p>{{ metadata.description | replace('\n', '<br>') | safe }}</p>
+  </div>
+</section>
+
+<ul class="post-list" id="postList">
+  {% for post in pagination.items %}
+    <li class="post-card"
+        data-title="{{ post.data.title | lower }}"
+        data-excerpt="{{ (post.templateContent or '') | striptags | lower }}">
+      <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+      <p class="meta">
+        <time datetime="{{ post.date | dateIso }}">{{ post.date | dateDisplay }}</time>
+      </p>
+      <p>{{ (post.templateContent or '') | striptags | truncate(180, true, '…') }}</p>
+      <p><a class="btn btn-primary" href="{{ post.url }}">Read more</a></p>
+    </li>
+  {% endfor %}
+</ul>
+
+<script>
+  // Client-side search (title + excerpt)
+  const params = new URLSearchParams(location.search);
+  const q = (params.get('q') || '').toLowerCase().trim();
+  if (q) {
+    const items = [...document.querySelectorAll('#postList .post-card')];
+    let visible = 0;
+    items.forEach(li => {
+      const hay = (li.dataset.title + ' ' + li.dataset.excerpt);
+      const show = hay.includes(q);
+      li.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (!visible) {
+      const msg = document.createElement('p');
+      msg.textContent = `No results for “${q}”`;
+      document.getElementById('postList').before(msg);
+    }
+  }
+</script>

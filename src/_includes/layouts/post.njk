@@ -1,0 +1,39 @@
+---
+layout: base.njk
+---
+<article class="post">
+  <header class="post-header">
+    <h1>{{ title }}</h1>
+    <p class="meta">
+      <time datetime="{{ page.date | dateIso }}">{{ page.date | dateDisplay }}</time>
+      {% if readingTime %} · {{ readingTime }} min read{% endif %}
+    </p>
+  </header>
+
+  <div class="post-grid">
+    <!-- Main column -->
+    <div class="post-main">
+      <div class="content">
+        {{ content | safe }}
+      </div>
+
+      {% if tags and tags.length %}
+        <p class="meta">Tags:
+          {% for t in tags %}
+            <a href="/tag/{{ t | url }}/">{{ t }}</a>{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+      {% endif %}
+
+      {% include "partials/share.njk" %}
+      {% include "partials/post-nav.njk" %}
+      <hr>
+      {% include "partials/giscus.njk" %}
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="post-aside">
+      {% include "partials/toc.njk" %}
+    </aside>
+  </div>
+</article>

@@ -1,0 +1,41 @@
+/* Layout for post + TOC */
+.post-grid { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; }
+@media (max-width: 1200px) { .post-grid { grid-template-columns: 1fr; } }
+.post-aside { order: 2; }
+.post-main { min-width: 0; order: 1; }
+
+/* TOC */
+.toc {
+  font-size: .95rem;
+  line-height: 1.45;
+  border: 1px solid var(--border, #e2e2e2);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--surface, var(--color-bg, #fff));
+  max-height: calc(100vh - 6rem);
+  overflow: auto;
+}
+.sticky-top { position: sticky; top: 2rem; }
+.toc-title { font-weight: 600; margin-bottom: .5rem; }
+.toc-list { list-style: none; padding-left: 0; }
+.toc-items { list-style: none; padding-left: 0; margin: 0; }
+.toc-items li { margin: .25rem 0; }
+.toc-items .toc-level-h3 { margin-left: .75rem; border-left: 2px solid var(--border, #e2e2e2); padding-left: .75rem; }
+.toc a { text-decoration: none; }
+
+/* Post nav */
+.post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
+.post-nav-link { display: block; border: 1px solid var(--border, #e2e2e2); border-radius: 12px; padding: 1rem; background: var(--surface, #fff); text-decoration: none; }
+.post-nav-link small { display: block; opacity: .7; }
+.post-nav-link span { display: block; font-weight: 600; }
+.post-nav-link.prev { text-align: right; }
+
+/* Share buttons */
+.share-row { display:flex; flex-wrap: wrap; gap:.5rem; margin-top:2rem; }
+.share-btn { border:1px solid var(--border, #e2e2e2); border-radius:999px; padding:.5rem .75rem; background:var(--surface, #fff); text-decoration:none; font-weight:600; }
+.share-btn:hover, .share-btn:focus { outline: none; border-color: var(--text-muted, #888); }
+
+/* Accessibility niceties */
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+:focus-visible { outline:2px solid var(--focus, #5b9dd9); outline-offset:2px; }
+@media (max-width: 1024px) { .toc { display:none; } } /* optional */

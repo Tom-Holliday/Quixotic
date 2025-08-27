@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+
+  <title>
+    Quixotic
+  </title>
+
+  
+  
+    <link rel="canonical" href="https://www.quixotic.co.uk/">
+  
+
+  
+  <meta name="description" content="having or showing ideas that are different and unusual but not practical or likely to succeed.  - The Cambridge Dictionary">
+
+  
+  <meta property="og:site_name" content="Quixotic">
+  <meta property="og:title" content="Quixotic">
+  <meta property="og:description" content="having or showing ideas that are different and unusual but not practical or likely to succeed.  - The Cambridge Dictionary">
+  
+    <meta property="og:url" content="https://www.quixotic.co.uk/">
+  
+  
+    <meta property="og:type" content="website">
+  
+  
+
+  
+  
+    <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Quixotic">
+  <meta name="twitter:description" content="having or showing ideas that are different and unusual but not practical or likely to succeed.  - The Cambridge Dictionary">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Quixotic RSS" href="/feed.xml">
+
+  
+  <link rel="icon" href="/assets/favicon.ico">
+
+  
+  <meta name="color-scheme" content="light dark">
+
+  
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  
+  
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  
+  
+
+  <main id="content">
+    <section class="hero">
+  <div class="container">
+    <h1>Quixotic</h1>
+    <p>having or showing ideas that are different and unusual but not practical or likely to succeed. <br>- The Cambridge Dictionary</p>
+  </div>
+</section>
+
+<ul class="post-list" id="postList">
+  
+    <li class="post-card"
+        data-title="first blog post"
+        data-excerpt="">
+      <h2><a href="/posts/hello-world/">First Blog Post</a></h2>
+      <p class="meta">
+        <time datetime="2025-08-27T00:00:00.000Z">27 Aug 2025</time>
+      </p>
+      <p></p>
+      <p><a class="btn btn-primary" href="/posts/hello-world/">Read more</a></p>
+    </li>
+  
+</ul>
+
+<script>
+  // Client-side search (title + excerpt)
+  const params = new URLSearchParams(location.search);
+  const q = (params.get('q') || '').toLowerCase().trim();
+  if (q) {
+    const items = [...document.querySelectorAll('#postList .post-card')];
+    let visible = 0;
+    items.forEach(li => {
+      const hay = (li.dataset.title + ' ' + li.dataset.excerpt);
+      const show = hay.includes(q);
+      li.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (!visible) {
+      const msg = document.createElement('p');
+      msg.textContent = `No results for “${q}”`;
+      document.getElementById('postList').before(msg);
+    }
+  }
+</script>
+  </main>
+
+  
+  
+
+  
+  <script src="/assets/js/toc.js" defer></script>
+
+  
+  
+
+  <!-- debug: {&quot;title&quot;:&quot;Quixotic&quot;,&quot;description&quot;:&quot;having or showing ideas that are different and unusual but not practical or likely to succeed. &#92;n- The Cambridge Dictionary&quot;,&quot;url&quot;:&quot;https://www.quixotic.co.uk&quot;,&quot;author&quot;:&quot;Tom Holliday&quot;,&quot;email&quot;:&quot;tom.holliday@hotmail.com&quot;} -->
+</body>
+</html>

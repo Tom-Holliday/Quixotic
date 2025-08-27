@@ -1,0 +1,19 @@
+{% set sorted = collections.postsSorted %}
+{% set index = sorted | indexOf(page) %}
+{% set prev = (index > 0) ? sorted[index - 1] : null %}
+{% set next = (index < (sorted | length) - 1) ? sorted[index + 1] : null %}
+
+<nav class="post-nav" aria-label="Post">
+  {% if next %}
+    <a class="post-nav-link next" href="{{ next.url }}">
+      <small>Next</small>
+      <span>{{ next.data.title }}</span>
+    </a>
+  {% endif %}
+  {% if prev %}
+    <a class="post-nav-link prev" href="{{ prev.url }}">
+      <small>Previous</small>
+      <span>{{ prev.data.title }}</span>
+    </a>
+  {% endif %}
+</nav>

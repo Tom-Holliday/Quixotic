@@ -1,0 +1,19 @@
+{
+  "name": "static-blog-11ty",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "eleventy --serve --quiet",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^6.0.4",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0"
+  },
+  "dependencies": {
+    "@11ty/eleventy-plugin-rss": "^2.0.4",
+    "markdown-it-toc-done-right": "^4.2.0"
+  }
+}
