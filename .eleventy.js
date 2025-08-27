@@ -139,6 +139,7 @@ module.exports = function (eleventyConfig) {
 
   // --- Passthrough / Watch --------------------------------------------------
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+  eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
   eleventyConfig.addWatchTarget("src/assets/css/");
   eleventyConfig.addWatchTarget("src/assets/js/");
 

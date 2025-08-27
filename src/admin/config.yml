@@ -1,0 +1,27 @@
+local_backend: true               # lets you use /admin locally without remote auth
+publish_mode: editorial_workflow  # drafts/review/publish
+
+media_folder: "src/assets/img"    # where uploads are saved in the repo
+public_folder: "/assets/img"      # how images are referenced on the site
+
+backend:
+  name: git-gateway               # Netlify Identity + Git Gateway
+  branch: main
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "src/posts"
+    create: true
+    slug: "{{slug}}"
+    editor: { preview: true }
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post.njk" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+      - { label: "Updated", name: "updated", widget: "datetime", required: false, format: "YYYY-MM-DD", time_format: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Cover Image", name: "cover", widget: "image", required: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: true }
+      - { label: "Body", name: "body", widget: "markdown" }
