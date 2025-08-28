@@ -1,6 +1,8 @@
 ﻿<!doctype html>
 <html lang="en" data-theme="auto">
 <head>
+<link rel="stylesheet" href="/assets/css/main.css?v={{ collections.all | length }}">
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{% if title %}{{ title }} · {% endif %}{{ metadata.title or "Quixotic" }}</title>
