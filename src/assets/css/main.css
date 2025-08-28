@@ -217,6 +217,30 @@ main { display: block; }
   max-width: min(48rem, 90%);
 }
 
+/* Maroon overlay over the image (CSP-safe, no inline styles) */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* maroon gradient: stronger top, fades down */
+  background: linear-gradient(
+    to bottom,
+    rgba(128, 0, 32, 0.35) 0%,
+    rgba(128, 0, 32, 0.14) 45%,
+    rgba(128, 0, 32, 0.00) 100%
+  );
+  z-index: 0; /* above the image (z:0), below .hero__inner (z:1) */
+}
+
+/* Citation paragraph: spacing + tone */
+.hero__cite {
+  margin-top: 2em;            /* blank space between lines */
+  color: var(--text-subtle);
+  font-size: 0.95em;
+  font-style: italic;
+}
+
 
 /* 9) Search */
 .search {

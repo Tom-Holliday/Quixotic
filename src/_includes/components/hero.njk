@@ -25,13 +25,14 @@
       <h1 class="hero__title">{{ metadata.title or "Quixotic" }}</h1>
 
       {% if metadata.description %}
-        <p class="hero__tag">{{ metadata.description }}</p>
-        {% if metadata.attribution %}
-          <p class="hero__cite">{{ metadata.attribution }}</p>
-        {% endif %}
-      {% else %}
-        <p class="hero__tag">Research notes, analyses, and references — curated with care.</p>
-      {% endif %}
+  {# Turn the first newline into a new paragraph for the citation #}
+  <p class="hero__tag">
+    {{ metadata.description | replace("\r\n", "\n") | replace("\r", "\n") | replace("\n", "</p><p class='hero__cite'>") | safe }}
+  </p>
+{% else %}
+  <p class="hero__tag">Research notes, analyses, and references — curated with care.</p>
+{% endif %}
+
     </div>
   </div>
 </section>
