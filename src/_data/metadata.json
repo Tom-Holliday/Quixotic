@@ -4,5 +4,5 @@
   "url": "https://quixoticblog.netlify.app",
   "author": "Tom Holliday",
   "email": "tom.holliday@hotmail.com",
-  "heroImage": "src/assets/img/quixote.jpg"
+  "heroImage": "/assets/img/quixote.jpg"
 }
