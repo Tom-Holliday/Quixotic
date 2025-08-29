@@ -1,0 +1,51 @@
+﻿---
+layout: base.njk
+title: Posts
+pagination:
+  data: collections.postsPublishedSorted
+  size: 6
+  alias: posts
+permalink: "/posts/{% if pagination.pageNumber == 0 %}index{% else %}page/{{ pagination.pageNumber + 1 }}{% endif %}.html"
+eleventyExcludeFromCollections: true
+---
+
+<main class="home">
+  <h1 class="page-title">Posts</h1>
+  {% if posts and posts.length %}
+    <section class="post-grid">
+      {% for post in posts %}
+        {# rotate royal overlays by color class if provided; default burgundy #}
+        <article class="card {{ post.data.color or 'burgundy' }}">
+          <a href="{{ post.url }}" class="card__link" aria-label="{{ post.data.title | safe }}">
+            <div class="card__media">
+              {% if post.data.cover %}
+                {% if img %}
+                  {% img post.data.cover, post.data.coverAlt or post.data.title, [480, 720, 1024], "(min-width: 768px) 50vw, 100vw" %}
+                {% else %}
+                  <img src="{{ post.data.cover }}" alt="{{ post.data.coverAlt or post.data.title }}">
+                {% endif %}
+              {% else %}<div class="card__placeholder" aria-hidden="true">◆</div>{% endif %}
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">{{ post.data.title }}</h2>
+              {% if post.data.excerpt %}<p class="card__excerpt">{{ post.data.excerpt }}</p>{% endif %}
+              <p class="card__meta">
+                <time datetime="{{ post.date | dateIso }}">{{ post.date | dateDisplay }}</time>
+              </p>
+            </div>
+          </a>
+        </article>
+      {% endfor %}
+    </section>
+
+    {% if pagination.pages.length > 1 %}
+    <nav class="pager" aria-label="Pagination">
+      {% if pagination.href.previous %}<a class="pager__prev" href="{{ pagination.href.previous }}">&larr; Newer</a>{% endif %}
+      <span class="pager__info">Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
+      {% if pagination.href.next %}<a class="pager__next" href="{{ pagination.href.next }}">Older &rarr;</a>{% endif %}
+    </nav>
+    {% endif %}
+  {% else %}
+    <p class="muted">No posts yet. Use <code>/admin</code> to publish your first one.</p>
+  {% endif %}
+</main>
