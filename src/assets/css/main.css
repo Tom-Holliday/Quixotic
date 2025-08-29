@@ -13,35 +13,42 @@ a { color: inherit; }
 /* 1) Design tokens (light mode defaults) */
 :root {
   /* Colors */
-  --bg: #ffffff;
-  --surface: #ffffff;
-  --elev: #f7f7f8;
+  /* Colors (blue-forward) */
+--bg: #ffffff;
+--surface: #ffffff;
+--elev: #f7f7f8;
 
-  --text: #0f172a;           /* slate-900 */
-  --text-muted: #475569;     /* slate-600 */
-  --text-subtle: #64748b;    /* slate-500 */
+--text: #0B3D91;          /* royal blue */
+--text-muted: #2C5FB8;    /* softer blue */
+--text-subtle: #6B8ACB;   /* light blue */
 
-  --brand: #2563eb;          /* blue-600 */
-  --brand-contrast: #ffffff;
-  --accent: #10b981;         /* emerald-500 */
+--brand: #1D4ED8;         /* link/button blue */
+--brand-contrast: #ffffff;
+--accent: #10b981;
 
-  --border: #e5e7eb;         /* gray-200 */
-  --border-subtle: #eef0f3;
+--border: #e5e7eb;
+--border-subtle: #eef0f3;
 
-  --focus: #5b9dd9;
+--focus: #93c5fd;
 
-  /* Typography */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+/* Typography (modern) */
+--font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+--font-headings: "Outfit", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial;
+--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+  "Liberation Mono", "Courier New", monospace;
 
   --fs-xxl: clamp(2rem, 4vw + 1rem, 3.25rem);
   --fs-xl:  clamp(1.5rem, 2.2vw + .5rem, 2.25rem);
   --fs-lg:  1.375rem;
   --fs-md:  1.125rem;
   --fs-sm:  .95rem;
+
+  /* Modern headings font */
+h1, h2, h3, h4 { font-family: var(--font-headings); }
+
 
   /* Layout */
   --container: 70rem;
@@ -73,9 +80,10 @@ a { color: inherit; }
   --surface: #0f172a;        /* slate-900ish */
   --elev: #111827;           /* slate-900 */
 
-  --text: #e5e7eb;           /* gray-200 */
-  --text-muted: #cbd5e1;     /* slate-300 */
-  --text-subtle: #94a3b8;    /* slate-400 */
+  --text: #e5e7eb;
+  --text-muted: #cbd5e1;
+  --text-subtle: #94a3b8;
+
 
   --brand: #60a5fa;          /* blue-400 */
   --brand-contrast: #0b0f17;
@@ -92,9 +100,10 @@ a { color: inherit; }
     --surface: #0f172a;
     --elev: #111827;
 
-    --text: #e5e7eb;
-    --text-muted: #cbd5e1;
-    --text-subtle: #94a3b8;
+   --text: #BFD7FF;        /* blue-200-ish */
+   --text-muted: #9BB9F9;
+   --text-subtle: #7AA0F1;
+
 
     --brand: #60a5fa;
     --brand-contrast: #0b0f17;
@@ -205,18 +214,30 @@ main { display: block; }
   display: block;
 }
 
-/* NEW: maroon overlay layer (above image, below content) */
 .hero__overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  /* Royal blue tint */
   background: linear-gradient(
     to bottom,
-    rgba(128,0,32,.35) 0%,
-    rgba(128,0,32,.14) 45%,
-    rgba(128,0,32,0) 100%
+    rgba(11, 61, 145, 0.36) 0%,   /* #0B3D91 */
+    rgba(11, 61, 145, 0.18) 45%,
+    rgba(11, 61, 145, 0.00) 100%
   );
+}
+
+/* Optional: a touch stronger in dark mode */
+@media (prefers-color-scheme: dark) {
+  .hero__overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(11, 61, 145, 0.45) 0%,
+      rgba(11, 61, 145, 0.22) 45%,
+      rgba(11, 61, 145, 0.00) 100%
+    );
+  }
 }
 
 /* Foreground content */
@@ -531,3 +552,45 @@ input::placeholder, textarea::placeholder { color: var(--text-subtle); }
 .mt-6 { margin-top: var(--space-6) !important; }
 .mb-6 { margin-bottom: var(--space-6) !important; }
 
+/* --- Modern blue sweep (overrides) --- */
+
+/* 1) Pure white base (no cream) */
+html, body { background: #ffffff !important; }
+
+/* 2) Blue text system */
+:root {
+  --text: #0B3D91;        /* royal blue for all copy */
+  --text-muted: #2C5FB8;
+  --text-subtle: #6B8ACB;
+  --brand: #1D4ED8;       /* link/button blue */
+  --elev: #fafafa;        /* cooler surface */
+}
+
+/* 3) Header: kill burgundy + translucent tint */
+.site-header {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  box-shadow: none !important;
+}
+.site-header a,
+.site-header .site-title,
+.site-header nav a {
+  color: var(--text) !important;            /* blue */
+  text-decoration: none;
+}
+.site-header a:hover,
+.site-header nav a:hover {
+  color: var(--brand) !important;           /* brighter blue on hover */
+}
+
+/* 4) Modern headings */
+h1, h2, h3, h4 {
+  font-family: var(--font-headings, "Outfit", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+/* 5) Ensure general copy pulls blue palette */
+p, li, .meta, .card-meta, .toc, .tag-pill, .site-footer {
+  color: var(--text) !important;
+}
