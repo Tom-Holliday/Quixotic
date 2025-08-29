@@ -1,39 +1,39 @@
 ﻿<!doctype html>
 <html lang="en" data-theme="auto">
 <head>
-<link rel="stylesheet" href="/assets/css/main.css?v={{ collections.all | length }}">
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{% if title %}{{ title }} · {% endif %}{{ metadata.title or "Quixotic" }}</title>
 
-  <!-- Fonts: Inter (sans) + Merriweather (serif) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  {# Fonts: Inter (body) + Outfit (headings) #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Outfit:wght@400..800&display=swap" rel="stylesheet">
 
-  <!-- Site CSS -->
-  <link rel="stylesheet" href="/assets/css/site.css">
-
-{# base.njk <head> ... #}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Outfit:wght@400..800&display=swap" rel="stylesheet">
-
-
+  {# One stylesheet only (cache-busted) #}
+  <link rel="stylesheet" href="/assets/css/main.css?v={{ collections.all | length }}">
 </head>
 <body class="{{ bodyClass or '' }}">
   <header class="site-head">
-    <a href="/" class="brand"><strong>{{ metadata.title or "Quixotic" }}</strong></a>
-    <nav class="nav">
-      <a href="/">Home</a>
-      <a href="/posts/">Posts</a>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌗</button>
-    </nav>
+    <div class="inner container">
+      <a href="/" class="brand">
+        <span class="brand-mark">Q</span>
+        <span class="brand-text">{{ metadata.title or "Quixotic" }}</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/posts/">Posts</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌗</button>
+      </nav>
+    </div>
   </header>
 
   {{ content | safe }}
 
   <footer class="site-foot">
-    <p>© {{ metadata.title or "Quixotic" }}</p>
+    <div class="container">
+      <p>© {{ metadata.title or "Quixotic" }}</p>
+    </div>
   </footer>
 
   <script>
@@ -42,8 +42,7 @@
       var html = document.documentElement;
       var btn = document.getElementById("theme-toggle");
       function apply(v){ html.setAttribute("data-theme", v); }
-      var stored = null;
-      try { stored = localStorage.getItem(key); } catch(e){}
+      var stored = null; try { stored = localStorage.getItem(key); } catch(e){}
       apply(stored || "auto");
       if (btn) btn.addEventListener("click", function () {
         var cur = html.getAttribute("data-theme") || "auto";
@@ -55,4 +54,3 @@
   </script>
 </body>
 </html>
-
