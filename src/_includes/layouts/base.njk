@@ -13,7 +13,7 @@
   {# One stylesheet only (cache-busted) #}
   <link rel="stylesheet" href="/assets/css/main.css?v={{ collections.all | length }}">
 </head>
-<body class="{{ bodyClass or '' }}">
+<body class="{{ bodyClass or '' }} {% if page.url == '/' %}is-home{% endif %}">
   <header class="site-head">
     <div class="inner container">
       <a href="/" class="brand">
