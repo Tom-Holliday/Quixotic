@@ -66,9 +66,6 @@ a{color:inherit;text-decoration:none}
     --border:#e5e7eb; --border-subtle:#eef0f3; --focus:#93c5fd;
   }
 }
-@media (prefers-color-scheme: dark){
-  :root[data-theme="auto"]{ /* same as dark defaults */ }
-}
 
 /* ---- Base ---- */
 html,body{height:100%;background:var(--bg);color:var(--text)}
@@ -117,18 +114,79 @@ main{display:block}
 .site-foot{margin-top:var(--space-8);padding:var(--space-6) 0;color:var(--text-subtle);border-top:1px solid var(--border)}
 
 /* ---- Hero ---- */
-.hero{margin:var(--space-6) 0 var(--space-5);position:relative;isolation:isolate;min-height:clamp(280px,42vh,560px)}
-.hero h1{margin-top:0}
-.hero p{color:var(--text-muted)}
-.hero__media{position:absolute;inset:0;z-index:0;pointer-events:none}
-.hero__img{width:100%;height:100%;object-fit:cover;opacity:.35;filter:grayscale(15%)}
-.hero__overlay{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(to bottom, rgba(11,61,145,.36) 0%, rgba(11,61,145,.18) 45%, rgba(11,61,145,0) 100%)}
-.hero__inner{position:relative;z-index:2}
-.hero__intro{
-  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
-  box-shadow:var(--shadow-1); padding:clamp(1.25rem,2vw,2rem); max-width:min(48rem,90%)}
-.hero__cite{margin-top:2em;color:var(--text-subtle);font-size:.95em;font-style:italic}
+/* Layering */
+.hero { position: relative; isolation: isolate; }
+.hero__media   { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hero__overlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; 
+  /* soft blue gradient tint; reduce if it hides photo */
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 61, 145, 0.28) 0%,
+    rgba(11, 61, 145, 0.14) 45%,
+    rgba(11, 61, 145, 0.00) 100%
+  );
+}
+.hero__inner   { position: relative; z-index: 2; }
+
+/* Photo visibility */
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .55;           /* increase if the image looks too faint */
+  filter: grayscale(12%);
+  display: block;
+}
+
+/* Safety: nuke any leftover 3D canvas rules */
+.hero__webgl { display: none !important; }
+
+/* Hero core */
+.hero { position: relative; isolation: isolate; min-height: clamp(300px, 42vh, 560px); }
+
+/* Photo layer + CSS fallback */
+.hero__media {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: var(--hero-src);        /* fallback */
+  background-size: cover;
+  background-position: center;
+}
+.hero__img {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: .35;           /* raise to .45 if image feels too faint */
+  filter: grayscale(12%);
+  display: block;
+}
+
+/* Blue tint (lighter so it won't hide the photo) */
+.hero__overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 61, 145, 0.16) 0%,
+    rgba(11, 61, 145, 0.08) 45%,
+    rgba(11, 61, 145, 0.00) 100%
+  );
+}
+
+/* Foreground card */
+.hero__inner { position: relative; z-index: 2; }
+.hero__intro {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  padding: clamp(1.25rem, 2vw, 2rem);
+  max-width: min(48rem, 90%);
+}
+.hero__title { margin: 0 0 .4rem; }
+.hero__tag { margin: 0; color: var(--text); }
+.hero__cite { margin-top: .9rem; color: var(--text-subtle); font-style: italic; }
+
+/* Ensure any leftover 3D host is hidden */
+.hero__webgl { display: none !important; }
+
+
 
 /* ---- Cards / Grid ---- */
 .card-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--space-5)}
@@ -156,10 +214,13 @@ main{display:block}
 .btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--brand);color:var(--brand-contrast);border-radius:var(--radius-sm);padding:.55rem .9rem;font-weight:700}
 .btn.secondary{background:var(--elev);color:var(--text);border:1px solid var(--border)}
 
-/* --- Homepage clean-up --- */
+/* --- Homepage clean-up (REPLACED) --- */
 
-/* Hide brand text on the homepage (keeps the Q badge) */
-.is-home .brand-text { display: none; }
+/* Hide brand text on the homepage (keep the Q badge) */
+.is-home .brand-text,
+.is-home .site-head .brand strong {
+  display: none !important;
+}
 
 /* Make header solid so it doesn’t visually stack over the hero */
 .site-head {
@@ -169,10 +230,8 @@ main{display:block}
 }
 
 /* Slightly stronger card contrast, tighter hero spacing */
-.hero__intro {
-  box-shadow: 0 10px 30px rgba(0,0,0,.18);
-}
-.hero__img { opacity: .28; }          /* pull a bit more image detail in */
+.hero__intro { box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+.hero__img { opacity: .28; }  /* pull a bit more image detail in */
 .hero__overlay {
   background: linear-gradient(
     to bottom,
@@ -183,5 +242,5 @@ main{display:block}
 }
 
 /* Global typography polish */
-h1,h2,h3,h4 { letter-spacing: -0.02em; }
+h1, h2, h3, h4 { letter-spacing: -0.02em; }
 .lede, .hero__tag { color: var(--text); } /* keep hero copy same blue as site */

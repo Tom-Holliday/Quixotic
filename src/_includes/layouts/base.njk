@@ -1,24 +1,21 @@
-﻿<!doctype html>
+﻿<link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}?v={{ collections.all | length }}">
+
+<!doctype html>
 <html lang="en" data-theme="auto">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{% if title %}{{ title }} · {% endif %}{{ metadata.title or "Quixotic" }}</title>
-
-  {# Fonts: Inter (body) + Outfit (headings) #}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Outfit:wght@400..800&display=swap" rel="stylesheet">
-
-  {# One stylesheet only (cache-busted) #}
-  <link rel="stylesheet" href="/assets/css/main.css?v={{ collections.all | length }}">
+  {# ... your <head> stays the same ... #}
 </head>
-<body class="{{ bodyClass or '' }} {% if page.url == '/' %}is-home{% endif %}">
+{# Robust home detection #}
+{% set isHome = (page.url == '/' or page.url == '/index.html' or page.filePathStem == '/index') %}
+<body class="{{ bodyClass or '' }} {% if isHome %}is-home{% endif %}">
   <header class="site-head">
     <div class="inner container">
-      <a href="/" class="brand">
+      <a href="/" class="brand" aria-label="{{ metadata.title or 'Quixotic' }}">
         <span class="brand-mark">Q</span>
-        <span class="brand-text">{{ metadata.title or "Quixotic" }}</span>
+        {# Only show the text off the homepage #}
+        {% if not isHome %}
+          <span class="brand-text">{{ metadata.title or "Quixotic" }}</span>
+        {% endif %}
       </a>
       <nav class="nav" aria-label="Primary">
         <a href="/">Home</a>
@@ -35,6 +32,8 @@
       <p>© {{ metadata.title or "Quixotic" }}</p>
     </div>
   </footer>
+
+
 
   <script>
     (function () {
