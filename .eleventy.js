@@ -23,39 +23,32 @@ try {
   console.warn("[warn] @11ty/eleventy-plugin-rss not installed — RSS filters unavailable.");
 }
 
-module.exports = function (eleventyConfig) {
-  // --- Core settings --------------------------------------------------------
-  eleventyConfig.setDataDeepMerge(true);
-
-  // --- Filters --------------------------------------------------------------
-  // Edit-on-GitHub URL
-  eleventyConfig.addFilter("editOnGitHub", (inputPath) => {
-    const repo   = "Tom-Holliday/Quixotic";
-    const branch = "main";
-    const p = (inputPath || "").replace(/^\.?\//, ""); // './src/...' -> 'src/...'
-    return `https://github.com/${repo}/edit/${branch}/${p}`;
-  });
-
-
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 
 function srcFromWebPath(webPath) {
-  // map "/assets/..." → "./src/assets/..."
   if (!webPath) return null;
   if (webPath.startsWith("/assets/")) {
     return path.join("./src", webPath);
   }
-  // if someone passes a relative "src/assets/..." handle that too
   if (webPath.startsWith("src/assets/")) {
     return "./" + webPath.replace(/^\.?\//, "");
   }
   return null;
 }
 
-module.exports = function(eleventyConfig) {
-  // ...your existing config...
+module.exports = function (eleventyConfig) {
+  // --- Core settings --------------------------------------------------------
+  eleventyConfig.setDataDeepMerge(true);
+
+  // --- Filters --------------------------------------------------------------
+  eleventyConfig.addFilter("editOnGitHub", (inputPath) => {
+    const repo = "Tom-Holliday/Quixotic";
+    const branch = "main";
+    const p = (inputPath || "").replace(/^\.?\//, "");
+    return `https://github.com/${repo}/edit/${branch}/${p}`;
+  });
 
   eleventyConfig.addFilter("assetHash", (webPath) => {
     try {
@@ -68,12 +61,6 @@ module.exports = function(eleventyConfig) {
     }
   });
 
-  return {
-    // ...your existing return...
-  };
-};
-
-  // Related posts (by overlapping tags)
   eleventyConfig.addFilter("relatedPosts", (collection = [], page, max = 3) => {
     if (!page || !page.data) return [];
     const IGNORE = new Set(["post", "posts", "all"]);
@@ -94,7 +81,6 @@ module.exports = function(eleventyConfig) {
       .map(x => x.p);
   });
 
-  // Dates
   eleventyConfig.addFilter("dateIso", (value) => {
     if (!value) return "";
     const d = new Date(value);
@@ -108,13 +94,11 @@ module.exports = function(eleventyConfig) {
     return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" }).format(d);
   });
 
-  // Helper
   eleventyConfig.addFilter("indexOf", (arr, item) => {
     if (!Array.isArray(arr) || !item) return -1;
     return arr.findIndex((x) => x.url === item.url);
   });
 
-  // NEW: splitLines filter (fixes your hero description newline logic)
   eleventyConfig.addFilter("splitLines", (value) => {
     if (!value) return [];
     return String(value).replace(/\r\n?/g, "\n").split("\n");
@@ -125,7 +109,7 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPlugin(pluginRss);
   }
 
-  // --- Markdown with anchors -----------------------------------------------
+  // --- Markdown with anchors ------------------------------------------------
   if (markdownIt) {
     const md = markdownIt({ html: true, linkify: true, typographer: true });
     if (markdownItAnchor) {
@@ -142,7 +126,7 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.setLibrary("md", md);
   }
 
-  // --- Collections ----------------------------------------------------------
+  // --- Collections -----------------------------------------------------------
   const postsGlob = "./src/posts/**/*.md";
 
   eleventyConfig.addCollection("postsSorted", (collection) =>
@@ -161,7 +145,7 @@ module.exports = function(eleventyConfig) {
       .sort((a, b) => b.date - a.date)
   );
 
-  // --- Shortcodes -----------------------------------------------------------
+  // --- Shortcodes ------------------------------------------------------------
   if (Image) {
     eleventyConfig.addNunjucksAsyncShortcode(
       "img",
@@ -189,11 +173,12 @@ module.exports = function(eleventyConfig) {
   // --- Passthrough / Watch --------------------------------------------------
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
+  eleventyConfig.addPassthroughCopy({ "src/img": "img" }); // ← ensures logo.png copies
   eleventyConfig.addWatchTarget("src/assets/css/");
   eleventyConfig.addWatchTarget("src/assets/js/");
   eleventyConfig.addPassthroughCopy("_headers");
 
-  // --- Return directories / engines ----------------------------------------
+  // --- Return directories / engines -----------------------------------------
   return {
     dir: {
       input: "src",
