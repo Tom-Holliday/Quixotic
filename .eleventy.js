@@ -36,6 +36,43 @@ module.exports = function (eleventyConfig) {
     return `https://github.com/${repo}/edit/${branch}/${p}`;
   });
 
+
+const fs = require("fs");
+const path = require("path");
+const crypto = require("crypto");
+
+function srcFromWebPath(webPath) {
+  // map "/assets/..." → "./src/assets/..."
+  if (!webPath) return null;
+  if (webPath.startsWith("/assets/")) {
+    return path.join("./src", webPath);
+  }
+  // if someone passes a relative "src/assets/..." handle that too
+  if (webPath.startsWith("src/assets/")) {
+    return "./" + webPath.replace(/^\.?\//, "");
+  }
+  return null;
+}
+
+module.exports = function(eleventyConfig) {
+  // ...your existing config...
+
+  eleventyConfig.addFilter("assetHash", (webPath) => {
+    try {
+      const srcPath = srcFromWebPath(webPath);
+      if (!srcPath || !fs.existsSync(srcPath)) return Date.now().toString();
+      const buf = fs.readFileSync(srcPath);
+      return crypto.createHash("md5").update(buf).digest("hex").slice(0, 10);
+    } catch (e) {
+      return Date.now().toString();
+    }
+  });
+
+  return {
+    // ...your existing return...
+  };
+};
+
   // Related posts (by overlapping tags)
   eleventyConfig.addFilter("relatedPosts", (collection = [], page, max = 3) => {
     if (!page || !page.data) return [];
@@ -75,6 +112,12 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("indexOf", (arr, item) => {
     if (!Array.isArray(arr) || !item) return -1;
     return arr.findIndex((x) => x.url === item.url);
+  });
+
+  // NEW: splitLines filter (fixes your hero description newline logic)
+  eleventyConfig.addFilter("splitLines", (value) => {
+    if (!value) return [];
+    return String(value).replace(/\r\n?/g, "\n").split("\n");
   });
 
   // --- Plugins --------------------------------------------------------------
@@ -148,7 +191,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
   eleventyConfig.addWatchTarget("src/assets/css/");
   eleventyConfig.addWatchTarget("src/assets/js/");
-eleventyConfig.addPassthroughCopy("_headers");
+  eleventyConfig.addPassthroughCopy("_headers");
 
   // --- Return directories / engines ----------------------------------------
   return {

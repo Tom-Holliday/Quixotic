@@ -1,17 +1,12 @@
 ﻿{# components/hero.njk #}
-{# Hero image resolution:
-   1) page.heroImage (front matter)
-   2) metadata.heroImage (src/_data/metadata.json)
-   3) fallback: /assets/img/hero-quixote.jpg
-#}
+{% set v = collections.all | length %}
 {% set heroImg = page.heroImage or metadata.heroImage or "/assets/img/hero-quixote.jpg" %}
 
 <section class="hero hero--quixote">
-  {# Decorative media layer behind content #}
   <div class="hero__media" aria-hidden="true">
     <img
       class="hero__img"
-      src="{{ heroImg | url }}"
+      src="{{ heroImg | url }}?v={{ heroImg v assetHash }}"
       alt=""
       role="presentation"
       loading="eager"
@@ -20,22 +15,16 @@
 
   <div class="hero__overlay" aria-hidden="true"></div>
 
-
   <div class="hero__inner">
-    <div class="hero__watermark" aria-hidden="true">Quixotic</div>
-
     <div class="hero__intro">
       <h1 class="hero__title">{{ metadata.title or "Quixotic" }}</h1>
 
       {% if metadata.description %}
-  {# Turn the first newline into a new paragraph for the citation #}
-  <p class="hero__tag">
-    {{ metadata.description | replace("\r\n", "\n") | replace("\r", "\n") | replace("\n", "</p><p class='hero__cite'>") | safe }}
-  </p>
-{% else %}
-  <p class="hero__tag">Research notes, analyses, and references — curated with care.</p>
-{% endif %}
-
+        <p class="hero__tag">{{ metadata.description }}</p>
+      {% endif %}
+      {% if metadata.attribution %}
+        <p class="hero__cite">{{ metadata.attribution }}</p>
+      {% endif %}
     </div>
   </div>
 </section>
