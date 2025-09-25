@@ -25,3 +25,35 @@ collections:
       - { label: "Cover Image", name: "cover", widget: "image", required: false }
       - { label: "Draft", name: "draft", widget: "boolean", default: true }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - label: "About"
+    name: "about"
+    editor:
+      preview: false
+    files:
+      - label: "About Content"
+        name: "about_content"
+        file: "src/_data/about.json"
+        format: "json"
+        fields:
+          - { label: "Title", name: "title", widget: "string", required: false }
+          - { label: "Kicker", name: "kicker", widget: "string", required: false }
+          - { label: "HTML (advanced)", name: "html", widget: "text", required: false }
+          - { label: "Text (simple)", name: "text", widget: "text", required: false }
+          - label: "CTA"
+            name: "cta"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Label", name: "label", widget: "string", required: false }
+              - { label: "Link", name: "href", widget: "string", required: false }
+          - label: "Image"
+            name: "image"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Image File", name: "src", widget: "image", required: false }
+              - { label: "Alt Text", name: "alt", widget: "string", required: false }
+              - { label: "Width", name: "width", widget: "number", required: false }
+              - { label: "Height", name: "height", widget: "number", required: false }
+              - { label: "Caption", name: "caption", widget: "string", required: false }

@@ -1,7 +1,7 @@
 ﻿{# components/hero.njk #}
 {% set v = collections.all | length %}
-{% set heroImg = page.heroImage or metadata.heroImage or "/assets/img/hero-quixote.jpg" %}
-
+{% set heroImg = page.heroImage or metadata.heroImage or "/img/logo.png" %}
+<!-- DEBUG heroImg: {{ heroImg }} -->
 <section class="hero hero--quixote">
   <div class="hero__media" aria-hidden="true">
     <img

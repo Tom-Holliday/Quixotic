@@ -14,9 +14,9 @@ a{color:inherit;text-decoration:none}
 /* ========================================================================== */
 :root {
   /* Surfaces */
-  --bg:#0b1220;
-  --surface:#0f172a;
-  --elev:#111b2e;
+  --bg:#000000;
+  --surface:#000000;
+  --elev:#000000;
 
   /* Text */
   --text:#dce7ff;
@@ -64,7 +64,7 @@ html[data-theme="light"]{
   --elev:#cbd5e1;      /* slate-300/400 */
   --text:#111827;      /* slate-900 */
   --text-muted:#374151;/* slate-700 */
-  --text-subtle:#4b5563;/* slate-600 */
+  --text-subtle:#0000009f;/* slate-600 */
   --brand:#1d4ed8;     /* royal blue */
   --brand-contrast:#ffffff;
   --accent:#0ea5e9;    /* brighter cyan for light */
@@ -132,6 +132,19 @@ main{display:block}
   border:1px solid var(--border); color:var(--text);
 }
 
+.site-header, 
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* instead of space-between */
+  padding-inline: 0 1rem;        /* small left padding */
+}
+
+.site-header .logo,
+header .logo {
+  margin-left: auto;               /* kill any extra spacing */
+}
+
 /* Adaptive header tints */
 html[data-theme="light"] .site-head{
   background: color-mix(in oklab, var(--surface) 95%, white 5%);
@@ -170,9 +183,9 @@ html[data-theme="dark"] .site-head{
 html[data-theme="dark"] .hero__overlay {
   background: linear-gradient(
     to bottom,
-    rgba(11,61,145,.20) 0%,   /* was .32 */
-    rgba(11,61,145,.10) 45%,  /* was .16 */
-    rgba(11,61,145,0) 100%
+    rgba(0, 0, 0, 0) 0%,   /* was .32 */
+    rgba(0, 0, 0, 0.1) 45%,  /* was .16 */
+    rgba(0, 0, 0, 0) 100%
   );
 }
 
@@ -313,3 +326,59 @@ html[data-theme="light"] .hero__intro{
 .hero__media{ z-index:0; }
 .hero__overlay{ z-index:1; }
 .hero__inner{ z-index:2; }
+
+/* ---- About section ---- */
+.about {
+  margin-top: var(--space-8);
+}
+
+.about__grid {
+  display: grid;
+  gap: var(--space-6);
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.about__copy {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+.about__title {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--space-3);
+}
+
+.about__content p + p {
+  margin-top: var(--space-3);
+}
+
+.about__cta {
+  margin-top: var(--space-4);
+}
+
+.about__media img {
+  opacity: 0.3;         /* 80% visible */
+  transition: opacity 0.3s ease;
+}
+
+.about__media img:hover {
+  opacity: 1;            /* full on hover (optional) */
+}
+
+/* Ensure the CTA is on top and receives clicks */
+.about__cta { margin-top: 1rem; position: relative; z-index: 3; }
+.about__cta .btn { pointer-events: auto; position: relative; z-index: 3; }
+
+/* Make sure media or other layers aren't sitting above it */
+.about__media { position: relative; z-index: 1; }
+.about__content { position: relative; z-index: 2; }
+
+/* Safety: if any parent accidentally disabled clicks */
+.about, .about__grid, .about__copy { pointer-events: auto; }
+
+
+

@@ -1,0 +1,4 @@
+a, .btn { transition: box-shadow .2s ease, transform .04s ease; }
+a:hover, .btn:hover {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 35%, transparent);
+}

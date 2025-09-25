@@ -38,11 +38,17 @@
 
   {{ content | safe }}
 
+
   <footer class="site-foot">
     <div class="container">
       <p>© {{ metadata.title or "Quixotic" }}</p>
     </div>
   </footer>
+
+  {% include "components/backtotop.njk" %}
+<link rel="stylesheet" href="/assets/css/backtotop.css">
+<script defer src="/assets/js/backtotop.js"></script>
+
 
 <script>
 (function () {
@@ -63,6 +69,6 @@
   });
 })();
 </script>
-
+<script defer src="/assets/js/progress.js"></script>
 </body>
 </html>

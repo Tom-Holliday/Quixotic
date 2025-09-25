@@ -1,0 +1,14 @@
+{
+  "title": "About",
+  "text": "My name is Tom Holliday (BSc's in International Business & Applied Finance). I started Quixotic as a an extension of my deep-seated passion in everything finance and business related. \n With this blog, I will be exploring the moving parts of the contemporary economic environment with the hopes of providing some unique topical insights. \n The term Quixotic is derived from the spanish novel Don Quixote. A story which follows the travels of a 'low-born' knight and his mission to civilise a barbaric society. \n Akin to the story of Don Quixote, it is the mission of this blog to bring a bit of civility and positivism to blogging culture.",
+  "cta": {
+    "label": "Contact me",
+    "href": "mailto:tom.holliday@hotmail.com"
+  },
+  "image": {
+    "src": "/assets/img/about.jpg",
+    "width": 1200,
+    "height": 800,
+    "caption": "First step to solving a problem is recognising there is one."
+  }
+}

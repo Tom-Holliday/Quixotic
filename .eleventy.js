@@ -194,3 +194,13 @@ module.exports = function (eleventyConfig) {
     passthroughFileCopy: true,
   };
 };
+
+const htmlToText = (html) => html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+
+module.exports = function (eleventyConfig) {
+  eleventyConfig.addFilter("readingTime", content => {
+    const words = htmlToText(content || "").split(" ").filter(Boolean).length;
+    const mins = Math.max(1, Math.round(words / 200));
+    return `${mins} min read`;
+  });
+};

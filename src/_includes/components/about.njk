@@ -1,0 +1,42 @@
+{# components/about.njk #}
+{% if about %}
+<section id="about" class="section about">
+  <div class="container about__grid">
+
+    <div class="about__copy">
+      {% if about.title %}<h2 class="about__title">{{ about.title }}</h2>{% endif %}
+      {% if about.kicker %}<p class="about__kicker">{{ about.kicker }}</p>{% endif %}
+
+      {% if about.html %}
+        <div class="about__content">{{ about.html | safe }}</div>
+      {% elseif about.text %}
+        <div class="about__content">
+          {# Fallback: split lines into paragraphs without needing a markdown filter #}
+          {% for line in about.text | splitLines %}
+            {% if line %}<p>{{ line }}</p>{% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if about.cta and about.cta.href %}
+        <p class="about__cta">
+          <a class="btn" href="{{ about.cta.href }}">{{ about.cta.label or 'Learn more' }}</a>
+        </p>
+      {% endif %}
+    </div>
+
+    {% if about.image and about.image.src %}
+    <figure class="about__media">
+      <img
+        src="{{ about.image.src | url }}?v={{ about.image.src | assetHash }}"
+        alt="{{ about.image.alt or 'About image' }}"
+        width="{{ about.image.width or 1200 }}"
+        height="{{ about.image.height or 800 }}"
+        loading="lazy" decoding="async" />
+      {% if about.image.caption %}<figcaption class="about__caption">{{ about.image.caption }}</figcaption>{% endif %}
+    </figure>
+    {% endif %}
+
+  </div>
+</section>
+{% endif %}
