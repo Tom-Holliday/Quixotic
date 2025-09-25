@@ -3,6 +3,7 @@ layout: post.njk
 title: "Kicking the tyres on the AI bubble: A practical perspective "
 description: "A positivist outlook on the recent speculation surrounding the 'AI bubble'. "
 date: 2025-09-15
+cover: /assets/img/ai.bubble.jpeg
 draft: true
 ---
 
