@@ -1,23 +1,54 @@
 ﻿---
 layout: base.njk
-title: Home
-bodyClass: home-quixote
-eleventyExcludeFromCollections: true
+title: "Home"
 ---
 
+{# ---------- HERO (component; has its own safe fallbacks) ---------- #}
 {% include "components/hero.njk" %}
 
-<main class="container">
-  <section class="intro">
-    <p class="lead">
-      Explore recent writing on the <a href="/posts/">Posts</a> page.
-      Long-form, sourced, and accessible.
-    </p>
-  </section>
+{# ---------- INTRO ---------- #}
+<section class="intro container" style="margin-top:1rem">
+  <p class="lede">
+    Explore recent writing on the <a href="/posts/">Posts</a> page. Long-form, sourced, and accessible.
+  </p>
+</section>
 
-  {# About lives under the hero #}
-  {% include "components/about.njk" %}
+{# ---------- ABOUT (component; safe if _data/about.json is empty) ---------- #}
+{% include "components/about.njk" ignore missing %}
 
+{# ---------- LATEST POSTS ---------- #}
+<section class="container" style="margin-top:2rem">
+  <h2 style="margin:0 0 .75rem 0">Latest posts</h2>
 
-
-</main>
+  {% set list = collections.postsPublishedSorted or collections.postsSorted %}
+  {% if list and (list | length) > 0 %}
+    <div class="post-grid">
+      {% for post in list %}
+        {% if loop.index0 < 6 %}
+          <article class="card">
+            <a href="{{ post.url }}">
+              {% if post.data.cover or post.data.hero %}
+                <div class="card__media">
+                  <img
+                    src="{{ post.data.cover or post.data.hero }}"
+                    alt="{{ post.data.coverAlt or post.data.heroAlt or post.data.title }}"
+                    loading="lazy" decoding="async">
+                </div>
+              {% endif %}
+              <div class="card__body">
+                <h3 class="card__title">{{ post.data.title }}</h3>
+                <p class="card__meta">
+                  <time datetime="{{ post.date | dateIso }}">{{ post.date | dateDisplay }}</time>
+                  {% if post.data.byline or post.data.author %} · {{ post.data.byline or post.data.author }}{% endif %}
+                </p>
+              </div>
+            </a>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <p style="margin-top:1rem"><a class="btn secondary" href="/posts/">View all posts →</a></p>
+  {% else %}
+    <p>No posts yet.</p>
+  {% endif %}
+</section>

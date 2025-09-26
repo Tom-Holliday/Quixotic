@@ -1,14 +1,13 @@
 ---
 layout: post.njk
-title: "Kicking the tyres on the AI bubble: A practical perspective "
-description: "A positivist outlook on the recent speculation surrounding the 'AI bubble'. "
+title: "Kicking the tyres on the AI bubble: A practical perspective"
 date: 2025-09-15
-cover: /assets/img/ai.bubble.jpeg
-draft: true
+byline: "Tom Holliday"          # was: author
+hero: /assets/img/ai.bubble.jpeg # was: cover
+description: "A positivist outlook on the recent speculation surrounding the 'AI bubble'."
+draft: false
+tags: [post]
 ---
-
-
-
 
 
 

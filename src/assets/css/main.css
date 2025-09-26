@@ -1,3 +1,4 @@
+/* (unchanged structure; kept exactly as provided) */
 /* ========================================================================== */
 /* Reset                                                                      */
 /* ========================================================================== */
@@ -10,30 +11,10 @@ input,button,textarea,select{font:inherit}
 a{color:inherit;text-decoration:none}
 
 /* ========================================================================== */
-/* Design Tokens — Dark is default                                            */
+/* Design Tokens — COLORS ONLY                                                */
+/* (Dark mode = white UI; Light mode = black UI)                              */
 /* ========================================================================== */
 :root {
-  /* Surfaces */
-  --bg:#000000;
-  --surface:#000000;
-  --elev:#000000;
-
-  /* Text */
-  --text:#dce7ff;
-  --text-muted:#a9bff7;
-  --text-subtle:#7fa0ef;
-
-  /* Brand */
-  --brand:#3b82f6;           /* royal blue */
-  --brand-contrast:#0b1220;
-  --accent:#22d3ee;          /* cyan accent */
-
-  /* Lines / focus */
-  --border:#19263b;
-  --border-subtle:#0e1424;
-  --focus:#93c5fd;
-
-  /* Type / scale */
   --font-sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   --font-headings:"Outfit","Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
   --font-mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
@@ -44,7 +25,6 @@ a{color:inherit;text-decoration:none}
   --fs-md: 1.12rem;
   --fs-sm: .96rem;
 
-  /* Layout */
   --container:72rem;
   --radius:16px;
   --radius-sm:12px;
@@ -55,27 +35,70 @@ a{color:inherit;text-decoration:none}
   --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
 
   --measure:68ch; --ul-off:.15em;
-}
+  --max-width:74ch;
 
-/* Light Mode — darker/slate grey */
-html[data-theme="light"]{
-  --bg:#e5e7eb;        /* slate-200 */
-  --surface:#d1d5db;   /* slate-300 */
-  --elev:#cbd5e1;      /* slate-300/400 */
-  --text:#111827;      /* slate-900 */
-  --text-muted:#374151;/* slate-700 */
-  --text-subtle:#0000009f;/* slate-600 */
-  --brand:#1d4ed8;     /* royal blue */
+  --bg:#ffffff;
+  --surface:#f9fafb;
+  --elev:#f3f4f6;
+
+  --text:#111827;
+  --text-muted:#374151;
+  --text-subtle:#6b7280;
+
+  --brand:#1d4ed8;
   --brand-contrast:#ffffff;
-  --accent:#0ea5e9;    /* brighter cyan for light */
-  --border:#9ca3af;    /* slate-400 */
-  --border-subtle:#d1d5db;
-  --focus:#93c5fd;
+  --accent:#0ea5e9;
+
+  --border:#e5e7eb;
+  --border-subtle:#eef2f7;
+  --focus:#2563eb;
+
+  --card:#f3f4f6;
+  --link:#1d4ed8;
 }
 
-/* ========================================================================== */
-/* Base                                                                       */
-/* ========================================================================== */
+html[data-theme="dark"]{
+  --bg:#ffffff;
+  --surface:#f9fafb;
+  --elev:#f3f4f6;
+
+  --text:#111827;
+  --text-muted:#374151;
+  --text-subtle:#6b7280;
+
+  --brand:#1d4ed8;
+  --brand-contrast:#ffffff;
+  --accent:#0ea5e9;
+
+  --border:#e5e7eb;
+  --border-subtle:#eef2f7;
+  --focus:#2563eb;
+
+  --card:#f3f4f6;
+  --link:#1d4ed8;
+}
+
+html[data-theme="light"]{
+  --bg:#0b1220;
+  --surface:#101826;
+  --elev:#1a2335;
+
+  --text:#e5e7eb;
+  --text-muted:#9aa4b2;
+  --text-subtle:#7c8599;
+
+  --brand:#93c5fd;
+  --brand-contrast:#0b1220;
+  --accent:#22d3ee;
+
+  --border:#263244;
+  --border-subtle:#1a2537;
+  --focus:#93c5fd;
+
+  --card:#101826;
+  --link:#93c5fd;
+}
+
 html,body{height:100%}
 body{
   background:var(--bg);
@@ -87,12 +110,9 @@ body{
   -moz-osx-font-smoothing:grayscale;
 }
 
-a{color:var(--brand);text-underline-offset:var(--ul-off)}
-a:hover{text-decoration-thickness:2px}
+a{color:var(--link);text-underline-offset:var(--ul-off)}
+a:hover{text-decoration-thickness:2px;text-decoration:underline}
 
-/* ========================================================================== */
-/* Typography                                                                 */
-/* ========================================================================== */
 h1,h2,h3,h4{line-height:1.15;font-weight:800;letter-spacing:-0.015em;font-family:var(--font-headings)}
 h1{font-size:var(--fs-xxl);margin:var(--space-6) 0 var(--space-4)}
 h2{font-size:var(--fs-xl); margin:var(--space-6) 0 var(--space-3)}
@@ -102,15 +122,9 @@ p + p{margin-top:var(--space-3)}
 .lede{font-size:clamp(1.1rem,1.1vw + .95rem,1.35rem);color:var(--text-muted)}
 h1, h2, h3, h4 { letter-spacing:-0.02em; }
 
-/* ========================================================================== */
-/* Layout                                                                     */
-/* ========================================================================== */
 .container{max-width:var(--container);margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
 main{display:block}
 
-/* ========================================================================== */
-/* Header                                                                     */
-/* ========================================================================== */
 .site-head{
   position:sticky;top:0;z-index:50;
   backdrop-filter:saturate(160%) blur(10px);
@@ -132,132 +146,71 @@ main{display:block}
   border:1px solid var(--border); color:var(--text);
 }
 
-.site-header, 
-header {
+/* FIXED (scoped) */
+.site-header,
+.site-head .inner {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* instead of space-between */
-  padding-inline: 0 1rem;        /* small left padding */
+  justify-content: space-between;
+  padding-inline: 0 1rem;
 }
 
-.site-header .logo,
-header .logo {
-  margin-left: auto;               /* kill any extra spacing */
-}
+/* with this */
+.site-head .logo { margin-left: auto; }
 
-/* Adaptive header tints */
-html[data-theme="light"] .site-head{
+html[data-theme="dark"] .site-head{
   background: color-mix(in oklab, var(--surface) 95%, white 5%);
   border-bottom: 1px solid var(--border);
   box-shadow: 0 2px 8px rgba(0,0,0,.04);
 }
-html[data-theme="dark"] .site-head{
+html[data-theme="light"] .site-head{
   background: color-mix(in oklab, var(--surface) 90%, black 10%);
   box-shadow: none;
 }
 
-/* Hide brand text on the homepage */
 .is-home .brand-text{display:none!important}
 
-/* ========================================================================== */
-/* Footer                                                                     */
-/* ========================================================================== */
 .site-foot{margin-top:var(--space-8);padding:var(--space-6) 0;color:var(--text-subtle);border-top:1px solid var(--border)}
 
-/* ========================================================================== */
-/* Hero                                                                       */
-/* ========================================================================== */
 .hero{position:relative;isolation:isolate;min-height:clamp(300px,42vh,560px)}
 .hero__media{position:absolute;inset:0;z-index:0;pointer-events:none}
 .hero__overlay{position:absolute;inset:0;z-index:1;pointer-events:none}
 .hero__inner{position:relative;z-index:2}
 
-/* Photo layer */
 .hero__img{
   width:100%;height:100%;object-fit:cover;display:block;
-  opacity:.35;
+  opacity:.65;
   filter:saturate(1.05) contrast(1.08) brightness(1.05) grayscale(12%);
 }
 
-/* Overlay (theme-adaptive) */
-html[data-theme="dark"] .hero__overlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,   /* was .32 */
-    rgba(0, 0, 0, 0.1) 45%,  /* was .16 */
-    rgba(0, 0, 0, 0) 100%
+html[data-theme="light"] .hero__overlay {
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,.55) 0%,
+    rgba(0,0,0,.30) 45%,
+    rgba(0,0,0,0) 100%
   );
 }
-
-html[data-theme="light"] .hero__overlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(17,24,39,.12) 0%,    /* was .18 */
-    rgba(17,24,39,.05) 40%,   /* was .08 */
+html[data-theme="dark"] .hero__overlay {
+  background: linear-gradient(to bottom,
+    rgba(17,24,39,.15) 0%,
+    rgba(17,24,39,.06) 40%,
     rgba(17,24,39,0) 100%
   );
 }
 
-/* 1) Let the photo show more */
-.hero__img {
-  opacity: .65;                 /* was ~.35; lift the image */
-  filter: contrast(1.05) saturate(1.02); /* keep it crisp, less gray wash */
-}
-
-/* 2) Soften/brighten the full-bleed gradient overlay */
-html[data-theme="dark"] .hero__overlay {
-  background: linear-gradient(to bottom,
-    rgba(11,61,145,.14) 0%,
-    rgba(11,61,145,.07) 45%,
-    rgba(11,61,145,0)   100%
-  ); /* lighter than before */
-}
-html[data-theme="light"] .hero__overlay {
-  background: linear-gradient(to bottom,
-    rgba(17,24,39,.08) 0%,
-    rgba(17,24,39,.04) 40%,
-    rgba(17,24,39,0)   100%
-  );
-}
-
-/* 3) Make the TITLE BOX (“overlay” in your wording) translucent glass */
-.hero__intro {
-  /* translucent background instead of solid */
-  background: color-mix(in oklab, var(--surface) 75%, transparent 25%);
-  /* if color-mix isn’t supported in a browser, this rgba fallback helps */
-  background: rgba( var(--_intro-r,15), var(--_intro-g,23), var(--_intro-b,42), .75 );
-  backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
-
-  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent 30%);
-  box-shadow: 0 10px 30px rgba(0,0,0,.16);
-}
-
-/* 3a) Provide per-theme fallback RGB for the rgba() line above */
-html[data-theme="dark"] {
-  --_intro-r: 15;  --_intro-g: 23;  --_intro-b: 42;   /* ~var(--surface) */
-}
-html[data-theme="light"] {
-  --_intro-r: 209; --_intro-g: 213; --_intro-b: 219;  /* ~var(--surface) in slate mode */
-}
-
-
-/* Foreground card */
 .hero__intro{
-  background:var(--surface);
-  border:1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 75%, transparent 25%);
+  border:1px solid color-mix(in oklab, var(--border) 70%, transparent 30%);
   border-radius:var(--radius);
   box-shadow:var(--shadow-1);
   padding:clamp(1.25rem,2vw,2rem);
   max-width:min(48rem,90%);
+  color: var(--text);
 }
 .hero__title{margin:0 0 .4rem}
 .hero__tag{margin:0;color:var(--text)}
 .hero__cite{margin-top:.9rem;color:var(--text-subtle);font-style:italic}
 
-/* ========================================================================== */
-/* Cards / Grid                                                               */
-/* ========================================================================== */
 .card-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--space-5)}
 .card-grid>*{grid-column:span 4}
 @media (max-width:1000px){.card-grid>*{grid-column:span 6}}
@@ -270,9 +223,6 @@ html[data-theme="light"] {
 .card-title{font-weight:800;font-size:1.125rem;color:var(--text)}
 .card-meta{color:var(--text-subtle);font-size:.95rem}
 
-/* ========================================================================== */
-/* Article / Prose                                                            */
-/* ========================================================================== */
 .post{margin:var(--space-6) 0}
 .post-header .meta{color:var(--text-subtle);font-size:.95rem}
 .post .content{max-width:var(--measure)}
@@ -280,65 +230,25 @@ html[data-theme="light"] {
 .post .content blockquote{
   border-left:3px solid var(--border);
   margin:1rem 0;padding:.75rem 1rem;
-  background:color-mix(in oklab,var(--elev),transparent 30%);
+  background:color-mix(in oklab,var(--elev) 85%, transparent);
   color:var(--text-muted)
 }
 
-/* ========================================================================== */
-/* Utilities                                                                  */
-/* ========================================================================== */
 .meta{color:var(--text-subtle);font-size:.95rem}
 .divider{height:1px;background:var(--border);margin:var(--space-6) 0}
 .btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--brand);color:var(--brand-contrast);border-radius:var(--radius-sm);padding:.55rem .9rem;font-weight:700}
 .btn.secondary{background:var(--elev);color:var(--text);border:1px solid var(--border)}
 
-/* ==== HERO VISIBILITY: force the photo through ==== */
+.hero__img{ opacity: .65; filter: contrast(1.05) saturate(1.02); }
 
-/* 1) Make sure the image itself is fully visible */
-.hero__img{
-  opacity: 1 !important;
-  filter: contrast(1.05) saturate(1.02) !important; /* optional polish */
-}
-
-/* 2) Temporarily nuke the gradient overlay (debug). 
-   If this makes the photo pop, you can re-enable with the lighter versions below. */
-.hero__overlay{ background: none !important; }
-
-/* 3) Make the TITLE BOX (your “overlay”) actually translucent using rgba fallbacks
-      (no color-mix, so it works everywhere) */
 .hero__intro{
-  /* DARK MODE glass card */
-  background-color: rgba(15, 23, 42, 0.42) !important;   /* ~ var(--surface) @ 42% */
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
-  box-shadow: 0 10px 30px rgba(0,0,0,.18);
-  background-clip: padding-box;
+  background: color-mix(in oklab, var(--surface) 75%, transparent 25%);
+  border-color: color-mix(in oklab, var(--border) 70%, transparent 30%);
+  color: var(--text);
 }
 
-/* LIGHT MODE glass card (slate) */
-html[data-theme="light"] .hero__intro{
-  background-color: rgba(209, 213, 219, 0.38) !important; /* ~ slate-300 @ 38% */
-  border-color: rgba(17, 24, 39, 0.14) !important;         /* subtle dark border */
-}
-
-/* keep layers correct */
-.hero__media{ z-index:0; }
-.hero__overlay{ z-index:1; }
-.hero__inner{ z-index:2; }
-
-/* ---- About section ---- */
-.about {
-  margin-top: var(--space-8);
-}
-
-.about__grid {
-  display: grid;
-  gap: var(--space-6);
-  max-width: var(--container);
-  margin-inline: auto;
-}
-
+.about { margin-top: var(--space-8); }
+.about__grid { display: grid; gap: var(--space-6); max-width: var(--container); margin-inline: auto; }
 .about__copy {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -346,39 +256,146 @@ html[data-theme="light"] .hero__intro{
   box-shadow: var(--shadow-1);
   padding: clamp(1.5rem, 3vw, 2rem);
 }
-
-.about__title {
-  font-size: var(--fs-xl);
-  margin-bottom: var(--space-3);
-}
-
-.about__content p + p {
-  margin-top: var(--space-3);
-}
-
-.about__cta {
-  margin-top: var(--space-4);
-}
-
-.about__media img {
-  opacity: 0.3;         /* 80% visible */
-  transition: opacity 0.3s ease;
-}
-
-.about__media img:hover {
-  opacity: 1;            /* full on hover (optional) */
-}
-
-/* Ensure the CTA is on top and receives clicks */
+.about__title { font-size: var(--fs-xl); margin-bottom: var(--space-3); }
+.about__content p + p { margin-top: var(--space-3); }
+.about__cta { margin-top: var(--space-4); }
+.about__media img { opacity: 0.3; transition: opacity 0.3s ease; }
+.about__media img:hover { opacity: 1; }
 .about__cta { margin-top: 1rem; position: relative; z-index: 3; }
 .about__cta .btn { pointer-events: auto; position: relative; z-index: 3; }
-
-/* Make sure media or other layers aren't sitting above it */
 .about__media { position: relative; z-index: 1; }
 .about__content { position: relative; z-index: 2; }
-
-/* Safety: if any parent accidentally disabled clicks */
 .about, .about__grid, .about__copy { pointer-events: auto; }
 
+main, .post, .home { padding: 1.25rem; }
+@media (min-width: 768px) {
+  main, .post, .home { padding: 2rem; }
+}
 
+.post { margin: 0 auto; max-width: var(--max-width); }
 
+.post-hero { margin: 0 0 1.25rem 0; }
+.post-hero img { width: 100%; height: auto; display: block; border-radius: 14px; }
+.post-hero figcaption { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; }
+
+.post-title {
+  font-size: clamp(2rem, 3vw + 1rem, 2.75rem);
+  line-height: 1.1;
+  margin: 0.25rem 0 0.5rem;
+}
+.post-meta { color: var(--text-muted); margin: 0 0 1.5rem 0; }
+
+.prose { color: var(--text); font-size: 1.125rem; line-height: 1.7; }
+.prose > * + * { margin-top: 1em; }
+.prose h2 { font-size: 1.6rem; line-height: 1.2; margin-top: 2rem; }
+.prose h3 { font-size: 1.3rem; line-height: 1.25; margin-top: 1.5rem; }
+.prose p, .prose li { letter-spacing: 0.01em; }
+.prose blockquote {
+  border-left: 4px solid var(--border);
+  padding: 0.5rem 1rem;
+  color: var(--text-muted);
+  background: color-mix(in oklab, var(--elev) 85%, transparent);
+  border-radius: 8px;
+}
+.prose img { max-width: 100%; border-radius: 10px; }
+.prose code { background: color-mix(in oklab, var(--elev) 80%, transparent); padding: 0.15em 0.35em; border-radius: 6px; }
+.prose pre { overflow: auto; padding: 1rem; background: #0f172a; color: #e5e7eb; border-radius: 12px; }
+
+.post-tags { margin-top: 1.25rem; color: var(--text-muted); }
+.post-tags a { color: inherit; text-decoration: underline; }
+.related { margin-top: 2.5rem; }
+.related h2 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+.prevnext {
+  display: flex; justify-content: space-between; align-items: center;
+  margin: 2rem 0 0; padding-top: 1rem; border-top: 1px solid var(--border);
+}
+
+.post-grid { display: grid; gap: 1.25rem; }
+@media (min-width: 768px) { .post-grid { grid-template-columns: 1fr; } }
+.card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--card); }
+.card__media img { display: block; width: 100%; height: auto; }
+.card__body { padding: 1rem 1.25rem; }
+.card__title { margin: 0 0 0.25rem; line-height: 1.25; font-size: 1.4rem; }
+.card__meta { color: var(--text-muted); font-size: 0.95rem; }
+
+.post-article{ margin: 2rem auto; max-width: 70ch; }
+.post-hero{ margin: 0 0 1.25rem; }
+.post-hero img{ width:100%; height:min(56vh,520px); object-fit:cover; border-radius:14px; display:block; }
+.post-hero figcaption{ font-size:.92rem; color:var(--text-subtle); margin-top:.5rem; }
+
+.post-header{ margin-bottom: .75rem; }
+.post-title{ font-size: clamp(2rem, 3vw + 1rem, 2.6rem); line-height:1.15; margin:.25rem 0 .35rem; }
+.post-meta{ color: var(--text-muted); font-size: .98rem; }
+
+.article-body{
+  font-size: 1.08rem;
+  line-height: 1.75;
+  letter-spacing: .005em;
+}
+.article-body > * + *{ margin-top: 1.05em; }
+.article-body p{ text-wrap: pretty; }
+.article-body h2{ font-size: 1.55rem; line-height:1.25; margin-top: 2rem; }
+.article-body h3{ font-size: 1.28rem; line-height:1.3; margin-top: 1.5rem; }
+.article-body blockquote{
+  margin: 1.2rem 0;
+  padding: .75rem 1rem;
+  border-left: 4px solid var(--border);
+  background: color-mix(in oklab, var(--elev) 85%, transparent);
+  color: var(--text-muted);
+  border-radius: 10px;
+}
+.article-body img{ max-width:100%; border-radius:10px; }
+.article-body code{ background: color-mix(in oklab, var(--elev) 80%, transparent); padding:.12em .35em; border-radius:6px; }
+.article-body pre{ overflow:auto; padding:1rem; background:#0f172a; color:#e5e7eb; border-radius:12px; }
+
+.post-tags{ margin-top: 1.25rem; color: var(--text-muted); }
+.post-tags a{ color: inherit; text-decoration: underline; }
+
+.post-grid{ display:grid; gap:1rem; }
+@media (min-width: 640px){ .post-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width:1024px){ .post-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+.card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: var(--shadow-1);
+}
+
+.card__media{
+  aspect-ratio: 3/2;
+  max-height: 180px;
+  overflow: hidden;
+}
+.card__media img{ width:100%; height:100%; object-fit: cover; display:block; }
+
+.card__body{ padding: .75rem 1rem; }
+.card__title{ font-size: 1.12rem; line-height: 1.3; margin: 0 0 .25rem; }
+.card__meta{ color: var(--text-muted); font-size: .95rem; }
+
+.post-header .post-meta {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+.post-title { color: var(--text) !important; display:block; }
+.article-body, .article-body * { color: var(--text) !important; }
+
+/* Full-bleed hero polish */
+.hero { min-height: clamp(360px, 45vh, 560px); }
+.hero__media { position: absolute; inset: 0; }
+.hero__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero__overlay { position: absolute; inset: 0; pointer-events: none; }
+.hero__inner { padding: clamp(1.25rem, 2vw, 2rem) 0; }
+
+/* Ensure the glass card never hugs page edges */
+.hero .hero__intro { margin: 0 clamp(1rem, 4vw, 2rem); }
+
+/* Home page spacing */
+.intro.container { margin-top: 1rem; }
+
+/* Active nav state (subtle) */
+.nav a.active { color: var(--text); text-decoration: underline; text-decoration-thickness: 2px; }

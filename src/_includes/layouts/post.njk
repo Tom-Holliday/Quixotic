@@ -1,99 +1,41 @@
-<p class="edit-link">
-  <a href="{{ page.inputPath | editOnGitHub }}" rel="noopener">Edit on GitHub</a>
-</p>
-<span class="meta">{{ content | readingTime }}</span>
-
 ---
 layout: base.njk
 ---
-<article class="post">
-  <header class="post-header">
-    <h1>{{ title }}</h1>
-    <p class="meta">
-      <time datetime="{{ page.date | dateIso }}">{{ page.date | dateDisplay }}</time>
-      {% if readingTime %} · {{ readingTime }} min read{% endif %}
+
+<article class="post container mx-auto max-w-3xl px-4 py-10">
+  <header class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-semibold leading-tight post-title">
+      {{ title or page.fileSlug }}
+    </h1>
+
+    <p class="mt-2 text-sm opacity-80 italic post-meta">
+      {% if byline or author %}{{ byline or author }} · {% endif %}
+      {% if page.date %}
+        <time datetime="{{ page.date | dateIso }}">{{ page.date | dateDisplay }}</time>
+      {% endif %}
     </p>
+
+    {% set heroSrc = hero or cover %}
+    {% if heroSrc %}
+      <figure class="post-hero mt-6">
+        <img class="w-full h-auto rounded-xl" src="{{ heroSrc }}" alt="{{ heroAlt or coverAlt or title }}">
+        {% if heroCaption %}<figcaption class="mt-2 text-xs opacity-70">{{ heroCaption | safe }}</figcaption>{% endif %}
+      </figure>
+    {% endif %}
   </header>
 
-  <div class="post-grid">
-    <!-- Main column -->
-    <div class="post-main">
-      <div class="content">
-        {{ content | safe }}
-      </div>
+  <section class="prose dark:prose-invert prose-headings:scroll-mt-24 article-body">
+    {{ content | safe }}
+  </section>
 
-      {% if tags and tags.length %}
-        <p class="meta">Tags:
-          {% for t in tags %}
-            <a href="/tag/{{ t | url }}/">{{ t }}</a>{% if not loop.last %}, {% endif %}
-          {% endfor %}
-        </p>
-      {% endif %}
+  {% if tags %}
+    <p class="post-tags">
+      <span>Tags:</span>
+      {% for t in tags %}<a href="/tag/{{ t | url }}/">{{ t }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    </p>
+  {% endif %}
 
-      {% include "partials/share.njk" %}
-      {% include "partials/post-nav.njk" %}
-      <hr>
-      {% include "partials/giscus.njk" %}
-    </div>
-
-    <!-- Sidebar -->
-    <aside class="post-aside">
-      {% include "partials/toc.njk" %}
-    </aside>
-  </div>
+  {% include "partials/post-nav.njk" ignore missing %}
+  {% include "partials/giscus.njk" ignore missing %}
 </article>
 
-<div id="comments" class="giscus-container">
-  <script src="https://giscus.app/client.js"
-    data-repo="{{ giscus.repo }}"
-    data-repo-id="{{ giscus.repoId }}"
-    data-category="{{ giscus.category }}"
-    data-category-id="{{ giscus.categoryId }}"
-    data-mapping="{{ giscus.mapping or 'pathname' }}"
-    data-strict="1"
-    data-reactions-enabled="{{ giscus.reactionsEnabled or '1' }}"
-    data-emit-metadata="{{ giscus.emitMetadata or '0' }}"
-    data-input-position="{{ giscus.inputPosition or 'bottom' }}"
-    data-theme="{{ giscus.theme or 'light' }}"
-    data-lang="{{ giscus.lang or 'en' }}"
-    crossorigin="anonymous"
-    async>
-  </script>
-  <noscript>Enable JavaScript to view comments.</noscript>
-</div>
-
-{% include "components/giscus.njk" %}
-
-<hr>
-
-<p class="edit-link"><a href="{{ page.inputPath | editOnGitHub }}" rel="noopener">Edit on GitHub</a></p>
-
-{% set related = collections.post | relatedPosts(page, 3) %}
-{% if related.length %}
-<section class="related">
-  <h2>Related Posts</h2>
-  <ul>
-    {% for r in related %}
-      <li><a href="{{ r.url }}">{{ r.data.title }}</a></li>
-    {% endfor %}
-  </ul>
-</section>
-{% endif %}
-
-{% set all = collections.postsSorted %}
-{% set i = all | indexOf(page) %}
-<nav class="prevnext" style="display:flex;justify-content:space-between;margin:2rem 0;">
-  <div>
-    {% if i > 0 %}
-      {% set newer = all[i-1] %}<a href="{{ newer.url }}">&larr; {{ newer.data.title }}</a>
-    {% endif %}
-  </div>
-  <div>
-    {% if i + 1 < all.length %}
-      {% set older = all[i+1] %}<a href="{{ older.url }}">{{ older.data.title }} &rarr;</a>
-    {% endif %}
-  </div>
-</nav>
-
-{# Giscus, if you added src/_includes/components/giscus.njk and _data/giscus.js #}
-{% include "components/giscus.njk" ignore missing %}

@@ -1,9 +1,11 @@
-// .eleventy.js
+console.log(">>> Using Eleventy config from:", __filename);
+
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const { DateTime } = require("luxon");
 
-// --- Optional dependencies (graceful fallbacks) ---
+// Optional deps (don’t crash if missing)
 let Image, markdownIt, markdownItAnchor, pluginRss;
 try { Image = require("@11ty/eleventy-img"); } catch {}
 try {
@@ -12,17 +14,22 @@ try {
 } catch {}
 try { pluginRss = require("@11ty/eleventy-plugin-rss"); } catch {}
 
-// --- Helpers ---
+// Helpers
 function srcFromWebPath(webPath) {
   if (!webPath) return null;
   if (webPath.startsWith("/assets/")) return path.join("./src", webPath);
   if (webPath.startsWith("src/assets/")) return "./" + webPath.replace(/^\.?\//, "");
   return null;
 }
-const htmlToText = (html) => html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+const htmlToText = (html = "") =>
+  html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.setDataDeepMerge(true);
+
+  // --- Layout aliases (keep simple, filenames only) ---
+  eleventyConfig.addLayoutAlias("base", "base.njk");
+  eleventyConfig.addLayoutAlias("post", "post.njk");
 
   // --- Filters ---
   eleventyConfig.addFilter("editOnGitHub", (inputPath) => {
@@ -48,7 +55,6 @@ module.exports = function (eleventyConfig) {
     const IGNORE = new Set(["post", "posts", "all"]);
     const currentTags = new Set((page.data.tags || []).filter(t => !IGNORE.has(t)));
     if (!currentTags.size) return [];
-
     return collection
       .filter(p => p.url && p.url !== page.url)
       .map(p => {
@@ -63,19 +69,43 @@ module.exports = function (eleventyConfig) {
       .map(x => x.p);
   });
 
-  eleventyConfig.addFilter("dateIso", (value) => value ? new Date(value).toISOString() : "");
-  eleventyConfig.addFilter("dateDisplay", (value) => {
-    if (!value) return "";
-    const d = new Date(value);
-    return isNaN(d) ? "" : new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" }).format(d);
+  eleventyConfig.addFilter("dateIso", (v) =>
+    v ? new Date(v).toISOString() : ""
+  );
+
+  eleventyConfig.addFilter("dateDisplay", (v) => {
+    if (!v) return "";
+    const d = new Date(v);
+    return isNaN(d)
+      ? ""
+      : new Intl.DateTimeFormat("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }).format(d);
   });
 
-  eleventyConfig.addFilter("indexOf", (arr, item) => Array.isArray(arr) ? arr.findIndex(x => x.url === item.url) : -1);
-  eleventyConfig.addFilter("splitLines", (value) => value ? String(value).replace(/\r\n?/g, "\n").split("\n") : []);
+  eleventyConfig.addFilter("indexOf", (arr, item) =>
+    Array.isArray(arr) ? arr.findIndex(x => x.url === item.url) : -1
+  );
+
+  eleventyConfig.addFilter("splitLines", (v) =>
+    v ? String(v).replace(/\r\n?/g, "\n").split("\n") : []
+  );
+
   eleventyConfig.addFilter("readingTime", (content) => {
-    const words = htmlToText(content || "").split(" ").filter(Boolean).length;
+    const words = htmlToText(content).split(" ").filter(Boolean).length;
     const mins = Math.max(1, Math.round(words / 200));
     return `${mins} min read`;
+  });
+
+  // Universal date filter
+  eleventyConfig.addFilter("date", (dateObj, fmt = "dd LLL yyyy") => {
+    if (!dateObj) return "";
+    const dt = typeof dateObj === "string"
+      ? DateTime.fromISO(dateObj)
+      : DateTime.fromJSDate(dateObj);
+    return dt.isValid ? dt.toFormat(fmt) : "";
   });
 
   // --- Plugins ---
@@ -92,7 +122,8 @@ module.exports = function (eleventyConfig) {
           symbol: "#",
           level: [1, 2, 3, 4],
         }),
-        slugify: (s) => s.trim().toLowerCase().replace(/[^\w]+/g, "-"),
+        slugify: (s) =>
+          s.trim().toLowerCase().replace(/[^\w]+/g, "-"),
       });
     }
     eleventyConfig.setLibrary("md", md);
@@ -100,27 +131,37 @@ module.exports = function (eleventyConfig) {
 
   // --- Collections ---
   const postsGlob = "./src/posts/**/*.md";
-  eleventyConfig.addCollection("postsSorted", (c) => c.getFilteredByGlob(postsGlob).sort((a, b) => b.date - a.date));
+  eleventyConfig.addCollection("postsSorted", (c) =>
+    c.getFilteredByGlob(postsGlob).sort((a, b) => b.date - a.date)
+  );
   eleventyConfig.addCollection("postsPublishedSorted", (c) =>
-    c.getFilteredByGlob(postsGlob).filter((p) => !p.data.draft).sort((a, b) => b.date - a.date)
+    c.getFilteredByGlob(postsGlob).filter(p => !p.data.draft).sort((a, b) => b.date - a.date)
   );
   eleventyConfig.addCollection("postsDraftsSorted", (c) =>
-    c.getFilteredByGlob(postsGlob).filter((p) => p.data.draft).sort((a, b) => b.date - a.date)
+    c.getFilteredByGlob(postsGlob).filter(p => p.data.draft).sort((a, b) => b.date - a.date)
   );
 
   // --- Shortcodes ---
   if (Image) {
-    eleventyConfig.addNunjucksAsyncShortcode("img", async (src, alt = "", widths = [400, 800, 1200], sizes = "(min-width: 768px) 800px, 100vw") => {
-      const metadata = await Image(src, {
-        widths,
-        formats: ["webp", "jpeg"],
-        urlPath: "/assets/img/",
-        outputDir: "./_site/assets/img/",
-      });
-
-      const attrs = { alt, sizes, loading: "lazy", decoding: "async", class: "rounded" };
-      return Image.generateHTML(metadata, attrs, { whitespaceMode: "inline" });
-    });
+    eleventyConfig.addNunjucksAsyncShortcode(
+      "img",
+      async (src, alt = "", widths = [400, 800, 1200], sizes = "(min-width: 768px) 800px, 100vw") => {
+        const metadata = await Image(src, {
+          widths,
+          formats: ["webp", "jpeg"],
+          urlPath: "/assets/img/",
+          outputDir: "./_site/assets/img/",
+        });
+        const attrs = {
+          alt,
+          sizes,
+          loading: "lazy",
+          decoding: "async",
+          class: "rounded",
+        };
+        return Image.generateHTML(metadata, attrs, { whitespaceMode: "inline" });
+      }
+    );
   }
 
   // --- Passthrough / Watch ---
@@ -135,9 +176,9 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: "src",
-      includes: "_includes",    // layouts live here
-      layouts: "_includes/layouts",     // so `layout: base.njk` works
+      includes: "_includes",        // where base.njk and post.njk live
       data: "_data",
+      layouts: "_includes/layouts", // where layouts/ filenames resolve from
       output: "_site",
     },
     markdownTemplateEngine: "njk",
