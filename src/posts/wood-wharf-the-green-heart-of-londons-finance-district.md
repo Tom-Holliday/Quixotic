@@ -3,6 +3,7 @@ layout: post.njk
 title: "Wood Wharf: The green heart of London's finance district "
 description: ""
 date: 2025-09-28
+byline: "Tom Holliday" 
 tags: []
 cover: /assets/img/wood-wharf.jpeg
 draft: false

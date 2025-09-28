@@ -4,7 +4,7 @@ title: "Kicking the tyres on the AI bubble: A practical perspective"
 date: 2025-09-15
 byline: "Tom Holliday"          # was: author
 hero: /assets/img/ai.bubble.jpeg # was: cover
-description: "A positivist outlook on the recent speculation surrounding the 'AI bubble'."
+description: ""
 draft: false
 tags: [post]
 ---
