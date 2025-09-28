@@ -4,6 +4,7 @@ title: "Wood Wharf: The green heart of London's finance district "
 description: ""
 date: 2025-09-28
 tags: []
+cover: /assets/img/wood-wharf.jpeg
 draft: false
 ---
 Emerging from the surprisingly clean underbelly of Canary Wharf tube station, I was
