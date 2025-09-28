@@ -8,7 +8,6 @@ layout: base.njk
       {{ title or page.fileSlug }}
     </h1>
 
-{% if byline or author %}{{ byline or author }} · {% endif %}
 
     <p class="mt-2 text-sm opacity-80 italic post-meta">
       {% if byline or author %}{{ byline or author }} · {% endif %}

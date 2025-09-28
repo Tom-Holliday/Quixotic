@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% if title %}{{ title }} · {% endif %}{{ metadata.title or 'Site' }}</title>
 
-  {# Early theme bootstrap: set data-theme before CSS paints #}
+  {# Early theme bootstrap #}
   <script>
     (function () {
       try {
@@ -14,8 +14,6 @@
           document.documentElement.setAttribute('data-theme', saved);
         } else {
           var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          // Your design uses a white UI when "dark" is active in tokens.
-          // If user prefers dark, keep your default "dark" token set; else flip to light.
           document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
         }
       } catch (e) {}
@@ -30,7 +28,10 @@
   {% include "components/header.njk" %}
 
   <main id="main-content" class="container">
+    {# 1) If a template extends this layout, render its block #}
     {% block content %}{% endblock %}
+    {# 2) If a template uses `layout: base.njk` (no extends), render its content #}
+    {% if content %}{{ content | safe }}{% endif %}
   </main>
 
   {% include "components/footer.njk" ignore missing %}
