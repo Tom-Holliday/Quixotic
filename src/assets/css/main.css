@@ -399,3 +399,19 @@ main, .post, .home { padding: 1.25rem; }
 
 /* Active nav state (subtle) */
 .nav a.active { color: var(--text); text-decoration: underline; text-decoration-thickness: 2px; }
+
+.about__grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; /* makes text centered too */
+}
+
+.about__media {
+  margin-top: 1.5rem;
+}
+
+.about__media img {
+  max-width: 100%;
+  height: auto;
+}
