@@ -7,8 +7,8 @@
   },
   "image": {
     "src": "/assets/img/about.jpg",
-    "width": 1200,
-    "height": 800,
+    "width": 1000,
+    "height": 600,
     "caption": "First step to solving a problem is recognising there is one."
   }
 }
