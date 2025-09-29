@@ -27,3 +27,10 @@
     if (btn) btn.addEventListener("click", toggleTheme, { passive: true });
   });
 })();
+
+VanillaTilt.init(document.querySelector(".about__media img"), {
+  max: 15,
+  speed: 400,
+  glare: true,
+  "max-glare": 0.3,
+});
