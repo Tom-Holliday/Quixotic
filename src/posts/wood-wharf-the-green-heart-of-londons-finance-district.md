@@ -1,11 +1,10 @@
 ---
 layout: post.njk
 title: "Wood Wharf: The green heart of London's finance district "
-description: ""
+description: Tom Holliday
 date: 2025-09-28
-byline: "Tom Holliday" 
 tags: []
-cover: /assets/img/wood-wharf.jpeg
+cover: /assets/img/wood-wharf.jpg
 draft: false
 ---
 Emerging from the surprisingly clean underbelly of Canary Wharf tube station, I was
