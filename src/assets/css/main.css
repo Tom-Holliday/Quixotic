@@ -79,8 +79,8 @@ html[data-theme="dark"]{
 }
 
 html[data-theme="light"]{
-  --bg:#0b1220;
-  --surface:#101826;
+  --bg:#000000;
+  --surface:#000000;
   --elev:#1a2335;
 
   --text:#e5e7eb;
@@ -91,8 +91,8 @@ html[data-theme="light"]{
   --brand-contrast:#0b1220;
   --accent:#22d3ee;
 
-  --border:#263244;
-  --border-subtle:#1a2537;
+  --border:#670a0a;
+  --border-subtle:#6d0808;
   --focus:#93c5fd;
 
   --card:#101826;
