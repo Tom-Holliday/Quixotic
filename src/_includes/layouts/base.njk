@@ -37,8 +37,14 @@
   {% include "components/footer.njk" ignore missing %}
 
   <script src="/assets/js/theme.js?v={{ '/assets/js/theme.js' | assetHash }}" defer></script>
+
+  {# Search dependencies: FlexSearch first, then your script #}
+  <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.31/dist/flexsearch.bundle.min.js" defer></script>
+  <script src="/assets/js/search.js?v={{ '/assets/js/search.js' | assetHash }}" defer></script>
+
+  {# If you use VanillaTilt for the about image #}
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js" defer></script>
+  <script src="/assets/js/tilt.js" defer></script>
 </body>
 </html>
-
-<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
 

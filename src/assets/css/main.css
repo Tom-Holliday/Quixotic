@@ -91,7 +91,7 @@ html[data-theme="light"]{
   --brand-contrast:#0b1220;
   --accent:#22d3ee;
 
-  --border:#670a0a;
+  --border:#ffffff;
   --border-subtle:#6d0808;
   --focus:#93c5fd;
 
@@ -415,3 +415,106 @@ main, .post, .home { padding: 1.25rem; }
   max-width: 100%;
   height: auto;
 }
+
+.search-box {
+  margin: 2rem 0;
+}
+#search {
+  width: 100%;
+  max-width: 30rem;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+#results {
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+}
+#results li {
+  margin-bottom: 0.75rem;
+}
+/* Make the header a single, non-wrapping row */
+.site-head .inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:nowrap;          /* ⬅ prevent wrapping */
+  gap:1rem;
+}
+
+/* Left group: logo + search stay in a row */
+.site-head__left{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+  flex:1 1 auto;             /* can grow/shrink */
+  min-width:0;               /* allow children to shrink */
+}
+
+/* Keep brand compact */
+.brand{ display:flex; align-items:center; gap:.5rem; white-space:nowrap; }
+
+/* Search box should NOT be full-width */
+.search-box{ position:relative; flex:0 1 26rem; max-width:26rem; }
+.search-box input{
+  width:100%;                /* fill only its flex basis (not the whole row) */
+  padding:.45rem .65rem;
+  border:1px solid var(--color-border,#ccc);
+  border-radius:.5rem;
+}
+
+/* Right group: nav + toggle tight together on the right */
+.site-head__right{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+  flex:0 0 auto;             /* fixed-size group */
+}
+.nav{ display:flex; align-items:center; gap:1rem; }
+.theme-toggle{ flex:0 0 auto; }
+
+/* Optional: on small screens stack nicely */
+@media (max-width: 720px){
+  .site-head .inner{ flex-wrap:wrap; row-gap:.75rem; }
+  .site-head__left, .site-head__right{ width:100%; justify-content:space-between; }
+  .search-box{ flex:1 1 auto; max-width:100%; }
+}
+
+/* Make search bar smaller */
+.search-box {
+  flex: 0 0 auto;       /* don’t grow, don’t shrink */
+  width: 12rem;         /* set the size (try 10–14rem) */
+  max-width: 100%;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.35rem 0.5rem;  /* slightly smaller padding */
+  font-size: 0.9rem;        /* smaller text */
+
+/* Search bar container */
+.search-box {
+  flex: 0 0 auto;       /* don’t stretch across the header */
+  width: 12rem;         /* adjust size (10–14rem looks good) */
+  max-width: 100%;
+  position: relative;
+}
+
+/* Search input */
+.search-box input {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #000;     /* black outline */
+  border-radius: 0.4rem;      /* rounded corners */
+  background: var(--color-bg, #fff);
+  color: var(--color-text, #111);
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
+}
+

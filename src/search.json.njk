@@ -1,0 +1,16 @@
+---
+permalink: /search.json
+eleventyExcludeFromCollections: true
+---
+[
+{%- set printed = false -%}
+{%- for post in collections.postsPublishedSorted -%}
+  {%- if printed -%},{%- endif -%}
+  {%- set printed = true -%}
+  {
+    "title": {{ post.data.title | dump }},
+    "url": {{ post.url | dump }},
+    "excerpt": {{ (post.data.description or post.templateContent) | striptags | truncate(160) | dump }}
+  }
+{%- endfor -%}
+]

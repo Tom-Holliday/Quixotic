@@ -1,22 +1,40 @@
 <header class="site-head">
   <div class="inner container">
-    <a class="brand" href="/">
-      {# Optional logo image. Put a file at src/img/logo.png or remove this <img> #}
-      <img class="brand-logo" src="/img/logo.png" alt="" />
-      <span class="brand-text">Quixotic</span>
-    </a>
+    
+    <!-- Left group: Logo + Search -->
+    <div class="site-head__left">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/img/logo.png" alt="Logo" />
+        <span class="brand-text">Quixotic</span>
+      </a>
 
-    <nav class="nav" aria-label="Primary">
-<a href="/"
-   class="{% if page.url == '/' %}active{% endif %}">Home</a>
+      <div class="search-box">
+        <input
+          type="search"
+          id="search"
+          placeholder="Search posts..."
+          aria-label="Search posts"
+        />
+        <ul id="results"></ul>
+      </div>
+    </div>
 
-<a href="/posts/"
-   class="{% if page.url and page.url.startsWith('/posts/') %}active{% endif %}">Posts</a>
+    <!-- Right group: Nav + Theme toggle -->
+    <div class="site-head__right">
+      <nav class="nav" aria-label="Primary">
+        <a href="/" class="{% if page.url == '/' %}active{% endif %}">Home</a>
+        <a href="/posts/" class="{% if page.url and page.url.startsWith('/posts/') %}active{% endif %}">Posts</a>
+      </nav>
 
-
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Toggle theme"
+      >
         <span aria-hidden="true">🌓</span>
       </button>
-    </nav>
+    </div>
+
   </div>
 </header>

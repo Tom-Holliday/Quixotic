@@ -28,6 +28,7 @@
     {% if about.image and about.image.src %}
     <figure class="about__media">
       <img
+        class="about-tilt"
         src="{{ about.image.src | url }}?v={{ about.image.src | assetHash }}"
         alt="{{ about.image.alt or 'About image' }}"
         width="{{ about.image.width or 1200 }}"
@@ -36,6 +37,7 @@
       {% if about.image.caption %}<figcaption class="about__caption">{{ about.image.caption }}</figcaption>{% endif %}
     </figure>
     {% endif %}
+
 
   </div>
 </section>
