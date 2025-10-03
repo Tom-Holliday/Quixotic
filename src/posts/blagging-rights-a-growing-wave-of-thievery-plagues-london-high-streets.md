@@ -1,7 +1,7 @@
 ---
 layout: post.njk
 title: "Blagging Rights: A growing wave of thievery plagues London high streets"
-description: ""
+description: Tom Holliday
 date: 2025-10-03
 cover: /assets/img/blagging-rights.jpg
 draft: false
