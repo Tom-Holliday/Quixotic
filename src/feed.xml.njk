@@ -3,7 +3,6 @@ permalink: /feed.xml
 layout: false
 eleventyExcludeFromCollections: true
 eleventyComputed:
-  posts: collections.postsPublishedSorted
   siteUrl: metadata.url or 'https://www.quixotic.blog'
   MAX: 25
 ---
@@ -14,18 +13,29 @@ eleventyComputed:
     <link>{{ siteUrl }}</link>
     <description>{{ (metadata.description or 'Latest posts from Quixotic') | escape }}</description>
     <language>en</language>
-    <lastBuildDate>{% if posts and posts | length %}{{ (posts[0].date or posts[0].data.date) | dateToRfc822 }}{% else %}{{ "now" | dateToRfc822 }}{% endif %}</lastBuildDate>
+    {# pick a post list: published first, else all posts #}
+    {%- set posts = collections.postsPublishedSorted -%}
+    {%- if not posts or (posts | length) == 0 -%}
+      {%- set posts = collections.postsSorted -%}
+    {%- endif -%}
+    <lastBuildDate>
+      {%- if posts and (posts | length) -%}
+        {{ (posts[0].date or posts[0].data.date) | dateToRfc822 }}
+      {%- else -%}
+        {{ "now" | dateToRfc822 }}
+      {%- endif -%}
+    </lastBuildDate>
     <atom:link href="{{ '/feed.xml' | absoluteUrl(siteUrl) }}" rel="self" type="application/rss+xml" />
-{% for post in posts | slice(0, MAX) %}
+    {%- for post in posts | slice(0, MAX) -%}
     <item>
       <title>{{ (post.data.title or 'Untitled') | striptags | escape }}</title>
       <link>{{ post.url | absoluteUrl(siteUrl) }}</link>
       <guid isPermaLink="true">{{ post.url | absoluteUrl(siteUrl) }}</guid>
-      {% if post.date %}<pubDate>{{ post.date | dateToRfc822 }}</pubDate>{% endif %}
+      {%- if post.date -%}<pubDate>{{ post.date | dateToRfc822 }}</pubDate>{%- endif -%}
       <description><![CDATA[
 {{ (post.templateContent or '') | replace(']]>', ']]]]><![CDATA[>') }}
       ]]></description>
     </item>
-{% endfor %}
+    {%- endfor -%}
   </channel>
 </rss>
