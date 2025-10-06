@@ -2,9 +2,11 @@
 permalink: /feed.xml
 layout: false
 eleventyExcludeFromCollections: true
----{%- set posts = collections.postsPublishedSorted -%}
-{%- set MAX = 25 -%}
-{%- set siteUrl = metadata.url or 'https://www.quixotic.blog' -%}
+eleventyComputed:
+  posts: collections.postsPublishedSorted
+  siteUrl: metadata.url or 'https://www.quixotic.blog'
+  MAX: 25
+---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -12,16 +14,8 @@ eleventyExcludeFromCollections: true
     <link>{{ siteUrl }}</link>
     <description>{{ (metadata.description or 'Latest posts from Quixotic') | escape }}</description>
     <atom:link href="{{ '/feed.xml' | absoluteUrl(siteUrl) }}" rel="self" type="application/rss+xml" />
-    {%- for post in posts | slice(0, MAX) -%}
+    {% for post in posts | slice(0, MAX) %}
     <item>
       <title>{{ (post.data.title or 'Untitled') | striptags | escape }}</title>
       <link>{{ post.url | absoluteUrl(siteUrl) }}</link>
-      <guid isPermaLink="true">{{ post.url | absoluteUrl(siteUrl) }}</guid>
-      {%- if post.date -%}<pubDate>{{ post.date | dateToRfc822 }}</pubDate>{%- endif -%}
-      <description><![CDATA[
-        {{ (post.templateContent or '') | replace(']]>', ']]]]><![CDATA[>') }}
-      ]]></description>
-    </item>
-    {%- endfor -%}
-  </channel>
-</rss>
+      <guid isPermaLink="true">{{ post
