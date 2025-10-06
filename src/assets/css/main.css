@@ -517,4 +517,42 @@ main, .post, .home { padding: 1.25rem; }
   border-color: #000;
   box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
 }
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;        /* ensures image corners match card corners */
+  border-radius: 1rem;     /* keep your rounded corners */
+}
 
+.card__media {
+  margin: 0;               /* remove spacing around image */
+  padding: 0;
+  width: 100%;
+}
+
+.card__media img {
+  display: block;
+  width: 100%;             /* make image fill card */
+  height: auto;
+  object-fit: cover;       /* crop instead of squish */
+}
+
+.site-head .inner{gap:.75rem;padding-block:.65rem}
+.nav a{opacity:.9}
+.nav a:hover{opacity:1;text-decoration:underline}
+.nav a.active{color:var(--text);text-decoration:underline;text-decoration-thickness:2px}
+
+.card{border:1px solid color-mix(in oklab,var(--border) 80%, transparent);transition:transform .16s ease, box-shadow .16s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.12)}
+.card__media{aspect-ratio: 16/9;overflow:hidden}
+.card__media img{width:100%;height:100%;object-fit:cover;display:block}
+.card__title{font-weight:800}
+
+:root{ --radius:14px; }
+.card, .about__copy, .hero__intro, .prose img, .post-hero img{ border-radius: var(--radius); }
+
+html, body, .card, .hero__intro{ transition: background-color .2s ease, color .2s ease, border-color .2s ease }
+
+.hero__intro{max-width:min(46rem,90%);backdrop-filter:saturate(140%) blur(6px)}
+.hero__tag{opacity:.9}
+.intro.container .lede{max-width:56ch}

@@ -26,7 +26,7 @@
     </div>
 
     {% if about.image and about.image.src %}
-    <figure class="about__media">
+    <figure class="about__media about__media--shimmer">
       <img
         class="about-tilt"
         src="{{ about.image.src | url }}?v={{ about.image.src | assetHash }}"
