@@ -109,7 +109,12 @@ module.exports = function (eleventyConfig) {
   });
 
   // --- Plugins ---
-  if (pluginRss) eleventyConfig.addPlugin(pluginRss);
+  if (pluginRss) {
+    eleventyConfig.addPlugin(pluginRss);
+    // RSS helpers used by feed.xml
+    eleventyConfig.addFilter("absoluteUrl", pluginRss.absoluteUrl);
+    eleventyConfig.addFilter("dateToRfc822", pluginRss.dateToRfc822);
+  }
 
   // --- Markdown ---
   if (markdownIt) {
