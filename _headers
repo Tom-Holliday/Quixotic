@@ -1,8 +1,2 @@
 /feed.xml
-  Cache-Control: public, max-age=300
-
-/sitemap.xml
-  Cache-Control: public, max-age=300
-
-/robots.txt
-  Cache-Control: public, max-age=300
+  Content-Type: application/rss+xml; charset=utf-8
