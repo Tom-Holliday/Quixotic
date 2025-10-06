@@ -135,7 +135,7 @@ module.exports = function (eleventyConfig) {
   }
 
   // --- Collections ---
-  const postsGlob = "./src/posts/**/*.md";
+  const postsGlob = "./src/posts/**/*.{md,njk,html}";
   eleventyConfig.addCollection("postsSorted", (c) =>
     c.getFilteredByGlob(postsGlob).sort((a, b) => b.date - a.date)
   );

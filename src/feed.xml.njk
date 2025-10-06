@@ -13,7 +13,6 @@ eleventyComputed:
     <link>{{ siteUrl }}</link>
     <description>{{ (metadata.description or 'Latest posts from Quixotic') | escape }}</description>
     <language>en</language>
-    {# pick a post list: published first, else all posts #}
     {%- set posts = collections.postsPublishedSorted -%}
     {%- if not posts or (posts | length) == 0 -%}
       {%- set posts = collections.postsSorted -%}
