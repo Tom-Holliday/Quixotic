@@ -193,3 +193,9 @@ module.exports = function (eleventyConfig) {
     passthroughFileCopy: true,
   };
 };
+
+eleventyConfig.setNunjucksEnvironmentOptions({
+  trimBlocks: true,
+  lstripBlocks: true,
+});
+
