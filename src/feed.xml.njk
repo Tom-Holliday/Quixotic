@@ -13,9 +13,19 @@ eleventyComputed:
     <title>{{ (metadata.title or 'Quixotic') | escape }}</title>
     <link>{{ siteUrl }}</link>
     <description>{{ (metadata.description or 'Latest posts from Quixotic') | escape }}</description>
+    <language>en</language>
+    <lastBuildDate>{% if posts and posts | length %}{{ (posts[0].date or posts[0].data.date) | dateToRfc822 }}{% else %}{{ "now" | dateToRfc822 }}{% endif %}</lastBuildDate>
     <atom:link href="{{ '/feed.xml' | absoluteUrl(siteUrl) }}" rel="self" type="application/rss+xml" />
-    {% for post in posts | slice(0, MAX) %}
+{% for post in posts | slice(0, MAX) %}
     <item>
       <title>{{ (post.data.title or 'Untitled') | striptags | escape }}</title>
       <link>{{ post.url | absoluteUrl(siteUrl) }}</link>
-      <guid isPermaLink="true">{{ post
+      <guid isPermaLink="true">{{ post.url | absoluteUrl(siteUrl) }}</guid>
+      {% if post.date %}<pubDate>{{ post.date | dateToRfc822 }}</pubDate>{% endif %}
+      <description><![CDATA[
+{{ (post.templateContent or '') | replace(']]>', ']]]]><![CDATA[>') }}
+      ]]></description>
+    </item>
+{% endfor %}
+  </channel>
+</rss>
