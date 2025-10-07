@@ -27,7 +27,7 @@ const htmlToText = (html = "") =>
 module.exports = function (eleventyConfig) {
   eleventyConfig.setDataDeepMerge(true);
 
-  // --- Layout aliases (keep simple, filenames only) ---
+  // --- Layout aliases ---
   eleventyConfig.addLayoutAlias("base", "base.njk");
   eleventyConfig.addLayoutAlias("post", "post.njk");
 
@@ -45,9 +45,7 @@ module.exports = function (eleventyConfig) {
       if (!srcPath || !fs.existsSync(srcPath)) return Date.now().toString();
       const buf = fs.readFileSync(srcPath);
       return crypto.createHash("md5").update(buf).digest("hex").slice(0, 10);
-    } catch {
-      return Date.now().toString();
-    }
+    } catch { return Date.now().toString(); }
   });
 
   eleventyConfig.addFilter("relatedPosts", (collection = [], page, max = 3) => {
@@ -69,30 +67,20 @@ module.exports = function (eleventyConfig) {
       .map(x => x.p);
   });
 
-  eleventyConfig.addFilter("dateIso", (v) =>
-    v ? new Date(v).toISOString() : ""
-  );
-
+  eleventyConfig.addFilter("dateIso", (v) => v ? new Date(v).toISOString() : "");
   eleventyConfig.addFilter("dateDisplay", (v) => {
     if (!v) return "";
     const d = new Date(v);
-    return isNaN(d)
-      ? ""
-      : new Intl.DateTimeFormat("en-GB", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        }).format(d);
+    return isNaN(d) ? "" : new Intl.DateTimeFormat("en-GB", {
+      day: "2-digit", month: "short", year: "numeric"
+    }).format(d);
   });
-
   eleventyConfig.addFilter("indexOf", (arr, item) =>
     Array.isArray(arr) ? arr.findIndex(x => x.url === item.url) : -1
   );
-
   eleventyConfig.addFilter("splitLines", (v) =>
     v ? String(v).replace(/\r\n?/g, "\n").split("\n") : []
   );
-
   eleventyConfig.addFilter("readingTime", (content) => {
     const words = htmlToText(content).split(" ").filter(Boolean).length;
     const mins = Math.max(1, Math.round(words / 200));
@@ -111,7 +99,6 @@ module.exports = function (eleventyConfig) {
   // --- Plugins ---
   if (pluginRss) {
     eleventyConfig.addPlugin(pluginRss);
-    // RSS helpers used by feed.xml
     eleventyConfig.addFilter("absoluteUrl", pluginRss.absoluteUrl);
     eleventyConfig.addFilter("dateToRfc822", pluginRss.dateToRfc822);
   }
@@ -122,48 +109,53 @@ module.exports = function (eleventyConfig) {
     if (markdownItAnchor) {
       md.use(markdownItAnchor, {
         permalink: markdownItAnchor.permalink.ariaHidden({
-          placement: "after",
-          class: "anchor-link",
-          symbol: "#",
-          level: [1, 2, 3, 4],
+          placement: "after", class: "anchor-link", symbol: "#", level: [1,2,3,4],
         }),
-        slugify: (s) =>
-          s.trim().toLowerCase().replace(/[^\w]+/g, "-"),
+        slugify: (s) => s.trim().toLowerCase().replace(/[^\w]+/g, "-"),
       });
     }
     eleventyConfig.setLibrary("md", md);
   }
 
-  // --- Collections ---
-  const postsGlob = "./src/posts/**/*.{md,njk,html}";
-  eleventyConfig.addCollection("postsSorted", (c) =>
-    c.getFilteredByGlob(postsGlob).sort((a, b) => b.date - a.date)
-  );
-  eleventyConfig.addCollection("postsPublishedSorted", (c) =>
-    c.getFilteredByGlob(postsGlob).filter(p => !p.data.draft).sort((a, b) => b.date - a.date)
-  );
-  eleventyConfig.addCollection("postsDraftsSorted", (c) =>
-    c.getFilteredByGlob(postsGlob).filter(p => p.data.draft).sort((a, b) => b.date - a.date)
-  );
+// --- Collections ---
+function isDraft(data) {
+  const d = data?.draft;
+  if (typeof d === "boolean") return d;
+  if (typeof d === "string") return ["true","yes","1"].includes(d.toLowerCase());
+  return false;
+}
+
+function allPosts(c) {
+  const byGlob = c.getFilteredByGlob("./src/posts/**/*.{md,njk,html}");
+  const byTag  = c.getFilteredByTag("post");
+  // de-duplicate + drop the folder index
+  const set = new Set([...byGlob, ...byTag]);
+  return [...set].filter(p => p.data?.page?.fileSlug !== "index");
+}
+
+eleventyConfig.addCollection("postsSorted", (c) =>
+  allPosts(c).sort((a,b) => b.date - a.date)
+);
+eleventyConfig.addCollection("postsPublishedSorted", (c) =>
+  allPosts(c).filter(p => !isDraft(p.data)).sort((a,b) => b.date - a.date)
+);
+eleventyConfig.addCollection("postsDraftsSorted", (c) =>
+  allPosts(c).filter(p => isDraft(p.data)).sort((a,b) => b.date - a.date)
+);
+
+// Keep this INSIDE the module.exports function:
+eleventyConfig.setNunjucksEnvironmentOptions({ trimBlocks: true, lstripBlocks: true });
+
 
   // --- Shortcodes ---
   if (Image) {
     eleventyConfig.addNunjucksAsyncShortcode(
       "img",
-      async (src, alt = "", widths = [400, 800, 1200], sizes = "(min-width: 768px) 800px, 100vw") => {
+      async (src, alt = "", widths = [400,800,1200], sizes="(min-width: 768px) 800px, 100vw") => {
         const metadata = await Image(src, {
-          widths,
-          formats: ["webp", "jpeg"],
-          urlPath: "/assets/img/",
-          outputDir: "./_site/assets/img/",
+          widths, formats: ["webp","jpeg"], urlPath: "/assets/img/", outputDir: "./_site/assets/img/",
         });
-        const attrs = {
-          alt,
-          sizes,
-          loading: "lazy",
-          decoding: "async",
-          class: "rounded",
-        };
+        const attrs = { alt, sizes, loading: "lazy", decoding: "async", class: "rounded" };
         return Image.generateHTML(metadata, attrs, { whitespaceMode: "inline" });
       }
     );
@@ -181,21 +173,15 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: "src",
-      includes: "_includes",        // where base.njk and post.njk live
+      includes: "_includes",
       data: "_data",
-      layouts: "_includes/layouts", // where layouts/ filenames resolve from
+      layouts: "_includes/layouts",
       output: "_site",
     },
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
     dataTemplateEngine: "njk",
-    templateFormats: ["md", "njk", "html"],
+    templateFormats: ["md","njk","html"],
     passthroughFileCopy: true,
   };
 };
-
-eleventyConfig.setNunjucksEnvironmentOptions({
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
