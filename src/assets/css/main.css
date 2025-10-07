@@ -1,3 +1,6 @@
+
+
+
 /* (unchanged structure; kept exactly as provided) */
 /* ========================================================================== */
 /* Reset                                                                      */
@@ -556,3 +559,77 @@ html, body, .card, .hero__intro{ transition: background-color .2s ease, color .2
 .hero__intro{max-width:min(46rem,90%);backdrop-filter:saturate(140%) blur(6px)}
 .hero__tag{opacity:.9}
 .intro.container .lede{max-width:56ch}
+
+/* ===== Subscription form (uses site tokens; centers; responds to data-theme) ===== */
+
+/* Keep this if you use the .sr-only label */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 1px, 1px); white-space: nowrap; border: 0;
+}
+
+/* Card */
+.subscribe-form{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:12px;
+  align-items:center;
+
+  width:min(100%, 720px);
+  margin:32px auto;                /* center */
+  padding:16px 18px;
+  border-radius: var(--radius);
+  border:1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-1);
+}
+
+/* Stack on small screens */
+@media (max-width:560px){
+  .subscribe-form{ grid-template-columns:1fr; }
+}
+
+/* Email input */
+.subscribe-form input[type="email"]{
+  width:100%;
+  padding:14px 16px;
+  border-radius: 10px;
+  border:1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.subscribe-form input[type="email"]::placeholder{ color: var(--text-subtle); }
+.subscribe-form input[type="email"]:focus{
+  outline: none;
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--focus) 35%, transparent);
+}
+
+/* Button */
+.subscribe-form button[type="submit"]{
+  padding:14px 18px;
+  border:0;
+  border-radius:10px;
+  font: 600 0.98rem/1.1 system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  color: var(--brand-contrast);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--brand) 90%, white 10%), var(--brand));
+  cursor: pointer;
+  box-shadow: 0 6px 18px color-mix(in oklab, var(--brand) 35%, transparent);
+  transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
+}
+.subscribe-form button[type="submit"]:hover{ filter: brightness(1.03); }
+.subscribe-form button[type="submit"]:active{ transform: translateY(1px); }
+
+/* Hint */
+.subscribe-form .form-hint{
+  grid-column: 1 / -1;
+  margin: 2px 2px 0;
+  font-size: .9rem;
+  color: var(--text-subtle);
+}

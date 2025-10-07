@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% if title %}{{ title }} · {% endif %}{{ metadata.title or 'Site' }}</title>
 
-  {# Early theme bootstrap #}
+  {# Early theme bootstrap: sets <html data-theme="light|dark"> #}
   <script>
     (function () {
       try {
@@ -22,29 +22,92 @@
 
   <link rel="stylesheet" href="/assets/css/main.css?v={{ '/assets/css/main.css' | assetHash }}">
   {% if headExtra %}{{ headExtra | safe }}{% endif %}
+
+  {# Buttondown subscription form — centered + theme-aware #}
+  <style>
+    /* Target by action URL so you don't need extra classes */
+    form[action*="buttondown.com"][method="post"]{
+      /* layout */
+      display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center;
+      width:min(100%, 720px); margin:32px auto; padding:16px 18px;
+      justify-self:center; /* if parent is a CSS grid */
+
+      /* look (light defaults — your tokens handle the page) */
+      background:#ffffff;
+      color:#111827;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      box-shadow:0 16px 48px rgba(0,0,0,.08);
+    }
+    @media (max-width:560px){
+      form[action*="buttondown.com"][method="post"]{ grid-template-columns:1fr; }
+    }
+
+    /* Visually hide the label (keep it accessible) */
+    form[action*="buttondown.com"][method="post"] > label{
+      position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+      clip:rect(0,0,1px,1px);white-space:nowrap;border:0;
+    }
+
+    /* Email input */
+    form[action*="buttondown.com"][method="post"] input[type="email"]{
+      width:100%; padding:14px 16px; border-radius:10px;
+      background:#ffffff; color:#111827;
+      border:1px solid #cbd5e1;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,.03);
+      transition:border-color .15s, box-shadow .15s, background .15s, color .15s;
+      font: inherit;
+    }
+    form[action*="buttondown.com"][method="post"] input[type="email"]::placeholder{ color:#6b7280; }
+    form[action*="buttondown.com"][method="post"] input[type="email"]:focus{
+      outline:none; border-color:#4f46e5; box-shadow:0 0 0 3px rgba(79,70,229,.30);
+    }
+
+    /* Submit button */
+    form[action*="buttondown.com"][method="post"] button[type="submit"]{
+      padding:14px 18px; border:0; border-radius:10px; cursor:pointer;
+      color:#fff; font:600 .98rem/1.1 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:linear-gradient(180deg,#6d61ff,#4f46e5);
+      box-shadow:0 6px 18px rgba(79,70,229,.35);
+      transition:transform .06s, filter .15s, box-shadow .15s;
+    }
+    form[action*="buttondown.com"][method="post"] button[type="submit"]:hover{ filter:brightness(1.03); }
+    form[action*="buttondown.com"][method="post"] button[type="submit"]:active{ transform:translateY(1px); }
+
+    /* Hint text */
+    form[action*="buttondown.com"][method="post"] .form-hint{
+      grid-column:1 / -1; margin:2px 2px 0; font-size:.9rem; color:#6b7280;
+    }
+
+    /* DARK MODE: match your toggle (<html data-theme="dark">) */
+    html[data-theme="dark"] form[action*="buttondown.com"][method="post"]{
+      background:#16181d; color:#e5e7eb; border-color:#262a33;
+      box-shadow:0 22px 60px rgba(0,0,0,.35);
+    }
+    html[data-theme="dark"] form[action*="buttondown.com"][method="post"] input[type="email"]{
+      background:#0f1115; color:#e5e7eb; border-color:#2b2f39;
+    }
+    html[data-theme="dark"] form[action*="buttondown.com"][method="post"] .form-hint{ color:#9ca3af; }
+    html[data-theme="dark"] form[action*="buttondown.com"][method="post"] button[type="submit"]{
+      box-shadow:0 6px 18px rgba(79,70,229,.45);
+    }
+  </style>
 </head>
 
 <body class="{{ bodyClass }}">
   {% include "components/header.njk" %}
 
   <main id="main-content" class="container">
-    {# 1) If a template extends this layout, render its block #}
     {% block content %}{% endblock %}
-    {# 2) If a template uses `layout: base.njk` (no extends), render its content #}
     {% if content %}{{ content | safe }}{% endif %}
   </main>
 
   {% include "components/footer.njk" ignore missing %}
 
   <script src="/assets/js/theme.js?v={{ '/assets/js/theme.js' | assetHash }}" defer></script>
-
-  {# Search dependencies: FlexSearch first, then your script #}
   <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.31/dist/flexsearch.bundle.min.js" defer></script>
   <script src="/assets/js/search.js?v={{ '/assets/js/search.js' | assetHash }}" defer></script>
-
-  {# If you use VanillaTilt for the about image #}
   <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js" defer></script>
   <script src="/assets/js/tilt.js" defer></script>
 </body>
 </html>
-
