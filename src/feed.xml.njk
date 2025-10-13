@@ -2,39 +2,36 @@
 permalink: /feed.xml
 layout: false
 eleventyExcludeFromCollections: true
-eleventyComputed:
-  siteUrl: metadata.url or 'https://www.quixotic.blog'
-  MAX: 25
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{{ (metadata.title or 'Quixotic') | escape }}</title>
-    <link>{{ siteUrl }}</link>
+    <link>{{ (metadata.url or 'https://www.quixotic.blog') }}</link>
     <description>{{ (metadata.description or 'Latest posts from Quixotic') | escape }}</description>
     <language>en</language>
-    {%- set posts = collections.postsPublishedSorted -%}
-    {%- if not posts or (posts | length) == 0 -%}
-      {%- set posts = collections.postsSorted -%}
-    {%- endif -%}
-    <lastBuildDate>
-      {%- if posts and (posts | length) -%}
-        {{ (posts[0].date or posts[0].data.date) | dateToRfc822 }}
-      {%- else -%}
-        {{ "now" | dateToRfc822 }}
-      {%- endif -%}
-    </lastBuildDate>
-    <atom:link href="{{ '/feed.xml' | absoluteUrl(siteUrl) }}" rel="self" type="application/rss+xml" />
-    {%- for post in posts | slice(0, MAX) -%}
+    <atom:link href="{{ (metadata.url or 'https://www.quixotic.blog') }}/feed.xml" rel="self" type="application/rss+xml" />
+
+    {# Emit up to 25 items: any page with tag "post" and not draft #}
+    {%- set siteUrl = metadata.url or 'https://www.quixotic.blog' -%}
+    {%- set MAX = 25 -%}
+    {%- set emitted = 0 -%}
+    {%- for p in collections.all | reverse -%}
+      {%- if emitted >= MAX -%}{% break %}{%- endif -%}
+      {%- set tags = p.data.tags or [] -%}
+      {%- set isDraft = p.data.draft in [true, "true", "yes", "1"] -%}
+      {%- if ("post" in tags) and (not isDraft) -%}
     <item>
-      <title>{{ (post.data.title or 'Untitled') | striptags | escape }}</title>
-      <link>{{ post.url | absoluteUrl(siteUrl) }}</link>
-      <guid isPermaLink="true">{{ post.url | absoluteUrl(siteUrl) }}</guid>
-      {%- if post.date -%}<pubDate>{{ post.date | dateToRfc822 }}</pubDate>{%- endif -%}
+      <title>{{ (p.data.title or 'Untitled') | striptags | escape }}</title>
+      <link>{{ p.url | absoluteUrl(siteUrl) }}</link>
+      <guid isPermaLink="true">{{ p.url | absoluteUrl(siteUrl) }}</guid>
+      {%- if p.date -%}<pubDate>{{ p.date | dateToRfc822 }}</pubDate>{%- endif -%}
       <description><![CDATA[
-{{ (post.templateContent or '') | replace(']]>', ']]]]><![CDATA[>') }}
+{{ (p.templateContent or '') | replace(']]>', ']]]]><![CDATA[>') }}
       ]]></description>
     </item>
+      {%- set emitted = emitted + 1 -%}
+      {%- endif -%}
     {%- endfor -%}
   </channel>
 </rss>

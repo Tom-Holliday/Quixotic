@@ -4,7 +4,7 @@ title: "Wood Wharf: The green heart of London's finance district "
 description: Tom Holliday
 byline: "Tom Holliday"
 date: 2025-09-28
-tags: []
+tags: [post]
 cover: /assets/img/wood-wharf.jpg
 draft: false
 ---
