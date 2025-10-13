@@ -12,20 +12,22 @@ eleventyExcludeFromCollections: true
     <language>en</language>
     <atom:link href="{{ (metadata.url or 'https://www.quixotic.blog') }}/feed.xml" rel="self" type="application/rss+xml" />
 
-    {# Emit up to 25 items: any page with tag "post" and not draft #}
+    {# Emit up to 25 items: tag 'post' and not draft #}
     {%- set siteUrl = metadata.url or 'https://www.quixotic.blog' -%}
     {%- set MAX = 25 -%}
     {%- set emitted = 0 -%}
     {%- for p in collections.all | reverse -%}
-      {%- if emitted >= MAX -%}{% break %}{%- endif -%}
       {%- set tags = p.data.tags or [] -%}
-      {%- set isDraft = p.data.draft in [true, "true", "yes", "1"] -%}
-      {%- if ("post" in tags) and (not isDraft) -%}
+      {%- set isDraft = (p.data.draft == true)
+          or (p.data.draft == 'true')
+          or (p.data.draft == 'yes')
+          or (p.data.draft == '1') -%}
+      {%- if ('post' in tags) and (not isDraft) and (emitted < MAX) -%}
     <item>
       <title>{{ (p.data.title or 'Untitled') | striptags | escape }}</title>
-      <link>{{ p.url | absoluteUrl(siteUrl) }}</link>
-      <guid isPermaLink="true">{{ p.url | absoluteUrl(siteUrl) }}</guid>
-      {%- if p.date -%}<pubDate>{{ p.date | dateToRfc822 }}</pubDate>{%- endif -%}
+      <link>{{ siteUrl }}{{ p.url }}</link>
+      <guid isPermaLink="true">{{ siteUrl }}{{ p.url }}</guid>
+      {%- if p.date -%}<pubDate>{{ p.date | date('EEE, dd LLL yyyy HH:mm:ss ZZZ') }}</pubDate>{%- endif -%}
       <description><![CDATA[
 {{ (p.templateContent or '') | replace(']]>', ']]]]><![CDATA[>') }}
       ]]></description>
