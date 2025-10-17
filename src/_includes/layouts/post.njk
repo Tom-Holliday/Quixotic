@@ -3,33 +3,33 @@ layout: base.njk
 ---
 
 <article class="post container mx-auto max-w-3xl px-4 py-10">
-  <header class="mb-8">
-    <h1 class="text-3xl md:text-4xl font-semibold leading-tight post-title">
+
+  <header class="post-header mb-8">
+    <h1 class="post-title text-3xl md:text-4xl font-semibold leading-tight">
       {{ title or page.fileSlug }}
     </h1>
 
-  <header class="post-header">
-  <h1 class="post-title">{{ title }}</h1>
-  <p class="meta">
-    {{ byline }} · {{ date | date("dd LLL yyyy") }}
-    {% if content %} · {{ content | readingTime }}{% endif %}
-  </p>
-</header>
-
-
-
-    <p class="mt-2 text-sm opacity-80 italic post-meta">
-      {% if byline or author %}{{ byline or author }} · {% endif %}
+    <p class="meta mt-2 text-sm opacity-80 italic">
+      {# byline priority: per-post byline -> per-post author -> site author #}
+      {{ byline or author or metadata.author }}
+      ·
       {% if page.date %}
-        <time datetime="{{ page.date | dateIso }}">{{ page.date | dateDisplay }}</time>
+        <time datetime="{{ page.date | dateIso }}">{{ page.date | date("dd LLL yyyy") }}</time>
       {% endif %}
+      {% if content %} · {{ content | readingTime }}{% endif %}
     </p>
 
     {% set heroSrc = hero or cover %}
     {% if heroSrc %}
       <figure class="post-hero mt-6">
-        <img class="w-full h-auto rounded-xl" src="{{ heroSrc }}" alt="{{ heroAlt or coverAlt or title }}">
-        {% if heroCaption %}<figcaption class="mt-2 text-xs opacity-70">{{ heroCaption | safe }}</figcaption>{% endif %}
+        <img
+          class="w-full h-auto rounded-xl"
+          src="{{ heroSrc }}"
+          alt="{{ heroAlt or coverAlt or title }}"
+          loading="lazy" decoding="async">
+        {% if heroCaption %}
+          <figcaption class="mt-2 text-xs opacity-70">{{ heroCaption | safe }}</figcaption>
+        {% endif %}
       </figure>
     {% endif %}
   </header>
@@ -41,11 +41,13 @@ layout: base.njk
   {% if tags %}
     <p class="post-tags">
       <span>Tags:</span>
-      {% for t in tags %}<a href="/tag/{{ t | url }}/">{{ t }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+      {% for t in tags %}
+        <a href="/tag/{{ t | url }}/">{{ t }}</a>{% if not loop.last %}, {% endif %}
+      {% endfor %}
     </p>
   {% endif %}
 
   {% include "partials/post-nav.njk" ignore missing %}
   {% include "partials/giscus.njk" ignore missing %}
-</article>
 
+</article>
