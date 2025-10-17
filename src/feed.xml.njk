@@ -1,39 +1,31 @@
 ---
 permalink: /feed.xml
-layout: false
+layout: null
 eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{{ (metadata.title or 'Quixotic') | escape }}</title>
-    <link>{{ (metadata.url or 'https://www.quixotic.blog') }}</link>
+    <link>{{ metadata.url or 'https://www.quixotic.blog' }}</link>
     <description>{{ (metadata.description or 'Latest posts from Quixotic') | escape }}</description>
     <language>en</language>
     <atom:link href="{{ (metadata.url or 'https://www.quixotic.blog') }}/feed.xml" rel="self" type="application/rss+xml" />
 
-    {# Emit up to 25 items: tag 'post' and not draft #}
+    {# Use the curated collection from your config #}
     {%- set siteUrl = metadata.url or 'https://www.quixotic.blog' -%}
-    {%- set MAX = 25 -%}
-    {%- set emitted = 0 -%}
-    {%- for p in collections.all | reverse -%}
-      {%- set tags = p.data.tags or [] -%}
-      {%- set isDraft = (p.data.draft == true)
-          or (p.data.draft == 'true')
-          or (p.data.draft == 'yes')
-          or (p.data.draft == '1') -%}
-      {%- if ('post' in tags) and (not isDraft) and (emitted < MAX) -%}
+    {%- for p in collections.postsPublishedSorted | slice(0,25) -%}
     <item>
       <title>{{ (p.data.title or 'Untitled') | striptags | escape }}</title>
       <link>{{ siteUrl }}{{ p.url }}</link>
       <guid isPermaLink="true">{{ siteUrl }}{{ p.url }}</guid>
-      {%- if p.date -%}<pubDate>{{ p.date | date('EEE, dd LLL yyyy HH:mm:ss ZZZ') }}</pubDate>{%- endif -%}
+      {%- if p.date -%}
+      <pubDate>{{ p.date | date('EEE, dd LLL yyyy HH:mm:ss ZZZ') }}</pubDate>
+      {%- endif -%}
       <description><![CDATA[
 {{ (p.templateContent or '') | replace(']]>', ']]]]><![CDATA[>') }}
       ]]></description>
     </item>
-      {%- set emitted = emitted + 1 -%}
-      {%- endif -%}
     {%- endfor -%}
   </channel>
 </rss>

@@ -8,6 +8,15 @@ layout: base.njk
       {{ title or page.fileSlug }}
     </h1>
 
+  <header class="post-header">
+  <h1 class="post-title">{{ title }}</h1>
+  <p class="meta">
+    {{ byline }} · {{ date | date("dd LLL yyyy") }}
+    {% if content %} · {{ content | readingTime }}{% endif %}
+  </p>
+</header>
+
+
 
     <p class="mt-2 text-sm opacity-80 italic post-meta">
       {% if byline or author %}{{ byline or author }} · {% endif %}

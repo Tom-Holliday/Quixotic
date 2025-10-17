@@ -2,6 +2,7 @@
 layout: post.njk
 title: Starmer's pub plans flop with London locals
 date: 2025-10-13
+byline: Tom Holliday
 cover: /assets/img/keir.jpg
 draft: false
 ---
