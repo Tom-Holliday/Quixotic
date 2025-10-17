@@ -5,11 +5,6 @@ date: 2025-10-17
 cover: /assets/img/stemwomen.jpg
 draft: false
 ---
-
-
-
-
-
 STEM Women arrived at the
 Queen Elizabeth II Centre on Thursday, looking to make a dent in an otherwise male
 dominated knowledge workforce. 
@@ -80,8 +75,7 @@ Times (FT) in September, Dame Emma Walmsley, the Chief Executive of Officer
 illustrious eight-year tenure. 
 
 The absence of the Dame will
-bring the already small number of female-led FTSE 100 companies down from 9 to
-8. 
+bring the already small number of female-led FTSE 100 companies down from 9 to 8.
 
 In an interview with Dame Amanda
 Blanc (DBE), CEO of Aviva and Non-Executive Director of British Petroleum, surrounding
@@ -91,7 +85,6 @@ the importance of women in STEM, she had this to say.
 Natural Sciences in Exeter as we speak and wants to be an investment banker
 where she’s just gone for one of her internships. She’s been asked to do all
 sorts of tests including things like data science which I think is really important.”
-
 
 “But I would say, irrespective
 of the background you come from, as a senior at Aviva, I need to understand
