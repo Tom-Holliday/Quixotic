@@ -5,25 +5,36 @@ title: Posts
 eleventyExcludeFromCollections: true
 ---
 
-<main class="home">
+<main class="home container">
   <h1 class="page-title">Posts</h1>
 
-  {% set all = collections.postsPublishedSorted or [] %}
-  {% if all | length == 0 %}
+  {% set posts = collections.postsPublishedSorted or [] %}
+
+  {% if posts | length == 0 %}
     <p class="muted">No posts yet. Use <code>/admin</code> to publish your first one.</p>
   {% else %}
-    <section class="post-grid">
-      {% for post in posts %}
-        {# ... your card markup exactly as you have it ... #}
+    <section class="card-grid">
+      {% for p in posts %}
+        <article class="card">
+          <a href="{{ p.url }}">
+            {% set coverSrc = p.data.cover or p.data.hero %}
+            {% if coverSrc %}
+              <figure class="card__media">
+                <img src="{{ coverSrc }}" alt="{{ p.data.coverAlt or p.data.title }}" loading="lazy" decoding="async">
+              </figure>
+            {% endif %}
+            <div class="card__body">
+              <h2 class="card__title">{{ p.data.title }}</h2>
+              <p class="card__meta">
+                {{ p.date | date("dd LLL yyyy") }}
+                · {{ (p.templateContent or '') | readingTime }}
+                {% if p.data.byline or p.data.author %} · {{ p.data.byline or p.data.author }}{% endif %}
+              </p>
+            </div>
+          </a>
+        </article>
       {% endfor %}
     </section>
-
-    {% if pagination.pages.length > 1 %}
-      <nav class="pager" aria-label="Pagination">
-        {% if pagination.href.previous %}<a class="pager__prev" href="{{ pagination.href.previous }}">&larr; Newer</a>{% endif %}
-        <span class="pager__info">Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
-        {% if pagination.href.next %}<a class="pager__next" href="{{ pagination.href.next }}">Older &rarr;</a>{% endif %}
-      </nav>
-    {% endif %}
   {% endif %}
 </main>
+
