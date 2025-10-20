@@ -27,7 +27,6 @@ In layman’s terms, the opportunity presented to Nvidia through this deal is mu
 
 Begging the question, have Intel entered a surrender state?
 
-
 As reported by the website *macrotrends.net*, Intel’s share price has been enduring interminable declines since the beginning of 2024. 
 
 Their financial worries, however, are more than just a year old. 
@@ -45,3 +44,5 @@ Washington Post claims, “Intel’s total enterprise valuation is now quite str
 share price surge.” 
 
 Franke is downgrading his Intel 12-month outlook as he posits “sizeable revenue and earnings growth is needed.”
+
+Intel failed to comment.
