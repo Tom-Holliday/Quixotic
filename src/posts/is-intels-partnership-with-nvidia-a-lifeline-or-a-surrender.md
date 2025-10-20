@@ -39,8 +39,7 @@ The company’s most recent quarterly results show no end in sight for the US in
 
 Promises of their recovery through their new 700-acre Arizona factory are being questioned by investment experts. 
 
-Paul Franke, a private investor and former Editor and Publisher of the Maverick Investor newsletter, widely quoted by CNBC and The
-Washington Post claims, “Intel’s total enterprise valuation is now quite stretched, with operational performance and guidance lagging behind the recent
+Paul Franke, a private investor and former Editor and Publisher of the Maverick Investor newsletter, widely quoted by CNBC and The Washington Post claims, “Intel’s total enterprise valuation is now quite stretched, with operational performance and guidance lagging behind the recent
 share price surge.” 
 
 Franke is downgrading his Intel 12-month outlook as he posits “sizeable revenue and earnings growth is needed.”
