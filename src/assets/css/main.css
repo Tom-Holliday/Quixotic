@@ -171,7 +171,7 @@ html[data-theme="light"] .site-head{
   box-shadow: none;
 }
 
-.is-home .brand-text{display:none!important}
+.is-home .brand-text{display:inline !important;}
 
 .site-foot{margin-top:var(--space-8);padding:var(--space-6) 0;color:var(--text-subtle);border-top:1px solid var(--border)}
 
@@ -458,14 +458,31 @@ main, .post, .home { padding: 1.25rem; }
 /* Keep brand compact */
 .brand{ display:flex; align-items:center; gap:.5rem; white-space:nowrap; }
 
-/* Search box should NOT be full-width */
-.search-box{ position:relative; flex:0 1 26rem; max-width:26rem; }
-.search-box input{
-  width:100%;                /* fill only its flex basis (not the whole row) */
-  padding:.45rem .65rem;
-  border:1px solid var(--color-border,#ccc);
-  border-radius:.5rem;
+/* Search bar container */
+.search-box {
+  flex: 0 0 auto;       /* don’t stretch across the header */
+  width: 12rem;         /* adjust size (10–14rem looks good) */
+  max-width: 100%;
+  position: relative;
 }
+
+/* Search input */
+.search-box input {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #000;     /* black outline */
+  border-radius: 0.4rem;      /* rounded corners */
+  background: var(--color-bg, #fff);
+  color: var(--color-text, #111);
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
+}
+
 
 /* Right group: nav + toggle tight together on the right */
 .site-head__right{
@@ -494,7 +511,7 @@ main, .post, .home { padding: 1.25rem; }
 .search-box input {
   width: 100%;
   padding: 0.35rem 0.5rem;  /* slightly smaller padding */
-  font-size: 0.9rem;        /* smaller text */
+  font-size: 0.9rem;}    /* smaller text */
 
 /* Search bar container */
 .search-box {
@@ -632,5 +649,79 @@ html, body, .card, .hero__intro{ transition: background-color .2s ease, color .2
   margin: 2px 2px 0;
   font-size: .9rem;
   color: var(--text-subtle);
+}
+
+/* === Emphasize the hero title block === */
+.hero {
+  min-height: clamp(480px, 60vh, 700px); /* taller hero area */
+  display: flex;
+  align-items: center;                   /* vertical centering */
+  justify-content: center;
+  text-align: center;                    /* center text block */
+  padding: 2rem 1rem;
+}
+
+.hero__intro {
+  background: color-mix(in oklab, var(--surface) 80%, transparent 20%);
+  border-radius: var(--radius);
+  border: 2px solid color-mix(in oklab, var(--border) 50%, transparent 50%);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  padding: clamp(2rem, 4vw, 3rem);
+  max-width: 50rem;
+}
+
+/* The big word "Quixotic" */
+.hero__title {
+  font-size: clamp(3rem, 6vw + 1rem, 5rem);
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* The definition line */
+.hero__tag {
+  font-size: clamp(1.15rem, 1.5vw + 0.8rem, 1.5rem);
+  font-weight: 400;
+  color: var(--text-muted);
+  max-width: 40ch;
+  margin-inline: auto;
+}
+
+/* The citation (dictionary name) */
+.hero__cite {
+  font-style: italic;
+  font-size: 1.05rem;
+  margin-top: 1rem;
+  color: var(--text-subtle);
+}
+
+/* Emphasize the hero */
+.hero {
+  min-height: clamp(480px, 60vh, 700px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.hero__intro {
+  background: color-mix(in oklab, var(--surface) 80%, transparent 20%);
+  border: 2px solid color-mix(in oklab, var(--border) 50%, transparent 50%);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  padding: clamp(2rem, 4vw, 3rem);
+  max-width: 50rem;
+}
+
+.hero__tag {
+  font-size: clamp(1.15rem, 1.5vw + 0.8rem, 1.5rem);
+  color: var(--text-muted);
+  max-width: 40ch;
+  margin-inline: auto;
 }
 

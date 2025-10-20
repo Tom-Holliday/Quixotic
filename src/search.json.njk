@@ -1,16 +1,14 @@
 ---
 permalink: /search.json
 eleventyExcludeFromCollections: true
+layout: null
 ---
 [
-{%- set printed = false -%}
-{%- for post in collections.postsPublishedSorted -%}
-  {%- if printed -%},{%- endif -%}
-  {%- set printed = true -%}
+{%- for post in collections.post -%}
   {
-    "title": {{ post.data.title | dump }},
-    "url": {{ post.url | dump }},
-    "excerpt": {{ (post.data.description or post.templateContent) | striptags | truncate(160) | dump }}
-  }
+    "url": "{{ post.url | url }}",
+    "title": {{ (post.data.title or 'Untitled') | dump | safe }},
+    "description": {{ (post.data.description or (post.templateContent | striptags | truncate(160))) | dump | safe }}
+  }{%- if not loop.last -%},{%- endif -%}
 {%- endfor -%}
 ]

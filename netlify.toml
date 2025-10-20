@@ -1,6 +1,6 @@
 # netlify.toml
 [build]
-  command = "npm ci && npm run build"
+  command = "npx @11ty/eleventy"
   publish = "_site"
 
 [build.environment]
