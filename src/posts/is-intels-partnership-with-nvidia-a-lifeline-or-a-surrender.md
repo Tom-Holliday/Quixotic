@@ -7,6 +7,8 @@ draft: false
 ---
 A recent report published by investment banking giant J.P. Morgan precludes Nvidia the winner of its recent $5 billion partnership with Intel despite $37 surge. 
 
+
+
 On 18 September, U.S. chipmaking powerhouse Nvidia pledged a $ 5 billion investment in its rival Intel. 
 
 Described as “a fusion of two world-class platforms” by Nvidia’s founder and CEO, Jensen Huang, the deal will make Nvidia one of Intel’s largest shareholders, possessing a rough 4% stake in the semiconductor manufacturer.
