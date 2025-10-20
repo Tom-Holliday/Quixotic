@@ -17,11 +17,9 @@ The strength of this collaboration is now in question, however, in light of a J.
 
 Providing an in-depth breakdown, the report assesses the implications of the deal for both companies. 
 
-“Digging deeper though, we view NVDA \[Nvidia] as by far the larger beneficiary of this arrangement, as it opens up an entirely new swim lane for revenue growth (iGPU market) and broadens NVDA’s market opportunity
-for rack-scale AI systems”. 
+'Digging deeper though, we view NVDA \[Nvidia] as by far the larger beneficiary of this arrangement, as it opens up an entirely new swim lane for revenue growth (iGPU market) and broadens NVDA’s market opportunity for rack-scale AI systems'. 
 
-The report continues, claiming “for INTC, on the other hand, we think this is only marginally positive on the Client PC side… and
-though gaining access to the rack-scale AI server market does create an opportunity for an additional layer of revenue… relative to a ~$16b base business, this would only be modestly incremental.”
+The report continues, claiming 'for INTC, on the other hand, we think this is only marginally positive on the Client PC side… and though gaining access to the rack-scale AI server market does create an opportunity for an additional layer of revenue… relative to a ~$16b base business, this would only be modestly incremental.'
 
 In layman’s terms, the opportunity presented to Nvidia through this deal is much more lucrative than the one presented to Intel. 
 
@@ -39,9 +37,9 @@ The company’s most recent quarterly results show no end in sight for the US in
 
 Promises of their recovery through their new 700-acre Arizona factory are being questioned by investment experts. 
 
-Paul Franke, a private investor and former Editor and Publisher of the Maverick Investor newsletter, widely quoted by CNBC and The Washington Post claims, “Intel’s total enterprise valuation is now quite stretched, with operational performance and guidance lagging behind the recent
-share price surge.” 
+Paul Franke, a private investor and former Editor and Publisher of the Maverick Investor newsletter, widely quoted by CNBC and The Washington Post claims, 'Intel’s total enterprise valuation is now quite stretched, with operational performance and guidance lagging behind the recent
+share price surge.' 
 
-Franke is downgrading his Intel 12-month outlook as he posits “sizeable revenue and earnings growth is needed.”
+Franke is downgrading his Intel 12-month outlook as he posits 'sizeable revenue and earnings growth is needed.'
 
 Intel failed to comment.
