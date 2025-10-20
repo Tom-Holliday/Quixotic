@@ -725,3 +725,189 @@ html, body, .card, .hero__intro{ transition: background-color .2s ease, color .2
   margin-inline: auto;
 }
 
+/* === Vibrancy boost for the hero (same colors, more presence) === */
+
+/* 1) Let the background artwork breathe */
+.hero__img{
+  /* more saturation/contrast, a touch brighter; keep subtle grayscale */
+  filter: saturate(1.28) contrast(1.14) brightness(1.06) grayscale(8%);
+  opacity: .82; /* show more of the image */
+}
+
+/* 2) Ease overlays so the hues come through */
+html[data-theme="light"] .hero__overlay{
+  /* less black on top; smoother fade */
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.35) 0%,
+    rgba(0,0,0,.18) 40%,
+    rgba(0,0,0,0) 100%
+  );
+}
+html[data-theme="dark"] .hero__overlay{
+  /* a hair darker for legibility, still transparent enough for color */
+  background: linear-gradient(
+    to bottom,
+    rgba(17,24,39,.22) 0%,
+    rgba(17,24,39,.10) 40%,
+    rgba(17,24,39,0) 100%
+  );
+}
+
+/* 3) Brighter glass card with stronger edge & saturation */
+.hero__intro{
+  /* more see-through & saturated */
+  background: color-mix(in oklab, var(--surface) 68%, transparent 32%);
+  border: 2px solid color-mix(in oklab, var(--border) 40%, transparent 60%);
+  box-shadow:
+    0 18px 60px rgba(0,0,0,.35),
+    0 2px 8px rgba(0,0,0,.12);
+  backdrop-filter: saturate(180%) blur(8px);
+}
+
+/* 4) Slightly punchier text inside the hero */
+.hero__title{
+  color: color-mix(in oklab, var(--text) 92%, white 8%);
+  text-shadow: 0 3px 12px rgba(0,0,0,.35);
+}
+.hero__tag{
+  color: color-mix(in oklab, var(--text-muted) 90%, var(--accent) 10%);
+}
+.hero__cite{
+  color: color-mix(in oklab, var(--text-subtle) 85%, var(--accent) 15%);
+}
+
+/* === Make "Latest posts" section more prominent === */
+
+/* Section container: more breathing room and subtle glow */
+section.container:has(.post-grid) {
+  padding: clamp(2rem, 5vw, 4rem) 0;
+  background: color-mix(in oklab, var(--surface) 90%, transparent 10%);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  margin-top: 3rem;
+}
+
+/* Section title */
+section.container:has(.post-grid) h2 {
+  font-size: clamp(2rem, 3vw + 1rem, 2.75rem);
+  line-height: 1.15;
+  font-weight: 900;
+  color: var(--text);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+/* Card layout tweaks for more impact */
+.post-grid {
+  display: grid;
+  gap: 1.5rem;
+  jus
+
+/* === Center-align the "Latest posts" section === */
+section.container:has(.post-grid) {
+  text-align: center;                   /* center heading + button */
+}
+
+section.container:has(.post-grid) h2 {
+  text-align: center;                   /* keep heading centered */
+  margin-inline: auto;
+}
+
+/* Center the post grid itself */
+.post-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+/* Make cards consistent size and centered */
+.post-grid .card {
+  flex: 0 1 380px;                      /* fixed max width per card */
+  margin-inline: auto;
+}
+
+/* Center "View all posts" button */
+section.container:has(.post-grid) p {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* === Force full central alignment for Latest posts section === */
+section.container:has(.post-grid) {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container);
+}
+
+section.container:has(.post-grid) h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.post-grid {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.post-grid .card {
+  flex: 0 1 380px;
+  margin: 0 auto;
+}
+
+section.container:has(.post-grid) p {
+  text-align: center !important;
+  margin-top: 2rem;
+}
+
+/* === Center the 'Latest posts' block on the home page === */
+.latest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* center everything horizontally */
+  text-align: center;
+}
+
+/* Center the heading */
+.latest > h2 {
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+}
+
+/* Override earlier grid rules only inside .latest */
+.latest .post-grid {
+  display: flex !important;          /* beat earlier display:grid */
+  flex-wrap: wrap;
+  justify-content: center !important;
+  align-items: stretch;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 920px;                  /* adjust to taste */
+  margin: 0 auto;
+}
+
+/* Give cards a consistent width and center them */
+.latest .post-grid .card {
+  flex: 0 1 420px;                   /* ~2 cards per row on wide screens */
+  margin: 0 auto;
+}
+
+/* Center the 'View all posts' button paragraph */
+.latest > p {
+  text-align: center !important;
+  margin-top: 1.75rem;
+}

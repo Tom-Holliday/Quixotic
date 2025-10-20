@@ -7,7 +7,8 @@ title: "Home"
 {% include "components/hero.njk" %}
 
 {# ---------- INTRO ---------- #}
-<section class="intro container" style="margin-top:1rem">
+<section class="container latest" style="margin-top:1rem">
+
   <p class="lede">
     Explore recent writing on the <a href="/posts/">Posts</a> page. Long-form, sourced, and accessible.
   </p>
@@ -24,7 +25,7 @@ title: "Home"
   {% if list and (list | length) > 0 %}
     <div class="post-grid">
       {% for post in list %}
-        {% if loop.index0 < 6 %}
+        {% if loop.index0 < 3 %}
           <article class="card">
             <a href="{{ post.url }}">
               {% if post.data.cover or post.data.hero %}
