@@ -5,8 +5,7 @@ date: 2025-10-30
 cover: /assets/img/next.jpg
 draft: false
 ---
-UK clothing giant Next have exceeded sales
-expectations, signalling a “strong statement” for the UK economy.
+UK clothing giant Next have exceeded sales expectations, signalling a “strong statement” for the UK economy.
 
 The British clothing retailer overdelivered in their most recent earnings call, reporting a 10.5% rise in full-price sales from the previous fiscal quarter. 
 
