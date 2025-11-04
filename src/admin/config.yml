@@ -57,3 +57,55 @@ collections:
               - { label: "Width", name: "width", widget: "number", required: false }
               - { label: "Height", name: "height", widget: "number", required: false }
               - { label: "Caption", name: "caption", widget: "string", required: false }
+
+  - name: "infographics"
+    label: "Data & Infographics"
+    folder: "src/infographics"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{date}}"
+    media_folder: "src/assets/infographics"
+    public_folder: "/assets/infographics"
+    editor:
+      preview: true
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "infographic" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false, required: false }
+
+      # Optional short caption for the list view
+      - { label: "Caption (short description)", name: "caption", widget: "text", required: false }
+
+      # Optional cover image for the grid card
+      - label: "Cover Image"
+        name: "image"
+        widget: "object"
+        collapsed: true
+        required: false
+        fields:
+          - { label: "Image File", name: "src", widget: "image", required: false }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }
+
+      # ✅ Main gallery: multiple images + captions
+      - label: "Gallery"
+        name: "gallery"
+        widget: "list"
+        summary: "{{fields.caption}}"
+        fields:
+          - { label: "Image", name: "src", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }
+          - { label: "Caption", name: "caption", widget: "text", required: false }
+
+      # Optional: related post link
+      - label: "Related Post"
+        name: "related"
+        widget: "relation"
+        collection: "posts"
+        search_fields: ["title", "slug"]
+        value_field: "url"
+        display_fields: ["title"]
+        required: false
+
+      # Optional markdown body for sources or notes
+      - { label: "Notes / Source", name: "body", widget: "markdown", required: false }

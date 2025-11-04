@@ -1,18 +1,17 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Content Manager</title>
-  <link rel="stylesheet" href="/assets/css/main.css" />
-</head>
-<body>
-  <!-- Local Decap CMS bundle -->
-  <script src="/admin/decap-cms.js"></script>
-  <script>window.CMS = window.DecapCms || window.CMS;</script>
-  <!-- Your custom editor components -->
-  <script src="/admin/cms.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Content Manager</title>
+  </head>
+  <body>
+    <!-- Load Decap CMS directly from the CDN -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <!-- Initialize it -->
+    <script>
+      CMS.init();
+    </script>
+  </body>
 </html>
-
-
