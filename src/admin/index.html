@@ -4,14 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Content Manager</title>
+    <script>window.CMS_MANUAL_INIT = true;</script>
   </head>
   <body>
-    <!-- Load Decap CMS directly from the CDN -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Pin an exact version (NO caret) -->
+    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
 
-    <!-- Initialize it -->
     <script>
-      CMS.init();
+      const bust = String(Date.now());
+      CMS.init({
+        load_config_file: true,
+        config: `/admin/config.yml?v=${bust}`, // cache-bust the config
+      });
     </script>
   </body>
 </html>
