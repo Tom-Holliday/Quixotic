@@ -1,17 +1,25 @@
-<form
-  action="https://buttondown.com/api/emails/embed-subscribe/quixoticblog"
-  method="post"
-  class="subscribe-form"
->
-  <label for="bd-email" class="sr-only">Email address</label>
-  <input 
-    type="email" 
-    name="email" 
-    id="bd-email" 
-    placeholder="Enter your email" 
-    required
-  />
-  <input type="hidden" name="embed" value="1">
-  <button type="submit">Subscribe</button>
-  <p class="form-hint">You’ll get a confirmation email. Unsubscribe anytime.</p>
-</form>
+<footer class="site-footer">
+  <section class="footer-substack">
+    <h2>Substack</h2>
+    <p>
+      I’m expanding <strong>Quixotic</strong>’s reach through
+      {% if site.substack %}
+        <a href="{{ site.substack }}" target="_blank" rel="noopener">Substack</a>,
+        where I share essays, market reflections, and behind-the-scenes thoughts.
+        Subscribe to stay connected.
+      {% else %}
+        <a href="https://substack.com" target="_blank" rel="noopener">Substack</a> —
+        soon to feature essays, market reflections, and behind-the-scenes thoughts.
+        Check back for the newsletter launch.
+      {% endif %}
+    </p>
+    <p>
+      In the same spirit as this blog, the Substack aims to broaden thoughtful discourse —
+      bringing clarity, depth, and curiosity to modern finance and economics.
+    </p>
+  </section>
+
+  <p class="footer-copy">
+    &copy; {{ "now" | date("yyyy") }} {{ site.title or "Quixotic Blog" }}.
+  </p>
+</footer>

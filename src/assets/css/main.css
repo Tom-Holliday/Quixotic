@@ -914,3 +914,53 @@ section.container:has(.post-grid) p {
 
 
 }
+
+/* Substack panel — uses site tokens (works in both themes) */
+.footer-substack{
+  background: color-mix(in oklab, var(--surface) 92%, transparent 8%);
+  color: var(--text);
+  text-align: center;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border: 1px solid color-mix(in oklab, var(--border) 85%, transparent 15%);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  max-width: min(48rem, 92%);
+  margin: var(--space-8) auto;
+  line-height: 1.65;
+}
+
+.footer-substack h2{
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  margin: 0 0 var(--space-3);
+  color: var(--text);
+}
+
+.footer-substack p + p{
+  margin-top: var(--space-3);
+}
+
+.footer-substack a{
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: var(--ul-off);
+}
+
+.footer-substack a:hover{
+  text-decoration-thickness: 2px;
+}
+
+.footer-copy{
+  text-align: center;
+  margin-top: var(--space-4);
+  color: var(--text-subtle);
+  font-size: 0.95rem;
+}
+
+/* slight theme-aware polish */
+html[data-theme="light"] .footer-substack{
+  /* darker UI → a touch more contrast */
+  background: color-mix(in oklab, var(--surface) 88%, transparent 12%);
+  border-color: color-mix(in oklab, var(--border) 70%, transparent 30%);
+  box-shadow: var(--shadow-2);
+}
