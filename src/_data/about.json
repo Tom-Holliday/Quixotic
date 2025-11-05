@@ -1,14 +1,19 @@
 {
   "title": "About",
   "text": "My name is Tom Holliday (BSc in International Business & Applied Finance). I founded Quixotic as an expression of my enduring passion for finance, economics, and the systems that shape modern business. \n Through this blog, I explore the forces driving today’s economic landscape, offering original commentary and perspective on emerging trends. \n The name 'Quixotic' is drawn from the Spanish novel Don Quixote — the tale of an idealistic knight’s pursuit to bring reason to a chaotic world. \n In the same spirit, Quixotic aims to champion truth, rationality, and thoughtful inquiry.",
-  "link": {
+  "cta": {
     "label": "Contact me",
     "href": "mailto:tom.holliday@hotmail.com"
   },
-  "image": {
-    "src": "/assets/img/about.jpg",
-    "width": 600,
-    "height": 500,
+  "video": {
+    "src": "/assets/video/about.mp4",
+    "type": "video/mp4",
+    "autoplay": true,
+    "muted": true,
+    "loop": true,
+    "preload": "auto",
+    "width": 1200,
+    "height": 800,
     "caption": "First step to solving a problem is recognising there is one. ~ Will McAvoy"
   }
 }

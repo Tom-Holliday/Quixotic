@@ -110,5 +110,26 @@
   <script src="/assets/js/search.js?v={{ '/assets/js/search.js' | assetHash }}" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js" defer></script>
   <script src="/assets/js/tilt.js" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const v = document.getElementById('about-video');
+  if (!v) return;
+
+  // Ensure muted is a DOM property too
+  v.muted = true;
+
+  const tryPlay = () => v.play().catch(err => {
+    console.warn('Autoplay blocked:', err);
+  });
+
+  v.addEventListener('canplay', tryPlay, { once: true });
+
+  // If the browser already loaded enough, start immediately
+  if (v.readyState >= 3) tryPlay();
+});
+</script>
+
+
 </body>
 </html>

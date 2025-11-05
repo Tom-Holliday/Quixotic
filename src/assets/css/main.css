@@ -979,3 +979,39 @@ html[data-theme="light"] .footer-substack{
   margin-top: 0.5rem;
   text-align: center;
 }
+
+.about__media, .about__media * {
+  pointer-events: auto !important;
+}
+.about__media::before,
+.about__media::after { display: none !important; }
+
+/* Remove card background/shadow around the media */
+.about__media {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Make the video fill the figure and have a black backdrop */
+.about__media video {
+  display: block;
+  width: 100%;
+  height: auto;             /* or set a fixed height + object-fit if you want a hero */
+  background: #000;         /* avoids light box in dark mode */
+  border-radius: 1rem;      /* keep the rounded corners on the video itself */
+  outline: none;
+}
+
+/* If you use a fixed height, add this */
+.about__media video.is-cover {
+  height: 480px;            /* example */
+  object-fit: cover;
+}
+
+/* Nudge dark-mode specifically (defensive) */
+@media (prefers-color-scheme: dark) {
+  .about__media { background: transparent !important; }
+  .about__media video { background: #000 !important; }
+}

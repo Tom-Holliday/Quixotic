@@ -11,7 +11,6 @@
         <div class="about__content">{{ about.html | safe }}</div>
       {% elseif about.text %}
         <div class="about__content">
-          {# Fallback: split lines into paragraphs without needing a markdown filter #}
           {% for line in about.text | splitLines %}
             {% if line %}<p>{{ line }}</p>{% endif %}
           {% endfor %}
@@ -25,47 +24,37 @@
       {% endif %}
     </div>
 
-{# Media (video preferred, image fallback) #}
-{% if about.video and about.video.src %}
-  <figure class="about__media about__media--shimmer">
-    <video
-      class="about-tilt"
-      src="{{ about.video.src | url }}{% if about.video.src %}?v={{ about.video.src | assetHash }}{% endif %}"
-      {% if about.video.type %}type="{{ about.video.type }}"{% endif %}
-      {% if about.video.poster %}poster="{{ about.video.poster | url }}"{% endif %}
-      {% if about.video.controls or about.video.controls == undefined %}controls{% endif %}
-      {% if about.video.autoplay %}autoplay{% endif %}
-      {% if about.video.muted %}muted{% endif %}
-      {% if about.video.loop %}loop{% endif %}
-      playsinline
-      preload="{{ about.video.preload or 'metadata' }}"
-      width="{{ about.video.width or 1200 }}"
-      height="{{ about.video.height or 800 }}">
-      {% if about.video.captions %}
-        <track
-          kind="captions"
-          src="{{ about.video.captions | url }}"
-          srclang="{{ about.video.srclang or 'en' }}"
-          label="{{ about.video.label or 'English' }}">
-      {% endif %}
-      Sorry, your browser doesn’t support embedded videos.
-    </video>
-    {% if about.video.caption %}<figcaption class="about__caption">{{ about.video.caption }}</figcaption>{% endif %}
-  </figure>
-{% elseif about.image and about.image.src %}
-  <figure class="about__media about__media--shimmer">
-    <img
-      class="about-tilt"
-      src="{{ about.image.src | url }}?v={{ about.image.src | assetHash }}"
-      alt="{{ about.image.alt or 'About image' }}"
-      width="{{ about.image.width or 1200 }}"
-      height="{{ about.image.height or 800 }}"
-      loading="lazy" decoding="async" />
-    {% if about.image.caption %}<figcaption class="about__caption">{{ about.image.caption }}</figcaption>{% endif %}
-  </figure>
-{% endif %}
-
-
+    {# --- Video only, autoplay muted loop + native controls --- #}
+    {% if about.video and about.video.src %}
+      <figure class="about__media">
+        <video
+          id="about-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          controls
+          width="{{ about.video.width or 1200 }}"
+          height="{{ about.video.height or 800 }}">
+          <source src="{{ about.video.src | url }}" type="{{ about.video.type or 'video/mp4' }}">
+          {% if about.video.srcWebm %}
+            <source src="{{ about.video.srcWebm | url }}" type="video/webm">
+          {% endif %}
+          {% if about.video.captions %}
+            <track
+              kind="captions"
+              src="{{ about.video.captions | url }}"
+              srclang="{{ about.video.srclang or 'en' }}"
+              label="{{ about.video.label or 'English' }}">
+          {% endif %}
+          Sorry, your browser doesn’t support embedded videos.
+        </video>
+        {% if about.video.caption %}
+          <figcaption class="about__caption">{{ about.video.caption }}</figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
 
   </div>
 </section>
