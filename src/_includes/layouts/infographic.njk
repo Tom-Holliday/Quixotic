@@ -1,0 +1,44 @@
+---
+layout: base
+---
+
+<article class="post-article">
+  <header class="post-header">
+    <h1 class="post-title">{{ title }}</h1>
+    {% if date %}<p class="post-meta">{{ date | dateDisplay }}</p>{% endif %}
+  </header>
+
+  {# Optional top cover if set #}
+  {% if image and image.src %}
+    <figure class="post-hero">
+      <img src="{{ image.src | url }}"
+           alt="{{ image.alt or title }}"
+           loading="lazy" decoding="async"
+           style="width:100%;height:auto;border-radius:var(--radius);" />
+      {% if caption %}<figcaption>{{ caption }}</figcaption>{% endif %}
+    </figure>
+  {% endif %}
+
+  {# Gallery — images with captions #}
+  {% if gallery and gallery.length %}
+    <div class="article-body">
+      {% for g in gallery %}
+        <figure style="margin: 1.25rem 0;">
+          <img src="{{ g.src | url }}"
+               alt="{{ g.alt or title }}"
+               loading="lazy" decoding="async"
+               style="width:100%;height:auto;border-radius:var(--radius);" />
+          {% if g.caption %}
+            <figcaption class="post-meta" style="margin-top:.5rem;">{{ g.caption }}</figcaption>
+          {% endif %}
+        </figure>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if content %}<div class="article-body">{{ content | safe }}</div>{% endif %}
+
+  {% if related %}
+    <p class="post-tags">Related article: <a href="{{ related }}">{{ related }}</a></p>
+  {% endif %}
+</article>

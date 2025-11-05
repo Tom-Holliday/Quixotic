@@ -24,6 +24,11 @@
       <nav class="nav" aria-label="Primary">
         <a href="/" class="{% if page.url == '/' %}active{% endif %}">Home</a>
         <a href="/posts/" class="{% if page.url and page.url.startsWith('/posts/') %}active{% endif %}">Posts</a>
+
+        <!-- 👇 NEW Data & Infographics link -->
+        <a href="/data/" class="{% if page.url and page.url.startsWith('/data/') %}active{% endif %}">
+          Data &amp; Infographics
+        </a>
       </nav>
 
       <button

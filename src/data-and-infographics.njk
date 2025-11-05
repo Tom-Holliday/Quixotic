@@ -1,0 +1,35 @@
+---
+layout: base
+title: Data & Infographics
+permalink: /data/
+bodyClass: "data"
+---
+
+<section class="latest">
+  <h2>Data &amp; Infographics</h2>
+  <p>Have a request for a chart or dataset? <a href="mailto:tom.holliday@hotmail.com">Email me</a>.</p>
+
+  <div class="post-grid">
+    {% for item in collections.infographics %}
+      {% set cover = null %}
+      {% if item.data.image and item.data.image.src %}
+        {% set cover = item.data.image %}
+      {% elseif item.data.gallery and item.data.gallery.length %}
+        {% set cover = item.data.gallery[0] %}
+      {% endif %}
+
+      <article class="card">
+        <figure class="card__media">
+          {% if cover and cover.src %}
+            {% img cover.src, (cover.alt or item.data.title), [480,768,1200], "(min-width: 768px) 480px, 100vw" %}
+          {% endif %}
+        </figure>
+        <div class="card__body">
+          <h3 class="card__title"><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
+          {% if item.data.caption %}<p class="card__meta">{{ item.data.caption }}</p>{% endif %}
+          {% if item.data.related %}<p class="card__meta">Related: <a href="{{ item.data.related }}">read the article</a></p>{% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
