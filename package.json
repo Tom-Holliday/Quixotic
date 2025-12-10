@@ -3,22 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node ./node_modules/@11ty/eleventy/cmd.js --serve --quiet",
-    "build": "node ./node_modules/@11ty/eleventy/cmd.js"
+    "dev": "node ./node_modules/@11ty/eleventy/cmd.cjs --serve --quiet",
+    "build": "node ./node_modules/@11ty/eleventy/cmd.cjs"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-img": "^6.0.4",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0"
   },
   "dependencies": {
     "@11ty/eleventy-plugin-rss": "^2.0.4",
-    "markdown-it-toc-done-right": "^4.2.0",
-    "luxon": "^3.5.0"
+    "luxon": "^3.5.0",
+    "markdown-it-toc-done-right": "^4.2.0"
   },
   "engines": {
     "node": ">=18"
   }
 }
-
