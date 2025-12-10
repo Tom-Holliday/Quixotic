@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "eleventy --serve --quiet",
-    "build": "eleventy"
+    "dev": "node ./node_modules/@11ty/eleventy/cmd.js --serve --quiet",
+    "build": "node ./node_modules/@11ty/eleventy/cmd.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
@@ -16,5 +16,9 @@
     "@11ty/eleventy-plugin-rss": "^2.0.4",
     "markdown-it-toc-done-right": "^4.2.0",
     "luxon": "^3.5.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
+
