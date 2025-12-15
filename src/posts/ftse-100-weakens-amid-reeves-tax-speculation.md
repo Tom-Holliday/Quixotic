@@ -6,7 +6,7 @@ updated: 2025-12-15
 cover: /assets/img/rachel-reeves.jpg
 draft: false
 ---
-*Source: Flickr. Rachel Reeves and her red box*
+*Source: Flickr. Rachel Reeves and her red box.*
 
 **AstraZeneca’s US listing move was overshadowed as the FTSE 100 slid to monthly lows on renewed fears that Rachel Reeves will hike income taxes in the November budget.** 
 
