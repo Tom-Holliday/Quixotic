@@ -1,7 +1,7 @@
 ---
 layout: post.njk
 title: "FTSE 100 weakens amid Reeves tax speculation "
-date: 2025-12-15
+date: 2025-11-12
 updated: 2025-12-15
 cover: /assets/img/rachel-reeves.jpg
 draft: false
