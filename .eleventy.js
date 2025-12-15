@@ -21,8 +21,16 @@ function srcFromWebPath(webPath) {
   if (webPath.startsWith("src/assets/")) return "./" + webPath.replace(/^\.?\//, "");
   return null;
 }
+
 const htmlToText = (html = "") =>
   html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+
+function isDraft(data) {
+  const d = data?.draft;
+  if (typeof d === "boolean") return d;
+  if (typeof d === "string") return ["true", "yes", "1"].includes(d.toLowerCase());
+  return false;
+}
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.setDataDeepMerge(true);
@@ -30,6 +38,10 @@ module.exports = function (eleventyConfig) {
   // --- Layout aliases ---
   eleventyConfig.addLayoutAlias("base", "base.njk");
   eleventyConfig.addLayoutAlias("post", "post.njk");
+  eleventyConfig.addLayoutAlias("infographic", "infographic.njk");
+
+  // Nunjucks whitespace
+  eleventyConfig.setNunjucksEnvironmentOptions({ trimBlocks: true, lstripBlocks: true });
 
   // --- Filters ---
   eleventyConfig.addFilter("editOnGitHub", (inputPath) => {
@@ -45,42 +57,48 @@ module.exports = function (eleventyConfig) {
       if (!srcPath || !fs.existsSync(srcPath)) return Date.now().toString();
       const buf = fs.readFileSync(srcPath);
       return crypto.createHash("md5").update(buf).digest("hex").slice(0, 10);
-    } catch { return Date.now().toString(); }
+    } catch {
+      return Date.now().toString();
+    }
   });
 
   eleventyConfig.addFilter("relatedPosts", (collection = [], page, max = 3) => {
     if (!page?.data) return [];
     const IGNORE = new Set(["post", "posts", "all"]);
-    const currentTags = new Set((page.data.tags || []).filter(t => !IGNORE.has(t)));
+    const currentTags = new Set((page.data.tags || []).filter((t) => !IGNORE.has(t)));
     if (!currentTags.size) return [];
+
     return collection
-      .filter(p => p.url && p.url !== page.url)
-      .map(p => {
+      .filter((p) => p.url && p.url !== page.url)
+      .map((p) => {
         const tags = Array.isArray(p.data?.tags) ? p.data.tags : [];
-        const overlap = tags.filter(t => currentTags.has(t)).length;
+        const overlap = tags.filter((t) => currentTags.has(t)).length;
         const date = new Date(p.date || p.data?.date || 0).getTime() || 0;
         return { p, score: overlap, date };
       })
-      .filter(x => x.score > 0)
+      .filter((x) => x.score > 0)
       .sort((a, b) => (b.score - a.score) || (b.date - a.date))
       .slice(0, max)
-      .map(x => x.p);
+      .map((x) => x.p);
   });
 
-  eleventyConfig.addFilter("dateIso", (v) => v ? new Date(v).toISOString() : "");
+  eleventyConfig.addFilter("dateIso", (v) => (v ? new Date(v).toISOString() : ""));
   eleventyConfig.addFilter("dateDisplay", (v) => {
     if (!v) return "";
     const d = new Date(v);
-    return isNaN(d) ? "" : new Intl.DateTimeFormat("en-GB", {
-      day: "2-digit", month: "short", year: "numeric"
-    }).format(d);
+    return isNaN(d)
+      ? ""
+      : new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" }).format(d);
   });
+
   eleventyConfig.addFilter("indexOf", (arr, item) =>
-    Array.isArray(arr) ? arr.findIndex(x => x.url === item.url) : -1
+    Array.isArray(arr) ? arr.findIndex((x) => x.url === item.url) : -1
   );
+
   eleventyConfig.addFilter("splitLines", (v) =>
     v ? String(v).replace(/\r\n?/g, "\n").split("\n") : []
   );
+
   eleventyConfig.addFilter("readingTime", (content) => {
     const words = htmlToText(content).split(" ").filter(Boolean).length;
     const mins = Math.max(1, Math.round(words / 200));
@@ -90,9 +108,8 @@ module.exports = function (eleventyConfig) {
   // Universal date filter
   eleventyConfig.addFilter("date", (dateObj, fmt = "dd LLL yyyy") => {
     if (!dateObj) return "";
-    const dt = typeof dateObj === "string"
-      ? DateTime.fromISO(dateObj)
-      : DateTime.fromJSDate(dateObj);
+    const dt =
+      typeof dateObj === "string" ? DateTime.fromISO(dateObj) : DateTime.fromJSDate(dateObj);
     return dt.isValid ? dt.toFormat(fmt) : "";
   });
 
@@ -109,7 +126,10 @@ module.exports = function (eleventyConfig) {
     if (markdownItAnchor) {
       md.use(markdownItAnchor, {
         permalink: markdownItAnchor.permalink.ariaHidden({
-          placement: "after", class: "anchor-link", symbol: "#", level: [1,2,3,4],
+          placement: "after",
+          class: "anchor-link",
+          symbol: "#",
+          level: [1, 2, 3, 4],
         }),
         slugify: (s) => s.trim().toLowerCase().replace(/[^\w]+/g, "-"),
       });
@@ -117,43 +137,49 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.setLibrary("md", md);
   }
 
-// --- Collections ---
-function isDraft(data) {
-  const d = data?.draft;
-  if (typeof d === "boolean") return d;
-  if (typeof d === "string") return ["true","yes","1"].includes(d.toLowerCase());
-  return false;
-}
+  // --- Collections ---
+  function allPosts(c) {
+    const byGlob = c.getFilteredByGlob("./src/posts/**/*.{md,njk,html}");
+    const byTag = c.getFilteredByTag("post");
+    const set = new Set([...byGlob, ...byTag]);
+    return [...set].filter((p) => p.data?.page?.fileSlug !== "index");
+  }
 
-function allPosts(c) {
-  const byGlob = c.getFilteredByGlob("./src/posts/**/*.{md,njk,html}");
-  const byTag  = c.getFilteredByTag("post");
-  // de-duplicate + drop the folder index
-  const set = new Set([...byGlob, ...byTag]);
-  return [...set].filter(p => p.data?.page?.fileSlug !== "index");
-}
+  eleventyConfig.addCollection("postsSorted", (c) =>
+    allPosts(c).sort((a, b) => b.date - a.date)
+  );
 
-eleventyConfig.addCollection("postsSorted", (c) =>
-  allPosts(c).sort((a,b) => b.date - a.date)
-);
-eleventyConfig.addCollection("postsPublishedSorted", (c) =>
-  allPosts(c).filter(p => !isDraft(p.data)).sort((a,b) => b.date - a.date)
-);
-eleventyConfig.addCollection("postsDraftsSorted", (c) =>
-  allPosts(c).filter(p => isDraft(p.data)).sort((a,b) => b.date - a.date)
-);
+  eleventyConfig.addCollection("postsPublishedSorted", (c) =>
+    allPosts(c).filter((p) => !isDraft(p.data)).sort((a, b) => b.date - a.date)
+  );
 
-// Keep this INSIDE the module.exports function:
-eleventyConfig.setNunjucksEnvironmentOptions({ trimBlocks: true, lstripBlocks: true });
+  eleventyConfig.addCollection("postsDraftsSorted", (c) =>
+    allPosts(c).filter((p) => isDraft(p.data)).sort((a, b) => b.date - a.date)
+  );
 
+  // ✅ Infographics collection (this is what your /data/ page needs)
+  function allInfographics(c) {
+    return c
+      .getFilteredByGlob("./src/infographics/**/*.{md,njk,html}")
+      .filter((p) => p.data?.page?.fileSlug !== "index");
+  }
+
+  eleventyConfig.addCollection("infographics", (c) =>
+    allInfographics(c)
+      .filter((p) => !isDraft(p.data))
+      .sort((a, b) => b.date - a.date)
+  );
 
   // --- Shortcodes ---
   if (Image) {
     eleventyConfig.addNunjucksAsyncShortcode(
       "img",
-      async (src, alt = "", widths = [400,800,1200], sizes="(min-width: 768px) 800px, 100vw") => {
+      async (src, alt = "", widths = [400, 800, 1200], sizes = "(min-width: 768px) 800px, 100vw") => {
         const metadata = await Image(src, {
-          widths, formats: ["webp","jpeg"], urlPath: "/assets/img/", outputDir: "./_site/assets/img/",
+          widths,
+          formats: ["webp", "jpeg"],
+          urlPath: "/assets/img/",
+          outputDir: "./_site/assets/img/",
         });
         const attrs = { alt, sizes, loading: "lazy", decoding: "async", class: "rounded" };
         return Image.generateHTML(metadata, attrs, { whitespaceMode: "inline" });
@@ -181,7 +207,7 @@ eleventyConfig.setNunjucksEnvironmentOptions({ trimBlocks: true, lstripBlocks: t
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
     dataTemplateEngine: "njk",
-    templateFormats: ["md","njk","html"],
+    templateFormats: ["md", "njk", "html"],
     passthroughFileCopy: true,
   };
 };
