@@ -26,6 +26,7 @@ bodyClass: "data"
         </figure>
         <div class="card__body">
           <h3 class="card__title"><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
+          <p class="card__meta">{{ item.date | dateDisplay }}</p>
           {% if item.data.caption %}<p class="card__meta">{{ item.data.caption }}</p>{% endif %}
           {% if item.data.related %}<p class="card__meta">Related: <a href="{{ item.data.related }}">read the article</a></p>{% endif %}
         </div>
