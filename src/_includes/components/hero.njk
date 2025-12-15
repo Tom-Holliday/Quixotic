@@ -1,8 +1,10 @@
-﻿{# components/hero.njk #}
-{% set v = collections.all | length %}
+﻿{# components/hero.njk — single centered featured post (no card image) #}
 {% set heroImg = page.heroImage or metadata.heroImage or "/img/logo.png" %}
-<!-- DEBUG heroImg: {{ heroImg }} -->
+{% set list = collections.postsPublishedSorted or collections.postsSorted %}
+{% set p1 = (list or [])[0] %}
+
 <section class="hero hero--quixote">
+
   <div class="hero__media" aria-hidden="true">
     <img
       class="hero__img"
@@ -13,18 +15,31 @@
       decoding="async" />
   </div>
 
-  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__shade" aria-hidden="true"></div>
 
-  <div class="hero__inner">
-    <div class="hero__intro">
-      <h1 class="hero__title">{{ metadata.title or "Quixotic" }}</h1>
+  {% if p1 %}
+    <div class="hero__inner hero__inner--centered">
+      <article class="card card--hero card--hero-featured">
+        <a href="{{ p1.url }}">
 
-      {% if metadata.description %}
-        <p class="hero__tag">{{ metadata.description }}</p>
-      {% endif %}
-      {% if metadata.attribution %}
-        <p class="hero__cite">{{ metadata.attribution }}</p>
-      {% endif %}
+          <div class="card__body">
+            <span class="card__eyebrow">Featured</span>
+
+            <h2 class="card__title">
+              {{ p1.data.title }}
+            </h2>
+
+            <p class="card__meta">
+              <time datetime="{{ p1.date | dateIso }}">
+                {{ p1.date | dateDisplay }}
+              </time>
+              · {{ p1.data.byline or p1.data.author or "Tom Holliday" }}
+            </p>
+          </div>
+
+        </a>
+      </article>
     </div>
-  </div>
+  {% endif %}
+
 </section>

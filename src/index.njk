@@ -8,14 +8,10 @@ title: "Home"
 
 {# ---------- INTRO ---------- #}
 <section class="container latest" style="margin-top:1rem">
-
   <p class="lede">
-    Explore recent writing on the <a href="/posts/">Posts</a> page. Long-form, sourced, and accessible.
+    Explore recent writing on the <a href="/posts/">Posts</a> page. Short-form, sourced, and accessible.
   </p>
 </section>
-
-{# ---------- ABOUT (component; safe if _data/about.json is empty) ---------- #}
-{% include "components/about.njk" ignore missing %}
 
 {# ---------- LATEST POSTS ---------- #}
 <section class="container" style="margin-top:2rem">
@@ -33,9 +29,11 @@ title: "Home"
                   <img
                     src="{{ post.data.cover or post.data.hero }}"
                     alt="{{ post.data.coverAlt or post.data.heroAlt or post.data.title }}"
-                    loading="lazy" decoding="async">
+                    loading="lazy"
+                    decoding="async">
                 </div>
               {% endif %}
+
               <div class="card__body">
                 <h3 class="card__title">{{ post.data.title }}</h3>
                 <p class="card__meta">
@@ -48,8 +46,14 @@ title: "Home"
         {% endif %}
       {% endfor %}
     </div>
-    <p style="margin-top:1rem"><a class="btn secondary" href="/posts/">View all posts →</a></p>
+
+    <p style="margin-top:1rem">
+      <a class="btn secondary" href="/posts/">View all posts →</a>
+    </p>
   {% else %}
     <p>No posts yet.</p>
   {% endif %}
 </section>
+
+{# ---------- ABOUT (component; safe if _data/about.json is empty) ---------- #}
+{% include "components/about.njk" ignore missing %}
