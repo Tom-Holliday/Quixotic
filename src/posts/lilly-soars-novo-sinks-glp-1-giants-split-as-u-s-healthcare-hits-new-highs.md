@@ -1,7 +1,7 @@
 ---
 layout: post.njk
 title: "Lilly soars, Novo sinks: GLP-1 Giants Split as U.S. Healthcare Hits New Highs"
-date: 2025-12-27
+date: 2025-12-02
 updated: 2025-12-15
 cover: /assets/img/glp-1.jpeg
 draft: false
