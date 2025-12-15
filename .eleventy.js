@@ -182,12 +182,19 @@ if (Image) {
           input = `./src/${src.slice(1)}`; // -> ./src/assets/...
         }
 
+       // ✅ Detect infographic images
+        const isInfographic =
+          typeof src === "string" && src.startsWith("/assets/infographics/");
+
         const metadata = await Image(input, {
           widths,
           formats: ["webp", "jpeg"],
-          urlPath: "/assets/img/",
-          outputDir: "./_site/assets/img/",
+          urlPath: isInfographic ? "/assets/infographics/" : "/assets/img/",
+          outputDir: isInfographic
+            ? "./_site/assets/infographics/"
+            : "./_site/assets/img/",
         });
+
 
         const attrs = { alt, sizes, loading: "lazy", decoding: "async", class: "rounded" };
         return Image.generateHTML(metadata, attrs, { whitespaceMode: "inline" });

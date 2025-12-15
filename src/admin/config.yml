@@ -64,7 +64,7 @@ collections:
     create: true
     slug: "{{slug}}"
     summary: "{{title}} — {{date}}"
-    media_folder: "src/assets/infographics"
+    media_folder: "../assets/infographics"
     public_folder: "/assets/infographics"
     editor:
       preview: true
