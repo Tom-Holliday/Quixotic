@@ -1114,7 +1114,7 @@ html[data-theme="light"] .footer-substack{
   font-size: clamp(2.4rem, 4.5vw, 3.4rem);
   line-height: 1.1;
   font-weight: 900;
-  color: #2852c6;
+  color: #1613bf;
   margin: 0 0 1rem 0;
   white-space: normal;
   overflow: visible;
@@ -1123,7 +1123,7 @@ html[data-theme="light"] .footer-substack{
 
 .hero--quixote .card--hero-featured .card__meta{
   font-size: 1.05rem;
-  color: #ffffff;
+  color: #71474700;
 }
 
 /* IMPORTANT: prevent any old "square hero card" rules from clipping */
@@ -1138,8 +1138,65 @@ html[data-theme="light"] .footer-substack{
 
 /* === HARD OVERRIDE: featured card glass === */
 .hero--quixote .card--hero-featured{
-  background-color: rgba(255,255,255,0.01) !important;
+  background-color: rgba(255,255,255,0.99) !important;
   backdrop-filter: blur(22px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
 }
 
+/* ===========================
+   HERO — MOBILE FIXES
+   =========================== */
+
+@media (max-width: 900px){
+  /* Make the hero less tall on phones */
+  .hero--quixote{
+    min-height: clamp(360px, 55vh, 520px);
+    border-radius: 18px;
+  }
+
+  /* True centering on mobile, with safe padding */
+  .hero--quixote .hero__inner{
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
+
+  /* Featured card: fit nicely on small screens */
+  .hero--quixote .card--hero-featured{
+    width: 100%;
+    max-width: 26rem;          /* stops it getting too wide */
+    border-radius: 18px;
+    text-align: left;          /* reads better on phones */
+  }
+
+  .hero--quixote .card--hero-featured > a{
+    padding: 1.25rem;
+  }
+
+  /* Featured label bigger + tighter spacing */
+  .hero--quixote .card__eyebrow{
+    font-size: .9rem;
+    margin-bottom: .35rem;
+  }
+
+  /* Title: responsive + prevents overflow */
+  .hero--quixote .card--hero-featured .card__title{
+    font-size: clamp(1.5rem, 5.2vw, 2.1rem);
+    line-height: 1.15;
+    margin-bottom: .6rem;
+    text-wrap: balance;
+  }
+
+  .hero--quixote .card--hero-featured .card__meta{
+    font-size: .95rem;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 420px){
+  .hero--quixote .card--hero-featured > a{
+    padding: 1.05rem;
+  }
+}
