@@ -170,22 +170,36 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => b.date - a.date)
   );
 
-  // --- Shortcodes ---
-  if (Image) {
-    eleventyConfig.addNunjucksAsyncShortcode(
-      "img",
-      async (src, alt = "", widths = [400, 800, 1200], sizes = "(min-width: 768px) 800px, 100vw") => {
-        const metadata = await Image(src, {
+if (Image) {
+  eleventyConfig.addNunjucksAsyncShortcode(
+    "img",
+    async (src, alt = "", widths = [400, 800, 1200], sizes = "(min-width: 768px) 800px, 100vw") => {
+      try {
+        // Convert web path -> disk path for local images
+        let input = src;
+
+        if (typeof src === "string" && src.startsWith("/assets/")) {
+          input = path.join("./src", src); // -> ./src/assets/...
+        }
+
+        const metadata = await Image(input, {
           widths,
           formats: ["webp", "jpeg"],
           urlPath: "/assets/img/",
           outputDir: "./_site/assets/img/",
         });
+
         const attrs = { alt, sizes, loading: "lazy", decoding: "async", class: "rounded" };
         return Image.generateHTML(metadata, attrs, { whitespaceMode: "inline" });
+      } catch (err) {
+        console.warn("[img shortcode] Failed for src:", src, err.message);
+        // Fallback: don’t crash the build
+        return `<img src="${src}" alt="${alt || ""}" loading="lazy" decoding="async">`;
       }
-    );
-  }
+    }
+  );
+}
+
 
   // --- Passthrough / Watch ---
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });

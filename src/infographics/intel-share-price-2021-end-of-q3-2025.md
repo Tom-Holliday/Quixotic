@@ -8,4 +8,5 @@ gallery:
     caption: "Source: Macrotrends. An graph of Intel's share price from 2021-end of
       the Q3 2025"
 related: ""
+permalink: "/data/intel-share-price-2021/"
 ---
