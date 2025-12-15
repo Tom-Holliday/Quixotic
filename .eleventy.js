@@ -179,7 +179,7 @@ if (Image) {
         let input = src;
 
         if (typeof src === "string" && src.startsWith("/assets/")) {
-          input = path.join("./src", src); // -> ./src/assets/...
+          input = `./src/${src.slice(1)}`; // -> ./src/assets/...
         }
 
         const metadata = await Image(input, {
