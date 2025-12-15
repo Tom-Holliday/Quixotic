@@ -1,7 +1,7 @@
 ---
 layout: infographic
 title: Comparative analysis of Next 2025 share price
-date: 2025-12-15
+date: 2025-11-04
 draft: false
 gallery:
   - src: /assets/infographics/next-2025-share-price.png
