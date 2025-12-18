@@ -1200,3 +1200,1377 @@ html[data-theme="light"] .footer-substack{
     padding: 1.05rem;
   }
 }
+
+/* =========================
+   Header — Incremental v2
+   ========================= */
+
+.site-head {
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+}
+
+.site-head__inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: .85rem 0;
+}
+
+/* Left: Home button */
+.site-head__home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+
+.site-head__home-icon {
+  width: 34px;
+  height: 34px;
+  display: block;
+}
+
+/* Center brand */
+.site-head__brand {
+  justify-self: center;
+  text-align: center;
+}
+
+.site-head__brand-link {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* Right controls */
+.site-head__right {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+/* =========================
+   Header — true centered mast (final)
+   ========================= */
+
+.site-head{
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+}
+
+/* Header height + breathing room */
+.site-head__inner{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;              /* taller header */
+}
+
+/* Left / right rails */
+.site-head__left,
+.site-head__right{
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  z-index: 2; /* stay above mast */
+}
+
+/* TRUE CENTER MAST */
+.site-head__mast{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 1;
+}
+
+.site-head__mast-link{
+  text-decoration: none;
+  color: inherit;
+  font-weight: 950;
+  font-size: clamp(2rem, 3vw, 2.6rem); /* bigger & bolder */
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* Nav tabs */
+.nav--clean{
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.nav--clean a{
+  text-decoration: none;
+  color: inherit;
+  font-weight: 650;
+  font-size: 1rem;
+  padding: .45rem .8rem;
+  border-radius: 999px;
+  opacity: .9;
+}
+
+.nav--clean a:hover{
+  background: rgba(0,0,0,.06);
+  opacity: 1;
+}
+
+.nav--clean a.active{
+  background: rgba(0,0,0,.12);
+  opacity: 1;
+}
+
+/* Modern theme toggle */
+.theme-toggle--modern{
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.12);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle--modern:hover{
+  background: rgba(0,0,0,.07);
+}
+
+/* Mobile tweaks */
+@media (max-width: 720px){
+  .site-head__inner{ min-height: 68px; }
+  .site-head__mast-link{ font-size: 1.8rem; }
+  .nav--clean a{ font-size: .95rem; padding: .4rem .65rem; }
+}
+
+/* Ticker above header */
+.ticker{
+  display: block;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+.ticker__viewport{
+  overflow: hidden;
+}
+
+.ticker__track{
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  white-space: nowrap;
+  padding: .55rem 1rem;
+  animation: ticker-scroll 32s linear infinite;
+  will-change: transform;
+}
+
+.ticker__item{
+  font-weight: 650;
+  opacity: .9;
+}
+
+.ticker__link{
+  font-weight: 650;
+  text-decoration: none;
+  color: inherit;
+  opacity: .9;
+}
+
+.ticker__link:hover{
+  opacity: 1;
+  text-decoration: underline;
+}
+
+@keyframes ticker-scroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ticker__track{ animation: none; }
+}
+
+/* Keep mast clickable (your working fix) */
+.site-head__mast{ z-index: 5; pointer-events: none; }
+.site-head__mast-link{ pointer-events: auto; }
+
+/* =========================
+   Ticker theming (light/dark)
+   Works with .dark OR [data-theme="dark"]
+   ========================= */
+
+:root{
+  --ticker-bg: #fff;
+  --ticker-border: rgba(0,0,0,.08);
+  --ticker-text: rgba(0,0,0,.88);
+  --ticker-hover: rgba(0,0,0,1);
+}
+
+.dark,
+[data-theme="dark"]{
+  --ticker-bg: #0f1115;
+  --ticker-border: rgba(255,255,255,.10);
+  --ticker-text: rgba(255,255,255,.86);
+  --ticker-hover: rgba(255,255,255,1);
+}
+
+.ticker{
+  background: var(--ticker-bg);
+  border-bottom: 1px solid var(--ticker-border);
+  color: var(--ticker-text);
+}
+
+.ticker__link{
+  color: inherit;
+}
+
+.ticker__link:hover{
+  color: var(--ticker-hover);
+}
+
+/* If your theme toggle flips only the header/background elsewhere,
+   this keeps ticker + header visually consistent */
+.site-head{
+  background: var(--ticker-bg);
+  border-bottom-color: var(--ticker-border);
+}
+
+/* =========================
+   Status band (date/time) — subtle, Quixotic style
+   ========================= */
+
+:root{
+  --ui-bg: #fff;
+  --ui-border: rgba(0,0,0,.08);
+  --ui-text: rgba(0,0,0,.82);
+  --ui-muted: rgba(0,0,0,.58);
+  --ui-chip: rgba(0,0,0,.06);
+}
+
+.dark,
+[data-theme="dark"]{
+  --ui-bg: #0f1115;
+  --ui-border: rgba(255,255,255,.10);
+  --ui-text: rgba(255,255,255,.86);
+  --ui-muted: rgba(255,255,255,.62);
+  --ui-chip: rgba(255,255,255,.08);
+}
+
+.statusband{
+  background: var(--ui-bg);
+  border-bottom: 1px solid var(--ui-border);
+  color: var(--ui-text);
+  font-size: .9rem;
+}
+
+.statusband__inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .45rem 0;
+}
+
+.statusband__left{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--ui-muted);
+}
+
+.statusband__note{
+  color: var(--ui-muted);
+  white-space: nowrap;
+}
+
+/* =========================
+   Make header inherit same surface
+   ========================= */
+.site-head{
+  background: var(--ui-bg);
+  border-bottom: 1px solid var(--ui-border);
+}
+
+/* Keep mast clickable (your working fix) */
+.site-head__mast{ z-index: 5; pointer-events: none; }
+.site-head__mast-link{ pointer-events: auto; }
+
+/* =========================
+   Headlines ticker (below header)
+   ========================= */
+
+.ticker--headlines{
+  background: var(--ui-bg);
+  border-bottom: 1px solid var(--ui-border);
+  color: var(--ui-text);
+}
+
+.ticker__inner{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .55rem 0;
+}
+
+.ticker__label{
+  font-weight: 750;
+  font-size: .9rem;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  background: var(--ui-chip);
+  color: var(--ui-muted);
+  flex: 0 0 auto;
+}
+
+.ticker__viewport{
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ticker__track{
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  white-space: nowrap;
+  will-change: transform;
+  animation: ticker-scroll 34s linear infinite;
+}
+
+.ticker__link{
+  text-decoration: none;
+  color: inherit;
+  font-weight: 650;
+  opacity: .92;
+}
+
+.ticker__link:hover{
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.ticker__dot{
+  opacity: .35;
+  user-select: none;
+}
+
+@keyframes ticker-scroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ticker__track{ animation: none; }
+}
+
+@media (max-width: 720px){
+  .statusband{ font-size: .85rem; }
+  .ticker__label{ display: none; } /* keep it clean on mobile */
+}
+
+/* Status band should look like part of the header */
+.statusband{
+  background: var(--ui-bg);
+  border-bottom: 1px solid var(--ui-border);
+  color: var(--ui-muted);
+}
+
+.statusband__inner{
+  padding: .45rem 0;
+}
+
+/* =========================
+   Status band — force exact header surface match
+   ========================= */
+
+/* If anything above is painting a dark strip, this wins */
+.statusband{
+  background: inherit;
+  background-color: var(--ui-bg) !important;
+  border-bottom: 1px solid var(--ui-border) !important;
+  color: var(--ui-muted) !important;
+}
+
+/* Ensure header uses the same surface tokens */
+.site-head{
+  background-color: var(--ui-bg) !important;
+  border-bottom: 1px solid var(--ui-border) !important;
+}
+
+/* Layout */
+.statusband__inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .45rem 0;
+  gap: 1rem;
+}
+
+.statusband__left,
+.statusband__right{
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  min-width: 0;
+}
+
+.statusband__right{
+  justify-content: flex-end;
+  flex: 1 1 auto;
+  text-align: right;
+}
+
+.statusband__note{
+  color: var(--ui-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 52ch;
+}
+
+.statusband__links{
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.statusband__link{
+  text-decoration: none;
+  color: inherit;
+  font-weight: 650;
+  opacity: .85;
+}
+
+.statusband__link:hover{
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.statusband__sep{
+  opacity: .45;
+  user-select: none;
+}
+
+@media (max-width: 720px){
+  .statusband__note{ display: none; } /* keep it clean */
+}
+
+/* =========================
+   Headlines ticker — invert only this bar
+   ========================= */
+
+/* Light theme (default page is white) → DARK ticker */
+.ticker--headlines{
+  background: #0f1115;
+  color: rgba(255,255,255,.90);
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+/* Dark theme page → LIGHT ticker */
+.dark .ticker--headlines,
+[data-theme="dark"] .ticker--headlines{
+  background: #ffffff;
+  color: rgba(0,0,0,.86);
+  border-bottom: 1px solid rgba(0,0,0,.12);
+}
+
+/* Make sure ticker label + links inherit correctly */
+.ticker--headlines .ticker__label{
+  background: rgba(255,255,255,.10);
+  color: rgba(255,255,255,.75);
+}
+
+.dark .ticker--headlines .ticker__label,
+[data-theme="dark"] .ticker--headlines .ticker__label{
+  background: rgba(0,0,0,.06);
+  color: rgba(0,0,0,.60);
+}
+
+.ticker--headlines .ticker__link{
+  color: inherit;
+  opacity: .92;
+}
+
+.ticker--headlines .ticker__link:hover{
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.ticker--headlines .ticker__dot{
+  opacity: .35;
+}
+
+/* ==========================================
+   INVERTED HEADER THEME (header flips, ticker opposite)
+   Light page → dark header / light ticker
+   Dark page  → light header / dark ticker
+   ========================================== */
+
+/* ---------- LIGHT THEME DEFAULT ---------- */
+/* Header surfaces go dark */
+.statusband,
+.site-head{
+  background: #0f1115 !important;
+  color: rgba(255,255,255,.88) !important;
+  border-bottom: 1px solid rgba(255,255,255,.10) !important;
+}
+
+/* Mast + tabs visible on dark header */
+.site-head__mast-link{
+  color: rgba(255,255,255,.92) !important;
+}
+
+.nav--clean a{
+  color: rgba(255,255,255,.84) !important;
+  opacity: 1 !important;
+}
+
+.nav--clean a:hover{
+  background: rgba(255,255,255,.10) !important;
+}
+
+.nav--clean a.active{
+  background: rgba(255,255,255,.16) !important;
+}
+
+/* Theme toggle on dark */
+.theme-toggle--modern{
+  background: rgba(255,255,255,.08) !important;
+  border-color: rgba(255,255,255,.14) !important;
+}
+
+.theme-toggle--modern:hover{
+  background: rgba(255,255,255,.12) !important;
+}
+
+/* Status band text */
+.statusband__left,
+.statusband__note{
+  color: rgba(255,255,255,.70) !important;
+}
+
+/* Ticker becomes light */
+.ticker--headlines{
+  background: #ffffff !important;
+  color: rgba(0,0,0,.85) !important;
+  border-bottom: 1px solid rgba(0,0,0,.12) !important;
+}
+
+.ticker--headlines .ticker__label{
+  background: rgba(0,0,0,.06) !important;
+  color: rgba(0,0,0,.60) !important;
+}
+
+.ticker--headlines .ticker__link{
+  color: inherit !important;
+}
+
+.ticker--headlines .ticker__dot{
+  opacity: .35 !important;
+}
+
+
+/* ---------- DARK MODE OVERRIDE ---------- */
+/* When page is dark, header flips light and ticker flips dark */
+.dark .statusband,
+[data-theme="dark"] .statusband,
+.dark .site-head,
+[data-theme="dark"] .site-head{
+  background: #ffffff !important;
+  color: rgba(0,0,0,.84) !important;
+  border-bottom: 1px solid rgba(0,0,0,.12) !important;
+}
+
+.dark .site-head__mast-link,
+[data-theme="dark"] .site-head__mast-link{
+  color: rgba(0,0,0,.90) !important;
+}
+
+.dark .nav--clean a,
+[data-theme="dark"] .nav--clean a{
+  color: rgba(0,0,0,.78) !important;
+}
+
+.dark .nav--clean a:hover,
+[data-theme="dark"] .nav--clean a:hover{
+  background: rgba(0,0,0,.06) !important;
+}
+
+.dark .nav--clean a.active,
+[data-theme="dark"] .nav--clean a.active{
+  background: rgba(0,0,0,.10) !important;
+}
+
+.dark .theme-toggle--modern,
+[data-theme="dark"] .theme-toggle--modern{
+  background: rgba(0,0,0,.05) !important;
+  border-color: rgba(0,0,0,.12) !important;
+}
+
+.dark .theme-toggle--modern:hover,
+[data-theme="dark"] .theme-toggle--modern:hover{
+  background: rgba(0,0,0,.08) !important;
+}
+
+.dark .statusband__left,
+[data-theme="dark"] .statusband__left,
+.dark .statusband__note,
+[data-theme="dark"] .statusband__note{
+  color: rgba(0,0,0,.58) !important;
+}
+
+/* Dark mode ticker goes dark */
+.dark .ticker--headlines,
+[data-theme="dark"] .ticker--headlines{
+  background: #0f1115 !important;
+  color: rgba(255,255,255,.90) !important;
+  border-bottom: 1px solid rgba(255,255,255,.12) !important;
+}
+
+.dark .ticker--headlines .ticker__label,
+[data-theme="dark"] .ticker--headlines .ticker__label{
+  background: rgba(255,255,255,.10) !important;
+  color: rgba(255,255,255,.75) !important;
+}
+
+/* Featured badge bounce */
+.featured-badge--bounce{
+  display: inline-block;
+  animation: featured-bounce 1.6s ease-in-out infinite;
+}
+
+@keyframes featured-bounce{
+  0%, 100% { transform: translateY(0); }
+  45%      { transform: translateY(-6px); }
+  60%      { transform: translateY(0); }
+  75%      { transform: translateY(-3px); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .featured-badge--bounce{ animation: none; }
+}
+
+/* =========================
+   Hero Lede layout (left lead + right rail)
+   ========================= */
+
+.hero--lede .hero__inner--lede{
+  position: relative;
+  padding: 2rem 0;
+}
+
+.lede-grid{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+/* Main lead */
+.lede-card--main{
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  min-height: 420px;
+  background: rgba(0,0,0,.06);
+  box-shadow: 0 18px 40px rgba(0,0,0,.18);
+}
+
+.lede-card__link{
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.lede-card__overlay{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  background: linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,.06) 62%);
+}
+
+.lede-card__title{
+  margin: .5rem 0 0;
+  font-weight: 950;
+  line-height: 1.05;
+  font-size: clamp(1.7rem, 2.4vw, 2.6rem);
+  color: #fff;
+}
+
+.lede-card__meta{
+  margin: .6rem 0 0;
+  color: rgba(255,255,255,.78);
+  font-weight: 650;
+  font-size: .95rem;
+}
+
+/* Rail grid */
+.lede-rail{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.rail-card{
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  min-height: 200px;
+  background: rgba(0,0,0,.06);
+  box-shadow: 0 14px 26px rgba(0,0,0,.14);
+}
+
+.rail-card__link{
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.rail-card__overlay{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: .9rem;
+  background: linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,.08) 62%);
+}
+
+.rail-card__title{
+  margin: 0;
+  font-weight: 850;
+  line-height: 1.1;
+  font-size: 1.05rem;
+  color: #fff;
+}
+
+.rail-card__meta{
+  margin: .45rem 0 0;
+  color: rgba(255,255,255,.70);
+  font-weight: 650;
+  font-size: .9rem;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .lede-grid{
+    grid-template-columns: 1fr;
+  }
+  .lede-rail{
+    grid-template-columns: 1fr 1fr;
+  }
+  .lede-card--main{
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 560px){
+  .lede-rail{
+    grid-template-columns: 1fr;
+  }
+  .rail-card{
+    min-height: 180px;
+  }
+}
+/* =========================================
+   FIX: allow lede hero content to render
+   ========================================= */
+
+.hero--lede .hero__inner{
+  position: relative !important;
+  transform: none !important;
+  top: auto !important;
+  left: auto !important;
+  inset: auto !important;
+
+  display: block !important;
+  width: 100%;
+  max-width: none;
+  z-index: 3; /* above shade */
+}
+
+/* Kill the old centered variant when in lede mode */
+.hero--lede .hero__inner--centered{
+  display: none !important;
+}
+
+.hero--lede .hero__shade{
+  z-index: 1;
+}
+
+.hero--lede .hero__inner{
+  z-index: 2;
+}
+
+/* =========================
+   Hero lede (no background image)
+   ========================= */
+
+.hero--lede{
+  padding: 2rem 0 1rem;
+}
+
+.hero__inner--lede{
+  position: relative;
+}
+
+.lede-grid{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.25rem;
+}
+
+/* Main featured post */
+.lede-card--main{
+  padding: 1.75rem;
+  border-radius: 22px;
+  background: rgba(0,0,0,.04);
+}
+
+.dark .lede-card--main{
+  background: rgba(255,255,255,.06);
+}
+
+.lede-card__link{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.lede-card__title{
+  margin: .75rem 0 .5rem;
+  font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+  font-weight: 950;
+  line-height: 1.05;
+}
+
+.lede-card__meta{
+  font-weight: 650;
+  opacity: .7;
+}
+
+/* Right rail */
+.lede-rail{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.rail-card{
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(0,0,0,.03);
+}
+
+.dark .rail-card{
+  background: rgba(255,255,255,.05);
+}
+
+.rail-card__link{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.rail-card__title{
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 .4rem;
+}
+
+.rail-card__meta{
+  font-size: .9rem;
+  opacity: .65;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .lede-grid{
+    grid-template-columns: 1fr;
+  }
+  .lede-rail{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px){
+  .lede-rail{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   FIX: hero lede text contrast (no bg image)
+   ========================================= */
+
+/* Main featured card */
+.lede-card--main{
+  background: #ffffff;
+  color: #0f172a; /* slate-900 */
+  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+}
+
+.lede-card__title{
+  color: #0f172a;
+}
+
+.lede-card__meta{
+  color: #475569; /* slate-600 */
+}
+
+/* Eyebrow */
+.lede-card--main .eyebrow{
+  color: #334155; /* slate-700 */
+  font-weight: 700;
+}
+
+/* Rail cards */
+.rail-card{
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 14px 28px rgba(0,0,0,.10);
+}
+
+.rail-card__title{
+  color: #0f172a;
+}
+
+.rail-card__meta{
+  color: #64748b; /* slate-500 */
+}
+
+/* Hover polish */
+.lede-card__link:hover,
+.rail-card__link:hover{
+  transform: translateY(-2px);
+}
+
+.lede-card__link,
+.rail-card__link{
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+/* =========================
+   Dark mode
+   ========================= */
+html[data-theme="dark"] .lede-card--main,
+html[data-theme="dark"] .rail-card{
+  background: #0f1115;
+  color: #e5e7eb;
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+}
+
+html[data-theme="dark"] .lede-card__title,
+html[data-theme="dark"] .rail-card__title{
+  color: #f9fafb;
+}
+
+html[data-theme="dark"] .lede-card__meta,
+html[data-theme="dark"] .rail-card__meta{
+  color: #9ca3af;
+}
+
+html[data-theme="dark"] .lede-card--main .eyebrow{
+  color: #c7d2fe;
+}
+
+/* =========================
+   Fix hero lede sizing inside <main class="container">
+   ========================= */
+
+.hero--lede{
+  width: 100%;
+}
+
+.hero--lede .hero__inner--lede{
+  width: 100%;
+}
+
+/* Ensure the grid actually has room to become 2 columns */
+.lede-grid{
+  width: 100%;
+  max-width: 100%;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+
+/* Make the lead fill its box; image should be full-bleed */
+.lede-card--main{
+  min-height: 460px;
+}
+
+.lede-card__media{
+  inset: 0;
+}
+
+.lede-card__img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Your screenshot shows the lead image is appearing as a small tile.
+   This forces it to be full background. */
+.lede-card__overlay{
+  background: linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,.08) 60%);
+}
+
+/* Right rail should be a true vertical stack and not collapse */
+.lede-rail{
+  min-width: 0;
+}
+
+/* Make rail items consistent */
+.rail-item__link{
+  grid-template-columns: 110px 1fr;
+}
+
+/* Responsive stack */
+@media (max-width: 900px){
+  .lede-grid{ grid-template-columns: 1fr; }
+  .lede-card--main{ min-height: 360px; }
+}
+
+/* =========================
+   Tighten homepage spacing
+   ========================= */
+
+/* Reduce space around the hero block */
+.hero--lede{
+  padding: 1rem 0 .5rem !important;
+}
+
+/* Make the lead card a bit shorter */
+.lede-card--main{
+  min-height: 360px !important;
+}
+
+/* Tighten rail spacing */
+.lede-grid{
+  gap: .9rem !important;
+}
+.lede-rail{
+  gap: .75rem !important;
+}
+
+/* Slightly tighter typography in the hero */
+.lede-card__title{
+  font-size: clamp(1.4rem, 2vw, 2.1rem) !important;
+}
+.lede-card__meta{
+  margin-top: .4rem !important;
+  font-size: .9rem !important;
+}
+
+/* Latest posts should tuck under the hero */
+.latest-posts{
+  margin-top: .75rem !important;
+}
+.latest-posts h2{
+  margin: 0 0 .5rem 0 !important;
+}
+/* Tighter post grid spacing */
+.post-grid{
+  gap: .9rem !important;
+}
+.card{
+  border-radius: 16px !important;
+}
+.card__body{
+  padding: .9rem !important;
+}
+body.home #main-content{
+  padding-top: .75rem;
+}
+
+/* =========================================
+   Homepage spacing: remove "floating" feel
+   ========================================= */
+
+body.home #main-content{
+  padding-top: .75rem !important;
+  padding-bottom: 1.25rem !important;
+}
+
+/* Hero should sit close to header */
+body.home .hero--lede{
+  padding: .75rem 0 .5rem !important;
+  margin: 0 !important;
+}
+
+/* Latest posts should tuck right under hero */
+body.home .latest-posts{
+  margin-top: .75rem !important;
+}
+
+body.home .latest-posts__title{
+  margin: 0 0 .5rem 0 !important;
+}
+
+/* Reduce the "View all posts" gap */
+body.home .latest-posts__cta{
+  margin-top: .75rem !important;
+}
+
+/* Reduce card grid gutters */
+body.home .post-grid{
+  gap: .85rem !important;
+}
+
+/* =========================================
+   Front Hero (big lead + stacked tiles)
+   ========================================= */
+
+.front-hero{
+  margin-top: .75rem;
+  margin-bottom: 1rem;
+}
+
+.front-hero__grid{
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+/* Right rail: stacked 2x2 tiles */
+.front-hero__rail{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Card base */
+.fh-card{
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(0,0,0,.05);
+  box-shadow: 0 14px 28px rgba(0,0,0,.12);
+}
+
+.fh-card__link{
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.fh-card__img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Lead sizing */
+.fh-card--lead{
+  min-height: 440px;
+}
+
+.fh-card--tile{
+  min-height: 210px;
+}
+
+/* Overlay */
+.fh-card__overlay{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,.10) 60%);
+}
+
+.fh-card__overlay--tile{
+  padding: .85rem;
+  background: linear-gradient(to top, rgba(0,0,0,.80), rgba(0,0,0,.08) 65%);
+}
+
+.fh-card__top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-bottom: .55rem;
+}
+
+.fh-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-weight: 800;
+  font-size: .78rem;
+  padding: .22rem .55rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.18);
+  color: rgba(255,255,255,.92);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.fh-time{
+  font-weight: 700;
+  font-size: .82rem;
+  color: rgba(255,255,255,.75);
+  white-space: nowrap;
+}
+
+/* Typography */
+.fh-card__title{
+  margin: 0;
+  color: #fff;
+  font-weight: 950;
+  line-height: 1.05;
+  font-size: clamp(1.6rem, 2.2vw, 2.3rem);
+}
+
+.fh-card__title--tile{
+  font-size: 1.05rem;
+  line-height: 1.15;
+  font-weight: 900;
+}
+
+.fh-card__dek{
+  margin: .6rem 0 0;
+  color: rgba(255,255,255,.84);
+  font-weight: 650;
+  max-width: 62ch;
+}
+
+/* Hover */
+.fh-card__link{
+  transition: transform .15s ease, filter .15s ease;
+}
+.fh-card__link:hover{
+  transform: translateY(-2px);
+  filter: saturate(1.05);
+}
+
+/* Responsive */
+@media (max-width: 960px){
+  .front-hero__grid{
+    grid-template-columns: 1fr;
+  }
+  .fh-card--lead{
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 560px){
+  .front-hero__rail{
+    grid-template-columns: 1fr;
+  }
+  .fh-card--tile{
+    min-height: 190px;
+  }
+}
+/* Front hero heading + footer */
+.front-hero__header{
+  margin: .25rem 0 .75rem;
+}
+
+.front-hero__title{
+  margin: 0;
+  font-weight: 950;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+}
+
+.front-hero__footer{
+  margin-top: .9rem;
+}
+
+/* Front page 2-col layout */
+.front-layout{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) 320px;
+  gap:1.25rem;
+  align-items:start;
+  margin-top:.75rem;
+}
+.front-main{ min-width:0; }
+.front-rail{ position:relative; }
+
+@media (max-width: 980px){
+  .front-layout{ grid-template-columns:1fr; }
+}
+
+/* Panel styling (Sections box) */
+.panel{
+  background: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+  border-radius: 14px;
+  overflow:hidden;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+
+.panel__title{
+  margin:0;
+  padding:.9rem 1rem;
+  font-weight:900;
+  font-size:1.25rem;
+  border-bottom:1px solid var(--ui-border);
+}
+
+.panel__body{ padding:.35rem 0; }
+
+.panel__list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.panel__item + .panel__item{
+  border-top:1px solid var(--ui-border);
+}
+
+.panel__link{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  padding:.75rem 1rem;
+  text-decoration:none;
+  color: var(--ui-text);
+}
+
+.panel__chev{
+  font-size:.75rem;
+  opacity:.55;
+}
+
+.panel__link:hover{
+  background: var(--ui-chip);
+}
+
+.front-layout{
+  display:grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap:1.5rem;
+  align-items:start;
+}
+
+.front-main{
+  min-width:0;
+}
+
+.front-rail{
+  position:relative;
+}
+
+.front-rail{
+  margin-top: 3.1rem; /* aligns with "Latest posts" title */
+}

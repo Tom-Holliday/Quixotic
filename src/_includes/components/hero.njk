@@ -1,45 +1,83 @@
-﻿{# components/hero.njk — single centered featured post (no card image) #}
-{% set heroImg = page.heroImage or metadata.heroImage or "/img/logo.png" %}
-{% set list = collections.postsPublishedSorted or collections.postsSorted %}
-{% set p1 = (list or [])[0] %}
+﻿{# components/hero.njk — Top Stories + Latest Posts heading + View all button #}
 
-<section class="hero hero--quixote">
+{% set list = collections.postsPublishedSorted or collections.postsSorted or [] %}
 
-  <div class="hero__media" aria-hidden="true">
-    <img
-      class="hero__img"
-      src="{{ heroImg | url }}?v={{ heroImg | assetHash }}"
-      alt=""
-      role="presentation"
-      loading="eager"
-      decoding="async" />
+{# Pick lead: first featured post, else first post #}
+{% set lead = null %}
+{% for p in list %}
+  {% if not lead and p.data and p.data.featured %}
+    {% set lead = p %}
+  {% endif %}
+{% endfor %}
+{% if not lead %}
+  {% set lead = list[0] %}
+{% endif %}
+
+{# Rail: next 4 posts excluding lead #}
+{% set rail = [] %}
+{% for p in list %}
+  {% if rail.length < 4 and lead and p.url != lead.url %}
+    {% set rail = rail.concat([p]) %}
+  {% endif %}
+{% endfor %}
+
+{% if lead %}
+<section class="front-hero" aria-label="Latest posts">
+
+  <div class="front-hero__header">
+    <h2 class="front-hero__title">Latest posts</h2>
   </div>
 
-  <div class="hero__shade" aria-hidden="true"></div>
+  <div class="front-hero__grid">
 
-  {% if p1 %}
-    <div class="hero__inner hero__inner--centered">
-      <article class="card card--hero card--hero-featured">
-        <a href="{{ p1.url }}">
+    {# LEFT: lead story #}
+    {% set leadImg = lead.data.cover or lead.data.hero %}
+    {% set leadAlt = lead.data.coverAlt or lead.data.heroAlt or lead.data.title %}
 
-          <div class="card__body">
-            <span class="card__eyebrow">Featured</span>
+    <article class="fh-card fh-card--lead">
+      <a class="fh-card__link" href="{{ lead.url | url }}">
+        {% if leadImg %}
+          <img class="fh-card__img" src="{{ leadImg | url }}" alt="{{ leadAlt }}" loading="eager" decoding="async">
+        {% endif %}
 
-            <h2 class="card__title">
-              {{ p1.data.title }}
-            </h2>
-
-            <p class="card__meta">
-              <time datetime="{{ p1.date | dateIso }}">
-                {{ p1.date | dateDisplay }}
-              </time>
-              · {{ p1.data.byline or p1.data.author or "Tom Holliday" }}
-            </p>
+        <div class="fh-card__overlay">
+          <div class="fh-card__top">
+            <span class="fh-pill">Top story</span>
+            <span class="fh-time">
+              <time datetime="{{ lead.date | dateIso }}">{{ lead.date | dateDisplay }}</time>
+            </span>
           </div>
 
-        </a>
-      </article>
+          <h3 class="fh-card__title">{{ lead.data.title }}</h3>
+        </div>
+      </a>
+    </article>
+
+    {# RIGHT: 2x2 latest tiles #}
+    <div class="front-hero__rail" aria-label="More latest posts">
+      {% for p in rail %}
+        {% set img = p.data.cover or p.data.hero %}
+        {% set alt = p.data.coverAlt or p.data.heroAlt or p.data.title %}
+
+        <article class="fh-card fh-card--tile">
+          <a class="fh-card__link" href="{{ p.url | url }}">
+            {% if img %}
+              <img class="fh-card__img" src="{{ img | url }}" alt="{{ alt }}" loading="lazy" decoding="async">
+            {% endif %}
+
+            <div class="fh-card__overlay fh-card__overlay--tile">
+              <h4 class="fh-card__title fh-card__title--tile">{{ p.data.title }}</h4>
+            </div>
+          </a>
+        </article>
+      {% endfor %}
     </div>
-  {% endif %}
+
+  </div>
+
+  <div class="front-hero__footer">
+    <a class="btn secondary" href="{{ '/posts/' | url }}">View all posts →</a>
+  </div>
 
 </section>
+{% endif %}

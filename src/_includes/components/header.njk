@@ -1,39 +1,45 @@
-<header class="site-head">
-  <div class="inner container">
-    
-    <!-- Left group: Logo + Search -->
-    <div class="site-head__left">
-      <a class="brand" href="/">
-        <img class="brand-logo" src="/img/logo.png" alt="Logo" />
-        <span class="brand-text">Quixotic</span>
-      </a>
+<div class="statusband" aria-label="Status bar">
+  <div class="inner container statusband__inner">
 
-      <div class="search-box">
-        <input
-          type="search"
-          id="search"
-          placeholder="Search posts..."
-          aria-label="Search posts"
-        />
-        <ul id="results"></ul>
-      </div>
+    <div class="statusband__left">
+      <span id="statusband-date" class="statusband__date">—</span>
+      <span class="statusband__sep">·</span>
+      <span id="statusband-time" class="statusband__time">—</span>
     </div>
 
-    <!-- Right group: Nav + Theme toggle -->
-    <div class="site-head__right">
-      <nav class="nav" aria-label="Primary">
-        <a href="/" class="{% if page.url == '/' %}active{% endif %}">Home</a>
-        <a href="/posts/" class="{% if page.url and page.url.startsWith('/posts/') %}active{% endif %}">Posts</a>
+    <div class="statusband__right">
+      {% if site.statusNote %}
+        <span class="statusband__note">{{ site.statusNote }}</span>
+      {% else %}
+        <span class="statusband__note"></span>
+      {% endif %}
 
-        <!-- 👇 NEW Data & Infographics link -->
-        <a href="/data/" class="{% if page.url and page.url.startsWith('/data/') %}active{% endif %}">
-          Data &amp; Infographics
-        </a>
-      </nav>
+      {# Optional: quick links (only if provided) #}
+      {% if site.statusLinks %}
+        <span class="statusband__sep statusband__sep--right">·</span>
+        <nav class="statusband__links" aria-label="Status links">
+          {% for link in site.statusLinks %}
+            <a class="statusband__link" href="{{ link.url | url }}">{{ link.label }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+    </div>
 
+  </div>
+</div>
+
+
+{# =========================
+   HEADER — your current layout
+   ========================= #}
+<header class="site-head">
+  <div class="inner container site-head__inner">
+
+    <!-- Left -->
+    <div class="site-head__left">
       <button
         id="theme-toggle"
-        class="theme-toggle"
+        class="theme-toggle theme-toggle--modern"
         type="button"
         aria-label="Toggle theme"
       >
@@ -41,5 +47,54 @@
       </button>
     </div>
 
+    <!-- Center mast (true center, Home link) -->
+    <div class="site-head__mast">
+      <a href="{{ '/' | url }}" class="site-head__mast-link" rel="home">Quixotic</a>
+    </div>
+
+    <!-- Right -->
+    <div class="site-head__right">
+      <nav class="nav nav--clean" aria-label="Primary">
+        <a href="{{ '/posts/' | url }}" class="{% if page.url and page.url.startsWith('/posts/') %}active{% endif %}">Posts</a>
+        <a href="{{ '/data/' | url }}" class="{% if page.url and page.url.startsWith('/data/') %}active{% endif %}">
+          Data &amp; Infographics
+        </a>
+      </nav>
+    </div>
+
   </div>
 </header>
+
+{# =========================
+   HEADLINES TICKER — below header (pull from collections.all by /posts/)
+   ========================= #}
+{% set maxHeadlines = 12 %}
+<div class="ticker ticker--headlines" aria-label="Latest headlines">
+  <div class="inner container ticker__inner">
+    <div class="ticker__label" aria-hidden="true">Headlines</div>
+
+    <div class="ticker__viewport">
+      <div class="ticker__track">
+        {# pass 1 #}
+        {% set n = 0 %}
+        {% for item in collections.all | reverse %}
+          {% if item.url and item.url.startsWith('/posts/') and item.data and item.data.title and n < maxHeadlines %}
+            <a class="ticker__link" href="{{ item.url | url }}">{{ item.data.title }}</a>
+            <span class="ticker__dot" aria-hidden="true">•</span>
+            {% set n = n + 1 %}
+          {% endif %}
+        {% endfor %}
+
+        {# pass 2 (duplicate for seamless loop) #}
+        {% set n = 0 %}
+        {% for item in collections.all | reverse %}
+          {% if item.url and item.url.startsWith('/posts/') and item.data and item.data.title and n < maxHeadlines %}
+            <a class="ticker__link" href="{{ item.url | url }}">{{ item.data.title }}</a>
+            <span class="ticker__dot" aria-hidden="true">•</span>
+            {% set n = n + 1 %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

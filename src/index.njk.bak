@@ -1,26 +1,22 @@
-﻿---
-layout: base.njk
-title: Home
-bodyClass: home-quixote
-eleventyExcludeFromCollections: true
 ---
+layout: base.njk
+title: "Home"
+bodyClass: home
+---
+<pre style="font-size:12px">{{ (sections or []) | dump }}</pre>
 
-{% include "components/hero.njk" %}
+<div class="container">
+  <div class="front-layout">
 
-<main class="home">
-  <section class="intro">
-    <p class="lead">Explore recent writing on the <a href="/posts/">Posts</a> page. Long-form, sourced, and accessible.</p>
-  </section>
-</main>
+    <main class="front-main">
+      {% include "components/hero.njk" %}
+      
+    </main>
 
-{% extends "layouts/base.njk" %}
+    <aside class="front-rail" aria-label="Sidebar">
+      
+    </aside>
 
-{% block content %}
-  <section class="hero">
-    <img class="hero__img" src="{{ metadata.heroImage }}" alt="Quixote watermark" />
-    <div class="hero__card">
-      <h1>{{ metadata.title }}</h1>
-      <p>{{ metadata.description }}</p>
-    </div>
-  </section>
-{% endblock %}
+  </div>
+</div>
+
