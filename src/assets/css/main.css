@@ -2701,3 +2701,18 @@ html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn__bubble{
   color:#0f1115;       /* dark text */
   border:1px solid rgba(0,0,0,.10);
 }
+
+/* Default (light mode): transparent icon button */
+.site-head__left--with-cta .qx-notes-btn{
+  background: transparent;
+}
+
+/* Dark mode: black icon button */
+html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn{
+  background: #000000;
+}
+
+/* Optional: subtle hover affordance in dark mode */
+html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn:hover{
+  background: #111111;
+}
