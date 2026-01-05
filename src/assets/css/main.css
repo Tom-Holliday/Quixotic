@@ -2688,3 +2688,16 @@ body.home .post-grid{
 html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn__bubble{
   color: #0f1115; /* still dark against light chip */
 }
+
+/* Bubble contrast: always readable */
+.site-head__left--with-cta .qx-notes-btn__bubble{
+  background:#0f1115;  /* dark pill on light theme */
+  color:#ffffff;       /* white text */
+  border:1px solid rgba(255,255,255,.10);
+}
+
+html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn__bubble{
+  background:#ffffff;  /* light pill on dark theme */
+  color:#0f1115;       /* dark text */
+  border:1px solid rgba(0,0,0,.10);
+}
