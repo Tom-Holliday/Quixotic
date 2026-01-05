@@ -1,3 +1,4 @@
+{# ---------- Status band (date + time + right slot) ---------- #}
 <div class="statusband" aria-label="Status bar">
   <div class="inner container statusband__inner">
 
@@ -14,7 +15,6 @@
         <span class="statusband__note"></span>
       {% endif %}
 
-      {# Optional: quick links (only if provided) #}
       {% if site.statusLinks %}
         <span class="statusband__sep statusband__sep--right">·</span>
         <nav class="statusband__links" aria-label="Status links">
@@ -29,14 +29,12 @@
 </div>
 
 
-{# =========================
-   HEADER — your current layout
-   ========================= #}
+{# ---------- Header ---------- #}
 <header class="site-head">
   <div class="inner container site-head__inner">
 
     <!-- Left -->
-    <div class="site-head__left">
+    <div class="site-head__left site-head__left--with-cta">
       <button
         id="theme-toggle"
         class="theme-toggle theme-toggle--modern"
@@ -45,9 +43,30 @@
       >
         <span aria-hidden="true">🌓</span>
       </button>
+
+      {% if substack and substack.url %}
+        <a
+  href="{{ substack.url }}"
+  target="_blank"
+  rel="noopener"
+  class="qx-notes-btn"
+  aria-label="{{ substack.label or 'Quixotic Notes' }}"
+>
+  <img
+    src="{{ '/assets/img/substack-logo.png' | url }}"
+    alt=""
+    class="qx-notes-btn__logo"
+    aria-hidden="true"
+  />
+  <span class="qx-notes-btn__bubble" aria-hidden="true">
+    {{ substack.label or "Quixotic Notes" }}
+  </span>
+</a>
+
+      {% endif %}
     </div>
 
-    <!-- Center mast (true center, Home link) -->
+    <!-- Center mast -->
     <div class="site-head__mast">
       <a href="{{ '/' | url }}" class="site-head__mast-link" rel="home">Quixotic</a>
     </div>
@@ -65,9 +84,8 @@
   </div>
 </header>
 
-{# =========================
-   HEADLINES TICKER — below header (pull from collections.all by /posts/)
-   ========================= #}
+
+{# ---------- Headlines ticker (below header) ---------- #}
 {% set maxHeadlines = 12 %}
 <div class="ticker ticker--headlines" aria-label="Latest headlines">
   <div class="inner container ticker__inner">

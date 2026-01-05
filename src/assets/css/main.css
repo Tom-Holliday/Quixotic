@@ -2574,3 +2574,117 @@ body.home .post-grid{
 .front-rail{
   margin-top: 3.1rem; /* aligns with "Latest posts" title */
 }
+
+/* ================================
+   Quixotic Notes: icon + hover label (FINAL)
+   ================================ */
+
+/* Make sure nothing clips the label */
+.site-head,
+.site-head__inner,
+.site-head > .inner.container,
+.site-head__left,
+.site-head__left--with-cta{
+  overflow: visible !important;
+}
+
+/* Prevent mast container from stealing hover on the left */
+.site-head__mast{ pointer-events:none; }
+.site-head__mast-link{ pointer-events:auto; }
+
+/* Header grid (stable + gives left/right room) */
+.site-head__inner{
+  display:grid;
+  grid-template-columns: max-content auto max-content; /* left | mast | right */
+  align-items:center;
+  gap:1rem;
+}
+.site-head__left{ justify-self:start; }
+.site-head__mast{ justify-self:center; z-index:2; }
+.site-head__right{ justify-self:end; }
+
+/* Left cluster */
+.site-head__left--with-cta{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  position:relative;
+  z-index:10;
+}
+
+/* Button: icon only */
+.site-head__left--with-cta .qx-notes-btn{
+  position:relative;
+  width:36px;
+  height:36px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  background:transparent;
+  text-decoration:none;
+  overflow:visible !important;
+}
+
+/* Logo */
+.site-head__left--with-cta .qx-notes-btn__logo{
+  width:36px;
+  height:36px;
+  display:block;
+  border-radius:999px;
+  object-fit:cover;
+}
+
+/* Bubble label (tight to icon, stays on header line) */
+.site-head__left--with-cta .qx-notes-btn__bubble{
+  position:absolute;
+  left:100%;
+  top:50%;
+  transform:translateY(-50%) translateX(-4px); /* tight gap */
+
+  padding:.45rem .6rem;
+  border-radius:999px;
+  background:var(--ui-chip);
+  color:var(--ui-text);
+  font-weight:800;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+
+  /* Don’t smash into mast if space is tight */
+  max-width: min(220px, calc(50vw - 140px));
+
+  opacity:0;
+  pointer-events:none;
+  z-index:9999;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+  transition: opacity .15s ease, transform .15s ease;
+}
+
+.site-head__left--with-cta .qx-notes-btn:hover .qx-notes-btn__bubble,
+.site-head__left--with-cta .qx-notes-btn:focus-visible .qx-notes-btn__bubble{
+  opacity:1;
+  transform:translateY(-50%) translateX(0);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .site-head__left--with-cta .qx-notes-btn__bubble{
+    transition:none;
+  }
+}
+
+/* Optional: hide on very small screens */
+@media (max-width: 420px){
+  .qx-notes-btn{ display:none; }
+}
+
+/* Ensure bubble text always has contrast */
+.site-head__left--with-cta .qx-notes-btn__bubble{
+  color: #0f1115; /* dark text */
+}
+
+html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn__bubble{
+  color: #0f1115; /* still dark against light chip */
+}
