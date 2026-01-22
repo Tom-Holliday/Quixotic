@@ -2576,10 +2576,10 @@ body.home .post-grid{
 }
 
 /* ================================
-   Quixotic Notes: icon + hover label (FINAL)
+   Quixotic Notes + Header Layout (SINGLE SOURCE OF TRUTH)
    ================================ */
 
-/* Make sure nothing clips the label */
+/* Don’t clip the hover bubble */
 .site-head,
 .site-head__inner,
 .site-head > .inner.container,
@@ -2588,131 +2588,213 @@ body.home .post-grid{
   overflow: visible !important;
 }
 
-/* Prevent mast container from stealing hover on the left */
-.site-head__mast{ pointer-events:none; }
-.site-head__mast-link{ pointer-events:auto; }
-
-/* Header grid (stable + gives left/right room) */
+/* ---------- Header layout (true-centre, stable, clickable) ---------- */
 .site-head__inner{
-  display:grid;
-  grid-template-columns: max-content auto max-content; /* left | mast | right */
-  align-items:center;
-  gap:1rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;   /* left | mast | right */
+  align-items: center;
+  gap: 1rem;
 }
-.site-head__left{ justify-self:start; }
-.site-head__mast{ justify-self:center; z-index:2; }
-.site-head__right{ justify-self:end; }
 
-/* Left cluster */
+/* Left / Right rails */
+.site-head__left{
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  position: relative;
+  z-index: 5;
+}
+
+.site-head__right{
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  position: relative;
+  z-index: 5;
+}
+
+/* Mast: ALWAYS centred + ALWAYS clickable */
+.site-head__mast{
+  justify-self: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;                 /* above rails */
+  pointer-events: auto !important;
+}
+
+.site-head__mast-link{
+  display: inline-block;
+  pointer-events: auto !important;
+}
+
+/* ---------- Quixotic Notes (left icon + bubble) ---------- */
 .site-head__left--with-cta{
-  display:flex;
-  align-items:center;
-  gap:.55rem;
-  position:relative;
-  z-index:10;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
 }
 
-/* Button: icon only */
+/* Icon button (logo only) */
 .site-head__left--with-cta .qx-notes-btn{
-  position:relative;
-  width:36px;
-  height:36px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:999px;
-  background:transparent;
-  text-decoration:none;
-  overflow:visible !important;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  text-decoration: none;
+  overflow: visible !important;
+  background: transparent;
 }
 
-/* Logo */
+/* Logo image */
 .site-head__left--with-cta .qx-notes-btn__logo{
-  width:36px;
-  height:36px;
-  display:block;
-  border-radius:999px;
-  object-fit:cover;
+  width: 36px;
+  height: 36px;
+  display: block;
+  border-radius: 999px;
+  object-fit: cover;
 }
 
-/* Bubble label (tight to icon, stays on header line) */
+/* Bubble label */
 .site-head__left--with-cta .qx-notes-btn__bubble{
-  position:absolute;
-  left:100%;
-  top:50%;
-  transform:translateY(-50%) translateX(-4px); /* tight gap */
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-4px);
 
-  padding:.45rem .6rem;
-  border-radius:999px;
-  background:var(--ui-chip);
-  color:var(--ui-text);
-  font-weight:800;
+  padding: .45rem .6rem;
+  border-radius: 999px;
 
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   /* Don’t smash into mast if space is tight */
   max-width: min(220px, calc(50vw - 140px));
 
-  opacity:0;
-  pointer-events:none;
-  z-index:9999;
-  box-shadow:0 10px 30px rgba(0,0,0,.18);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
   transition: opacity .15s ease, transform .15s ease;
 }
 
+/* Show bubble on hover/focus */
 .site-head__left--with-cta .qx-notes-btn:hover .qx-notes-btn__bubble,
 .site-head__left--with-cta .qx-notes-btn:focus-visible .qx-notes-btn__bubble{
-  opacity:1;
-  transform:translateY(-50%) translateX(0);
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Bubble contrast (inverts with theme) */
+.site-head__left--with-cta .qx-notes-btn__bubble{
+  background: #0f1115;   /* dark pill on light theme */
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn__bubble{
+  background: #ffffff;   /* light pill on dark theme */
+  color: #0f1115;
+  border: 1px solid rgba(0,0,0,.10);
+}
+
+/* Dark mode icon button */
+html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn{
+  background: #000000;
+}
+html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn:hover{
+  background: #111111;
+}
+
+/* Optional: hide Notes icon on tiny screens */
+@media (max-width: 420px){
+  .site-head__left--with-cta .qx-notes-btn{ display: none; }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   .site-head__left--with-cta .qx-notes-btn__bubble{
-    transition:none;
+    transition: none;
   }
 }
+/* ===== Mast sanity: stop “Quixotic” overflowing ===== */
 
-/* Optional: hide on very small screens */
-@media (max-width: 420px){
-  .qx-notes-btn{ display:none; }
+.site-head__mast{
+  justify-self: center;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-/* Ensure bubble text always has contrast */
-.site-head__left--with-cta .qx-notes-btn__bubble{
-  color: #0f1115; /* dark text */
+.site-head__mast-link{
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem) !important;
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn__bubble{
-  color: #0f1115; /* still dark against light chip */
+/* ==========================================================
+   HARD OVERRIDE: mast always true-centre + always clickable
+   (paste at very bottom of main.css)
+   ========================================================== */
+
+.site-head__inner{
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 }
 
-/* Bubble contrast: always readable */
-.site-head__left--with-cta .qx-notes-btn__bubble{
-  background:#0f1115;  /* dark pill on light theme */
-  color:#ffffff;       /* white text */
-  border:1px solid rgba(255,255,255,.10);
+/* Keep left/right in normal flow */
+.site-head__left{
+  position: relative !important;
+  z-index: 60 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: .55rem !important;
 }
 
-html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn__bubble{
-  background:#ffffff;  /* light pill on dark theme */
-  color:#0f1115;       /* dark text */
-  border:1px solid rgba(0,0,0,.10);
+.site-head__right{
+  position: relative !important;
+  z-index: 60 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: .75rem !important;
 }
 
-/* Default (light mode): transparent icon button */
-.site-head__left--with-cta .qx-notes-btn{
-  background: transparent;
+/* Mast is an isolated click-layer, dead-centre */
+.site-head__mast{
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 80 !important;
+  pointer-events: auto !important;
+  text-align: center !important;
+  max-width: min(70vw, 520px) !important;
 }
 
-/* Dark mode: black icon button */
-html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn{
-  background: #000000;
-}
+/* Make the link itself robust */
+.site-head__mast-link{
+  display: inline-block !important;
+  pointer-events: auto !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
 
-/* Optional: subtle hover affordance in dark mode */
-html[data-theme="dark"] .site-head__left--with-cta .qx-notes-btn:hover{
-  background: #111111;
+  /* keep it from going massive */
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem) !important;
+  line-height: 1 !important;
 }
