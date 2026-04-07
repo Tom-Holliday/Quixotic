@@ -10,8 +10,6 @@ draft: false
 
 “Some people argue that the steel mill shutting down is the best thing that ever happened to this place.”
 
-
-
 ### **“Well, we’re living in Allentown**
 
 ### **And they’re closing all the factories down**
@@ -19,8 +17,6 @@ draft: false
 ### **Out in Bethlehem, they’re killing time**
 
 ### **Filling out forms, standing in line” – Allentown**
-
-
 
 A former hotspot of post-war industrialism and topic of Billy Joel’s 1982 single Allentown, Bethlehem, Pennsylvania is heralded for its former steel works, aiding in the construction of many notorious American superstructures including the Golden Gate Bridge, George Washington Bridge and Empire State Building.
 
@@ -42,11 +38,21 @@ Emphatic of steel’s incompatibility with Bethlehem’s more contemporary econo
 
 With a growing population of around 80,000, Bethlehem is seemingly doing well for itself. 40 per cent of residents possess a bachelor’s degree, a growth rate exceeding that of the broader national growth rate, as reported by the US Census Bureau.
 
+
+
+![](/assets/img/bethlehem-1.png)
+
+
+
 Median incomes for residents have also risen, edging ever closer to the $80,000 mark and the US’s national average. 
 
 Despite a somewhat haphazard wealth trajectory, Bethlehem, once embalmed in the industrial pollution of the steel mill, has curated a harmonious median standard of living, predicated on a marked transition to the service sector. 
 
- 
+
+
+![](/assets/img/bethlehem-2.png)
+
+
 
 Since the collapse of steel operations in the 1990s, manufacturing roles in the Allentown-Bethlehem-Easton area have declined exponentially, losing about 1/3 of roles since 1990, as reported by the Bureau of Labour Statistics. 
 
@@ -93,7 +99,5 @@ Despite his nostalgia for what is unequivocally an institution of American indus
 “Bringing steel back could actually make things more expensive – not cheaper – if it tightens housing or pulls investment elsewhere,” he argued. 
 
 ### **“Bethlehem Is Back”**
-
-
 
 Throughout his second term, Trump has undoubtedly displayed a romantic devotion to American history, revelling in the industrial feats of the greatest generation. Whether Trump can foster a return to history is one thing, but whether his voters approve is another.
