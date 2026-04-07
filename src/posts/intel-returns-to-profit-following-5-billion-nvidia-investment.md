@@ -3,10 +3,12 @@ layout: post.njk
 title: "Intel returns to profit following $5 billion Nvidia investment "
 date: 2025-10-19
 updated: 2025-12-15
-cover: /assets/img/intel.jpeg
+cover: /assets/img/adobestock_615506693_preview_editorial_use_only.jpeg
 draft: false
 ---
-**U.S. chipmaker Intel has returned to profit after a significant turnaround in their third quarterly (Q3) earnings report, defying analyst expectations.** 
+Source: Adobe Stock. *Intel HQ exterior*
+
+U.S. chipmaker Intel has returned to profit after a significant turnaround in their third quarterly (Q3) earnings report, defying analyst expectations. 
 
 Reporting profits of $4.1bn, the silicon-valley veteran landed in the green, representing a $20.7bn increase in retained earnings year-on-year (YoY). 
 
