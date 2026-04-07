@@ -6,13 +6,15 @@ updated: 2025-12-08
 cover: /assets/img/adobestock_1134960171.jpeg
 draft: false
 ---
-Source: Geograph.  The Watermill Pub, Dorking, Surrey
+Source: Adobe Stock.  *The Watermill Pub, Dorking, Surrey*
 
 Pubs in the South East face mounting pressure as sharp rises in rateable values coincide with higher wage and tax costs, prompting warnings from industry groups. 
 
 With what has been described as an “attack” on an already struggling sector, the recent Autumn Budget saw the introduction of “eye-watering increases” to rateable values as reported by UKHospitality. 
 
 Urging the Chancellor to “revisit” her proposals, the trade body have projected that the average pub will pay an extra £12,900 in business rates over the next three years. This represents a 76 per cent increase on the current number, as reported by the trade body. 
+
+![](/assets/img/pub1.png)
 
 The pressure of such an increase, whilst a unanimous issue for the already troubled sector, has been estimated to more greatly impact higher-volume pubs in the South East. 
 
@@ -24,9 +26,7 @@ In an interview with Ollie Maidment, Assistant General Manager at Crafted pub Th
 
 “Some of our brother and sister pubs in Crafted are in decline. We’re talking 20 per cent decline, which is generalised across the rest of the industry,” he stated. 
 
-
-
-**Rising wage costs**
+**`Rising wage costs`**
 
 “Obviously wages is our biggest concern just because of the increase,” he said, adding that “staffing has become a weekly puzzle”, with rising wage costs limiting the number of working hours employees can be issued. 
 
@@ -40,13 +40,13 @@ For a gastropub (a pub that serves high quality food) like The Watermill, the sq
 
 Highlighting the added pressures of manning a high-quality food service, Maidment said “if you want to deliver a decent kitchen, you need at least five of them in there… that’s the issue of premium.”
 
-
-
-**Recruitment difficulties**
+**`Recruitment difficulties`**
 
 Recorded in a labour force survey conducted by the Office for National Statistics (ONS), the number of people employed on zero-hour contracts in the Accommodation and Food sector is 359,000, as of September 2025. 
 
 This is up from the beginning of the year, January 2025, at 338,000 people. 
+
+![](/assets/img/pub2.png)
 
  A promising opportunity for the average flexible worker, this growth trajectory is not shared amongst career pub workers. 
 
@@ -56,17 +56,15 @@ This is up from the beginning of the year, January 2025, at 338,000 people.
 
 Of the 10-kitchen staff employed at The Watermill, only one \[the Head Chef] is on a fixed salary. 
 
-
-
-
-
-**Rising inventory costs**  
+**`Rising inventory costs`**  
 
 A prevailing critic of the Budget, Groves highlighted the absence of VAT relief and alcohol duty freezes in the Chancellor’s address. An omission which has left trade bodies in a state of concern. 
 
 Barry Watts, the Society of Independent Brewers and Associates (SIBA) Head of Public Affairs has expressed his concern, anticipating an increase in Draught Relief to 20 per cent “which ensures that beer can be sold in pubs at a lower rate of alcohol duty”.
 
 According to the most recent ONS data, the average price of a UK pint stands at £4.77.
+
+![](/assets/img/pub3.png)
 
  A statistic which has endured terminal increases since 1987, where the average pint cost only 93 pence. 
 
@@ -86,13 +84,17 @@ An approach which doesn’t appear to be compatible with the pub’s loyal flow 
 
 Reminiscing on her time in Durham, Wharmby highlighted the glaring disparities in pub prices. “I was in Durham at the start of November… I was genuinely shocked… it was eight pounds for two doubles \[100 millilitres] and a pint,” she said. 
 
+![](/assets/img/pun4.png)
+
 In figures revealed by The Morning Advertiser in a survey of its readers, 2024 data shows the average price of a pint in the North East of England at £4.56. 
 
 This is £1.03 less than the average London pint. Furthermore, £1.24 less than the cheapest pint surveyed in the collection of Surrey gastropubs. 
 
 When asked for her reaction to the price differences, Wharmby said “it’s definitely gone up and I’ll definitely do it \[drink] less often.”
 
-What’s the outlook for gastropubs like The Watermill? 
+
+
+**`What’s the outlook for gastropubs like The Watermill?`** 
 
 “7 per cent decline on this year is our target to reach,” said Maidment, indicating a potential worsening in trade conditions for the gastropub. 
 
