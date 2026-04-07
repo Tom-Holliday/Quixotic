@@ -14,23 +14,9 @@ The British clothing retailer overdelivered in their most recent earnings call, 
 
 The FTSE 100 index saw a climb of 5% in morning trading, with Next shares reaching record highs of £3140.55 per share.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 The retailer, long led by chief executive Lord Simon Wolfson, has bolstered its full-year pre-tax profit forecasts by £30 million to £1.13 billion for 2025, representing a 12% increase over the previous year. 
 
-
+![](/assets/img/next.png)
 
 These results are reported off the back of superior profitability and resilience compared it’s competitors.
 
