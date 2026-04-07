@@ -6,7 +6,7 @@ updated: 2025-12-15
 cover: /assets/img/adobestock_301960161.jpeg
 draft: false
 ---
-Budget Countdown: The Five Measures Set to Hit Home
+Source: Adobe Stock. *Downing Street sign*
 
 In anticipation of the routine opening of the red box, here are five measures households can expect for Chancellor Rachel Reeves’ upcoming Autumn Budget. 
 
