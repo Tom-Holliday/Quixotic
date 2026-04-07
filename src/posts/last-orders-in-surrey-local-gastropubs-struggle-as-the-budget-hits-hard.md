@@ -3,7 +3,7 @@ layout: post.njk
 title: Last Orders in Surrey? Local Gastropubs Struggle as the Budget Hits Hard
 date: 2025-12-08
 updated: 2025-12-08
-cover: /assets/img/surrey-gastro-pub.jpg
+cover: /assets/img/adobestock_1134960171.jpeg
 draft: false
 ---
 Source: Geograph.  The Watermill Pub, Dorking, Surrey
