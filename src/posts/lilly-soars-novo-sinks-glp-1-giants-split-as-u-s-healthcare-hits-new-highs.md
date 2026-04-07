@@ -3,12 +3,12 @@ layout: post.njk
 title: "Lilly soars, Novo sinks: GLP-1 Giants Split as U.S. Healthcare Hits New Highs"
 date: 2025-12-02
 updated: 2025-12-15
-cover: /assets/img/glp-1.jpeg
+cover: /assets/img/adobestock_1871998250_editorial_use_only.jpeg
 draft: false
 ---
-*Source: RR Wellness Clinic. Novo Nordisk's core product range*
+Source: Adobe Stock. *Ozempic by Novo Nordisk*
 
-**Eli Lilly has furthered its lead over weight-loss rival Novo Nordisk after a landmark $1 trillion market capitalisation.** 
+Eli Lilly has furthered its lead over weight-loss rival Novo Nordisk after a landmark $1 trillion market capitalisation. 
 
 The first pharmaceutical company to reach such a milestone, Lilly’s success helped lift the benchmark S&P 500 Health Care Index to unfounded yearly highs. The firm’s rally comes at the behest of new U.S. government initiatives, causing the sector to strengthen. 
 
@@ -16,7 +16,9 @@ The outlier in the sector comes in the form of Danish rival, Novo Nordisk, as it
 
 Lilly closed the day up 0.8 per cent, prolonging a four-month rally that has seen its share price rise above $1,100 from an original $625 in early August. This uptake has positioned Lilly at forefront of not only the popular GLP-1 weight-loss market, but more broadly of the entire U.S. healthcare sector. 
 
-\#An analyst at J.P. Morgan, who requested to remain anonymous, cited a “large and still underpenetrated obesity opportunity” for the firm, which should position Lilly for significant growth in 2026. 
+![](/assets/img/rise-of-lilly.png)
+
+An analyst at J.P. Morgan, who requested to remain anonymous, cited a “large and still underpenetrated obesity opportunity” for the firm, which should position Lilly for significant growth in 2026. 
 
 Formerly a two-party race, the other GLP-1 contender, the Danish Novo Nordisk, has diverged greatly in recent months, experiencing a dissimilar level of growth compared to its U.S counterpart. 
 
@@ -31,6 +33,8 @@ The rally continued into the fourth quarter, supported by a November agreement a
 According to data from FinViz, GLP-1 medications now dominate amongst Lilly’s sales mix, with Mounjaro and Zepbound bearing responsibility for more than 50 per cent of total revenues in the first nine-months of 2025. 
 
 By late November, Lilly was up near 40 per cent year-on-year. 
+
+![](/assets/img/fall-of-novo.png)
 
 The same period has proved more of a challenge for Novo Nordisk, despite the prevailing strength seen in biotech and healthcare equities. 
 
