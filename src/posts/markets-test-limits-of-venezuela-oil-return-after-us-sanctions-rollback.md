@@ -1,6 +1,6 @@
 ---
 layout: post.njk
-title: "Markets test limits of Venezuela oil return after US sanctions rollback "
+title: "Markets test limits of Venezuelan oil return after US sanctions rollback "
 date: 2026-01-21
 updated: 2026-04-07
 cover: /assets/img/orinoco-belt.png
