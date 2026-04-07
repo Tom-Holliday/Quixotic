@@ -6,9 +6,9 @@ updated: 2025-12-15
 cover: /assets/img/keir-starmer-beer.jpeg
 draft: false
 ---
-*Source: Wikimedia Commons. UK Prime Minister Keir Starmer and Canadian Prime Minister Mark Carney at a pub*
+Source: Adobe Stock*. Beer tap line up*
 
-**Prime Minister Sir Keir Starmer’s plans to extend the opening hours of pubs and bars in England and Wales have been branded as “short-sighted” by London locals.**  
+Prime Minister Sir Keir Starmer’s plans to extend the opening hours of pubs and bars in England and Wales have been branded as “short-sighted” by London locals.  
 
 This week the Labour government fast-tracked a campaign to revise “outdated” licensing rules for British pubs and bars. The Prime Minister, who described pubs as “the beating heart of our communities”, argues that loosening licensing restrictions and allowing pubs to remain open later with help rejuvenate the struggling sector. 
 
