@@ -3,7 +3,7 @@ layout: post.njk
 title: Starmer's pub plans flop with London locals
 date: 2025-10-13
 updated: 2025-12-15
-cover: /assets/img/keir-starmer-beer.jpeg
+cover: /assets/img/adobestock_328501370_editorial_use_only.jpeg
 draft: false
 ---
 Source: Adobe Stock*. Beer tap line up*
