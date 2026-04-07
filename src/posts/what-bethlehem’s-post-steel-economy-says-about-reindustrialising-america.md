@@ -12,13 +12,13 @@ Source: Adobe Stock. *Derelict Bethlehem steel mill illuminated by the winter su
 
 “Some people argue that the steel mill shutting down is the best thing that ever happened to this place.”
 
-### “Well, we’re living in Allentown
+### `“Well, we’re living in Allentown`
 
-### And they’re closing all the factories down
+### `And they’re closing all the factories down`
 
-### Out in Bethlehem, they’re killing time
+### `Out in Bethlehem, they’re killing time`
 
-### Filling out forms, standing in line” – Allentown
+### `Filling out forms, standing in line” – Allentown`
 
 A former hotspot of post-war industrialism and topic of Billy Joel’s 1982 single Allentown, Bethlehem, Pennsylvania is heralded for its former steel works, aiding in the construction of many notorious American superstructures including the Golden Gate Bridge, George Washington Bridge and Empire State Building.
 
@@ -92,6 +92,6 @@ Despite his nostalgia for what is unequivocally an institution of American indus
 
 “Bringing steel back could actually make things more expensive – not cheaper – if it tightens housing or pulls investment elsewhere,” he argued. 
 
-### “Bethlehem Is Back”
+### `“Bethlehem Is Back”`
 
 Throughout his second term, Trump has undoubtedly displayed a romantic devotion to American history, revelling in the industrial feats of the greatest generation. Whether Trump can foster a return to history is one thing, but whether his voters approve is another.
