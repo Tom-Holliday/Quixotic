@@ -7,7 +7,7 @@ updated: 2026-04-07
 cover: /assets/img/adobestock_1920054260_editorial_use_only.jpeg
 draft: false
 ---
-Source: Flickr. *Nigel Farage smiling in the House of Commons.* 
+Source: Adobe Stock*. iPhone on the Reform UK homepage.* 
 
 Reform have advanced their lead in early year polling after a second report showed growing favourability for the party.
 
@@ -26,8 +26,6 @@ The report followed a YouGov poll placing Labour in third place at 17 per cent, 
 “Recent polling doesn’t bode well for Keir Starmer,” said Nicholas Stephenson, a data analyst at the centre-right think tank Onward. ‘Labour have slipped into third in the averages and are behind the Green’s,’ he continued. 
 
 ![](/assets/img/polling-chart.png)
-
-
 
 The disappointing data arrived just days after Starmer, in an interview with the BBC’s Laura Kuenssberg, vowed that he would remain in office in a year’s time.
 
