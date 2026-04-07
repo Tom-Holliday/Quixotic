@@ -4,7 +4,7 @@ title: Blanc calls for greater AI literacy as STEM Women event reveals enduring
   gender divide
 date: 2025-10-24
 updated: 2025-12-15
-cover: /assets/img/stem-women.png
+cover: /assets/img/adobestock_1886859505.jpeg
 draft: false
 ---
 *Source: Wikimedia Commons. Women in STEM image*
