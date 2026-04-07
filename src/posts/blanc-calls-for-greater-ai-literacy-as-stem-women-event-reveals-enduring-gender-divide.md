@@ -7,9 +7,9 @@ updated: 2025-12-15
 cover: /assets/img/adobestock_1886859505.jpeg
 draft: false
 ---
-*Source: Wikimedia Commons. Women in STEM image*
+Source: Adobe Stock. *Women in science promo.* 
 
-**Dame Amanda Blanc has cautioned professionals to keep pace with the current advances in artificial intelligence, warning that the technology is set to fundamentally change the way businesses operate.** 
+Dame Amanda Blanc has cautioned professionals to keep pace with the current advances in artificial intelligence, warning that the technology is set to fundamentally change the way businesses operate. 
 
 “It is important that you are keeping up to speed with what is going on, particularly in Generative AI because it is going to fundamentally change the way we do business,” she said. 
 
