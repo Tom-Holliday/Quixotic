@@ -3,7 +3,7 @@ layout: post.njk
 title: "Budget Countdown: The Five Measures Set to Hit Home"
 date: 2025-11-26
 updated: 2025-12-15
-cover: /assets/img/rachel-reeves-2.jpeg
+cover: /assets/img/adobestock_301960161.jpeg
 draft: false
 ---
 Budget Countdown: The Five Measures Set to Hit Home
