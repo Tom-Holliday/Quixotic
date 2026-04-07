@@ -6,7 +6,7 @@ updated: 2026-04-07
 cover: /assets/img/orinoco-belt.png
 draft: false
 ---
-Source: Wikimedia Commons. Map of Venezuela featuring the Orinoco Belt.
+Source: Wikimedia Commons. *Map of Venezuela featuring the Orinoco Belt*.
 
 Over a week ago, US Treasury Secretary Scott Bessent announced the decision of the Trump administration to fully roll-back a seven-year embargo on Venezuelan crude oil, following the capture of former president Nicolás Maduro, marking a significant turning point in US foreign policy. 
 
@@ -17,8 +17,6 @@ With an estimated 303 billion barrels in reserve, Venezuela is home to the large
 Audacity withstanding, the move has left markets unsure, with the average oil investor remaining indecisive to such a policy shock, now beholden to dynamics of the ‘Trump Trade’. 
 
 “These foreign policy gymnastics are upending assumptions about oil supply and leaving markets scrambling to adjust,” said Argus Media in a recent statement, leaving many wondering about the implications for oil markets now that Venezuela is a likely participant.
-
-
 
 **`What happened to the price of oil?`** 
 
@@ -42,8 +40,6 @@ A rate of production which is ‘unlikely to move the needle in a meaningful way
 
 The intentions of Trump to bring Venezuelan oil to the shores of the U.S remain under cautious scepticism by investors. 
 
-
-
 **`Where is the long-term value of Venezuelan oil?`** 
 
 ![](/assets/img/ven-2.png)
@@ -61,8 +57,6 @@ This supports a more favourable outlook for US coastal refineries who, since the
 According to EIA analysis, Merey-16’s liberation will enable the shorter-haul imports at a cheaper price for the US. 
 
 A prospect which the market reflected in tighter price differentials with the spread between Merey-16 and US Brent reducing by around $1, signalling an increase in value for the sour heavy crude and a scheduled recovery for the constrained Venezuelan oil sector. 
-
-
 
 **`Are markets confident in this ‘Trump Trade’?`** 
 
