@@ -44,26 +44,6 @@
         <span aria-hidden="true">🌓</span>
       </button>
 
-      {% if substack and substack.url %}
-        <a
-  href="{{ substack.url }}"
-  target="_blank"
-  rel="noopener"
-  class="qx-notes-btn"
-  aria-label="{{ substack.label or 'Quixotic Notes' }}"
->
-  <img
-    src="{{ '/assets/img/substack-logo.png' | url }}"
-    alt=""
-    class="qx-notes-btn__logo"
-    aria-hidden="true"
-  />
-  <span class="qx-notes-btn__bubble" aria-hidden="true">
-    {{ substack.label or "Quixotic Notes" }}
-  </span>
-</a>
-
-      {% endif %}
     </div>
 
     <!-- Center mast -->
