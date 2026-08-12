@@ -1,34 +1,3 @@
-{# ---------- Status band (date + time + right slot) ---------- #}
-<div class="statusband" aria-label="Status bar">
-  <div class="inner container statusband__inner">
-
-    <div class="statusband__left">
-      <span id="statusband-date" class="statusband__date">—</span>
-      <span class="statusband__sep">·</span>
-      <span id="statusband-time" class="statusband__time">—</span>
-    </div>
-
-    <div class="statusband__right">
-      {% if site.statusNote %}
-        <span class="statusband__note">{{ site.statusNote }}</span>
-      {% else %}
-        <span class="statusband__note"></span>
-      {% endif %}
-
-      {% if site.statusLinks %}
-        <span class="statusband__sep statusband__sep--right">·</span>
-        <nav class="statusband__links" aria-label="Status links">
-          {% for link in site.statusLinks %}
-            <a class="statusband__link" href="{{ link.url | url }}">{{ link.label }}</a>
-          {% endfor %}
-        </nav>
-      {% endif %}
-    </div>
-
-  </div>
-</div>
-
-
 {# ---------- Header ---------- #}
 <header class="site-head">
   <div class="inner container site-head__inner">
@@ -44,18 +13,48 @@
         <span aria-hidden="true">🌓</span>
       </button>
 
+      {% if substack and substack.url %}
+        <a
+          href="{{ substack.url }}"
+          target="_blank"
+          rel="noopener"
+          class="qx-notes-btn"
+          aria-label="Substack"
+        >
+          <img
+            src="{{ '/assets/img/substack-logo.png' | url }}"
+            alt=""
+            class="qx-notes-btn__logo"
+            aria-hidden="true"
+          />
+          <span class="qx-notes-btn__bubble" aria-hidden="true">
+            Substack
+          </span>
+        </a>
+      {% endif %}
     </div>
 
     <!-- Center mast -->
     <div class="site-head__mast">
-      <a href="{{ '/' | url }}" class="site-head__mast-link" rel="home">Quixotic</a>
+      <a href="{{ '/' | url }}" class="site-head__mast-link" rel="home">
+        Quixotic
+      </a>
     </div>
 
     <!-- Right -->
     <div class="site-head__right">
       <nav class="nav nav--clean" aria-label="Primary">
-        <a href="{{ '/posts/' | url }}" class="{% if page.url and page.url.startsWith('/posts/') %}active{% endif %}">Posts</a>
-        <a href="{{ '/data/' | url }}" class="{% if page.url and page.url.startsWith('/data/') %}active{% endif %}">
+        <a
+          href="{{ '/posts/' | url }}"
+          class="{% if page.url and page.url.startsWith('/posts/') %}active{% endif %}"
+        >
+          Posts
+        </a>
+
+        <a
+          href="{{ '/data/' | url }}"
+          class="{% if page.url and page.url.startsWith('/data/') %}active{% endif %}"
+        >
           Data &amp; Infographics
         </a>
       </nav>
@@ -63,36 +62,3 @@
 
   </div>
 </header>
-
-
-{# ---------- Headlines ticker (below header) ---------- #}
-{% set maxHeadlines = 12 %}
-<div class="ticker ticker--headlines" aria-label="Latest headlines">
-  <div class="inner container ticker__inner">
-    <div class="ticker__label" aria-hidden="true">Headlines</div>
-
-    <div class="ticker__viewport">
-      <div class="ticker__track">
-        {# pass 1 #}
-        {% set n = 0 %}
-        {% for item in collections.all | reverse %}
-          {% if item.url and item.url.startsWith('/posts/') and item.data and item.data.title and n < maxHeadlines %}
-            <a class="ticker__link" href="{{ item.url | url }}">{{ item.data.title }}</a>
-            <span class="ticker__dot" aria-hidden="true">•</span>
-            {% set n = n + 1 %}
-          {% endif %}
-        {% endfor %}
-
-        {# pass 2 (duplicate for seamless loop) #}
-        {% set n = 0 %}
-        {% for item in collections.all | reverse %}
-          {% if item.url and item.url.startsWith('/posts/') and item.data and item.data.title and n < maxHeadlines %}
-            <a class="ticker__link" href="{{ item.url | url }}">{{ item.data.title }}</a>
-            <span class="ticker__dot" aria-hidden="true">•</span>
-            {% set n = n + 1 %}
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
